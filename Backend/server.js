@@ -5,9 +5,6 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-
-
--
 app.use(cors());
 
 
@@ -31,21 +28,24 @@ db.connect(err => {
 
 // Existing route
 const POLL_INTERVAL = 10000; // 10 seconds
+let cachedData = [];
 
 function fetchDataFromDatabase() {
-  db.query('SELECT * FROM USERS', (err, results) => {
+  db.query('SELECT * FROM USERS where username like "J%"', (err, results) => {
     if (err) {
       console.error('Error fetching data: ', err);
     } else {
-      // Process the results
-      console.log('Fetched data:', results);
-      // Optionally, you can emit this data to your clients using a WebSocket or similar.
+      cachedData = results;
     }
   });
 }
 
 // Poll the database for new data every 10 seconds
 setInterval(fetchDataFromDatabase, POLL_INTERVAL);
+
+app.get("/api/data", (req, res) => {
+  res.json(cachedData);
+});
 
 
 
