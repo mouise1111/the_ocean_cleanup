@@ -30,15 +30,22 @@ db.connect(err => {
 });
 
 // Existing route
-app.get("/api/data", (req, res) => {
+const POLL_INTERVAL = 10000; // 10 seconds
+
+function fetchDataFromDatabase() {
   db.query('SELECT * FROM USERS', (err, results) => {
     if (err) {
-      res.status(500).send('Huston, we have a problem!');
-    } else {  
-      res.json(results);
+      console.error('Error fetching data: ', err);
+    } else {
+      // Process the results
+      console.log('Fetched data:', results);
+      // Optionally, you can emit this data to your clients using a WebSocket or similar.
     }
   });
-});
+}
+
+// Poll the database for new data every 10 seconds
+setInterval(fetchDataFromDatabase, POLL_INTERVAL);
 
 
 
