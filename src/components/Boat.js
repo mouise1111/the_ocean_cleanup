@@ -31,7 +31,7 @@ const Boat = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  const gltf = useLoader(GLTFLoader, "/models/interceptor-final.gltf");
+  const gltf = useLoader(GLTFLoader, "/models/interceptor.gltf");
   return (
     <>
       <primitive object={gltf.scene} scale={1} position={position} />
