@@ -1,57 +1,95 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Bag, Banana, Bottle, Can, Net, Spray, Tube, Wine } from "./components/Garbage.js";
 
-const getRandomPosition = (boolean) => {
-  const spinSpeedMultiplier = boolean ? 1 : -1;
+const models = [Bag, Banana, Bottle, Can, Net, Spray, Tube, Wine];
+let directionMultiplierX = 1;
+let directionMultiplierZ = 1;
+let spinSpeedMultiplier = 1;
+
+const getRandomPosition = () => ({
+  x: (Math.random() * 100) * (Math.random() < 0.5 ? -1 : 1),
+  y: 0,
+  z: (Math.random() * 100) * (Math.random() < 0.5 ? -1 : 1),
+});
+
+const getRandomSpinSpeed = (boolean) => {
+  if (boolean) {
+    spinSpeedMultiplier = -1;
+  }
+
   return {
     spinSpeed: (Math.random() / 100) * spinSpeedMultiplier,
-    x: Math.random() / 50,
-    z: Math.random() / 50,
+  };
+};
+
+const getRandomMovement = (boolean) => {
+  if (boolean) {
+    const randomNumber = Math.random();
+    directionMultiplierX = randomNumber < 0.5 ? (boolean ? 1 : -1) : (boolean ? -1 : 1);
+    directionMultiplierZ = randomNumber < 0.5 ? (boolean ? 1 : -1) : (boolean ? -1 : 1);
+  };
+
+  return {
+    x: 0.01 * directionMultiplierX,
+    z: 0.01 * directionMultiplierZ,
   };
 };
 
 export const FloatingGarbage = () => {
   const groupRef = useRef();
   let spinCounter = 0;
-  let spinThreshold = 150;
-  let boolean = true
+  let spinThreshold = 2000;
+  let boolean = false;
 
   const tick = () => {
     if (groupRef.current) {
-      const randomPosition = getRandomPosition(boolean);
-      groupRef.current.rotation.y += randomPosition.spinSpeed;
-      groupRef.current.position.x += randomPosition.x;
-      groupRef.current.position.z += randomPosition.z;
-      
-      spinCounter++;
-      if (spinCounter >= spinThreshold) {
-        const randomPosition = getRandomPosition(boolean);
-        groupRef.current.rotation.y += randomPosition.spinSpeed;
-        groupRef.current.position.x += randomPosition.x;
-        groupRef.current.position.z += randomPosition.z;
-        spinCounter = 0;
-        boolean = boolean ? false : true;
-        spinThreshold = Math.random() * 100 + 100;
-      }
+      groupRef.current.children.forEach((modelRef, index) => {
+        if (modelRef.isObject3D) {
+          const randomMovement = getRandomMovement(boolean);
+          modelRef.position.x += randomMovement.x;
+          modelRef.position.z += randomMovement.z;
+          const randomSpinspeed = getRandomSpinSpeed(boolean);
+          modelRef.rotation.y += randomSpinspeed.spinSpeed;
+          spinCounter++;
+          if (boolean) {
+            boolean = false;
+          }
+          if (spinCounter >= spinThreshold) {
+            spinCounter = 0;
+            boolean = true;
+            spinThreshold = Math.random() * 100 + 2000;
+          }
+        }
+      });
     }
 
-    window.requestAnimationFrame(tick);
+    const animationId = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.cancelAnimationFrame(animationId);
+    };
   };
 
-  React.useEffect(() => {
-    tick();
+  tick();
+
+  useEffect(() => {
+    if (groupRef.current) {
+      groupRef.current.children.forEach((modelRef, index) => {
+        if (modelRef.isObject3D) {
+          const randomPosition = getRandomPosition();
+          modelRef.position.set(randomPosition.x, randomPosition.y, randomPosition.z);
+        }
+      });
+    }
+
+    return () => {};
   }, []);
 
   return (
     <group ref={groupRef}>
-      <Bag />
-      <Banana />
-      <Bottle />
-      <Can />
-      <Net />
-      <Spray />
-      <Tube />
-      <Wine />
+      {models.map((Model, index) => (
+        <Model key={index} name={`model_${index}`} />
+      ))}
     </group>
   );
 };

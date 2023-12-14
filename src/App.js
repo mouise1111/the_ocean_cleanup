@@ -8,8 +8,8 @@ const App = () => (
   <Canvas>
     <Lights />
     <Ocean />
+    <Boat />
     <FloatingGarbage />
-    <OrbitControls />
   </Canvas>
 );
 
