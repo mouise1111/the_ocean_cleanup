@@ -10,12 +10,24 @@ app.use(cors());
 
 
 // Database connection
+/*
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 });
+*/
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'oceanbase'
+});
+
+
+
 
 db.connect(err => {
   if (err) {
@@ -31,7 +43,7 @@ const POLL_INTERVAL = 10000; // 10 seconds
 let cachedData = [];
 
 function fetchDataFromDatabase() {
-  db.query('SELECT * FROM USERS where username like "J%"', (err, results) => {
+  db.query('SELECT * FROM USERS', (err, results) => {
     if (err) {
       console.error('Error fetching data: ', err);
     } else {
