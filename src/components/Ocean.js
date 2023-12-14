@@ -1,7 +1,7 @@
 import React from "react";
 const Ocean = () => (
-  <mesh position-y={-5} rotation-x={-Math.PI * 0.5} scale={10}>
-    <planeGeometry args={[30, 30, 50, 50]} />
+  <mesh position-y={0}>
+    <boxGeometry args={[250, 0.2, 250]} />
     <meshBasicMaterial color={0x0065c4} flatShading={true} wireframe={false} />
   </mesh>
 );
