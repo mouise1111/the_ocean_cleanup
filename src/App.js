@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import Ocean from "./components/Ocean.js";
 import Boat from "./components/Boat.js";
-import Story from "./components/Story.js";
+import Story from "./components/Islands/Story.js";
 
 const App = () => (
   <Canvas>
