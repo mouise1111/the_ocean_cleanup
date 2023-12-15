@@ -2,18 +2,20 @@ import { Canvas } from "@react-three/fiber";
 import Ocean from "./components/Ocean.js";
 import Boat from "./components/Boat.js";
 import React, { useState, useEffect } from "react";
+import Login from "./Login.js";
 
 const App = () => {
   
-const [data, setData] = useState([]);
-useEffect(() => {
-  fetch('http://localhost:3030/api/data') // Adjust this endpoint to match your server's route
-    .then(response => response.json())
-    .then(data => setData(data))
-    .catch(error => console.error('Error fetching data:', error));
-    console.log("Fetched data:", data); // Check the fetched data
-    setData(data);
-}, []);
+// const [data, setData] = useState([]);
+// useEffect(() => {
+//   fetch('http://localhost:3030/api/data') // Adjust this endpoint to match your server's route
+//     .then(response => response.json())
+//     .then(data => setData(data))
+//     .catch(error => console.error('Error fetching data:', error));
+//     console.log("Fetched data:", data); // Check the fetched data
+//     setData(data);
+// }, []);
+
 return(
 <div> 
   <h1>My 3D Scene</h1>
@@ -26,7 +28,7 @@ return(
     <Ocean />
   </Canvas>
 
-<div>
+{/* <div>
     <h2>User Data:</h2>
     {data.map((user, index) => (
       <div key={index}>
@@ -35,7 +37,13 @@ return(
         <p>Score: {user.score}</p>
       </div>
     ))}
+  </div> */}
+
+  <div>
+    <Login />
   </div>
+
+
 
 </div>
 )

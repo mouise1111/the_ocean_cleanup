@@ -19,16 +19,39 @@ const db = mysql.createConnection({
 });
 */
 
+
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'oceanbase'
+  database: 'ocean'
+});
+
+
+// Tutorial part
+
+
+
+app.post('/users', (req, res) => {
+
+  const sql = "SELECT * FROM users WHERE username = ? AND password_hash = ?";
+  db.query(sql, [req.body.username, req.body.password_hash], (err, data) => {
+
+    if(err) return res.json("user does't exist" + err);
+    return res.json("User Connected"+ data);
+
+  });
 });
 
 
 
+const PORT = process.env.PORT || 3030;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
+
+/* 
 db.connect(err => {
   if (err) {
     console.error('Error connecting to the database: ' + err.stack);
@@ -61,10 +84,7 @@ app.get("/api/data", (req, res) => {
 
 
 
-const PORT = process.env.PORT || 3030;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
 
 function listTables() {
     db.query('SHOW TABLES', (err, result) => {
@@ -76,3 +96,4 @@ function listTables() {
       console.log(result);
     });
 }
+*/
