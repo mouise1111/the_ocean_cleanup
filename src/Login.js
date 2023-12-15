@@ -1,4 +1,4 @@
-import React, {useState} from "react"; // Import useState
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Login() { // Renamed to Login
@@ -8,11 +8,18 @@ function Login() { // Renamed to Login
 
     function handleSubmit(event) {
         event.preventDefault();
-        axios.post('http://localhost:3030/users', { 'username': username, 'email': email, 'password_hash': password_hash})
+    
+        // Check if any of the fields are empty
+        if (!username || !email || !password_hash) {
+            console.log('Please fill in all fields');
+            return; // Stop the function if any field is empty
+        }
+    
+        // Proceed with the axios request if all fields are filled
+        axios.post('http://localhost:3030/users', { username, email, password_hash })
             .then(res => console.log(res))
-            .catch(err => console.log(err)); // Corrected syntax
+            .catch(err => console.log(err));
     }
-
     
 
     return (
