@@ -28,7 +28,7 @@ const db = mysql.createConnection({
 app.post('/login', (req, res) => {
   console.log('POST request to /login received');
 
-  const sql = "SELECT * FROM form WHERE username = ? AND password";
+  const sql = "SELECT * FROM form WHERE username = ? AND password = ?";
   db.query(sql, [req.body.username, req.body.password], (err, data) => {
     if (err) {
       return res.json("login failed");
