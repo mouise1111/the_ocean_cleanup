@@ -1,11 +1,16 @@
-import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import Ocean from "./components/Ocean.js";
+// App.js
+import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import StoryTellingPage from './pages/StoryTellingPage';
+
 const App = () => (
-  <Canvas>
-    <Ocean />
-    <OrbitControls />
-  </Canvas>
+  <Router>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/story" element={<StoryTellingPage />} />
+    </Routes>
+  </Router>
 );
 
 export default App;
