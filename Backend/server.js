@@ -7,8 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-
 // Database connection
 /*
 const db = mysql.createConnection({
@@ -19,13 +17,46 @@ const db = mysql.createConnection({
 });
 */
 
-
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'ocean'
+  database: 'oceanbase'
 });
+
+// login API
+app.post('/login', (req, res) => {
+  console.log('POST request to /login received');
+
+  const sql = "SELECT * FROM form WHERE username = ? AND password";
+  db.query(sql, [req.body.username, req.body.password], (err, data) => {
+    if (err) {
+      return res.json("login failed");
+    }
+    if (data.length > 0) {
+      return res.json("Login Successfully");
+    }
+    else{
+      return res.json("No Record")
+    }
+  });
+});
+
+
+
+
+app.listen(8081, () => {
+  console.log("Listening...")
+
+})
+
+
+
+
+
+
+
+
 
 
 // Tutorial part
@@ -50,27 +81,7 @@ function listTables() {
 }
 
 
-app.post('/users', (req, res) => {
-  console.log('POST request to /users received');
 
-  const sql = "SELECT * FROM users WHERE username = ? AND password_hash = ? AND email = ?";
-  db.query(sql, [req.body.username,req.body.email, req.body.password_hash], (err, data) => {
-    if (err) {
-      return res.status(500).json({ message: "Error querying the database", error: err });
-    }
-    if (data.length === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    return res.json({ message: "User Connected", user: data[0] });
-  });
-});
-
-
-
-const PORT = process.env.PORT || 3030;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
 
 
