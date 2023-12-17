@@ -3,7 +3,7 @@ import {  Canvas } from '@react-three/fiber'; // Make sure to import Canvas from
 import { useNavigate } from 'react-router-dom';
 import Ocean from '../components/Ocean'; 
 import StoryPopUp from '../components/StoryPopUp'; 
-import Cube from '../components/Cube'; 
+import Story from '../components/Islands/Story'; 
 import { OrbitControls } from '@react-three/drei';
 
 const StoryTellingPage = () => {
@@ -17,7 +17,7 @@ const StoryTellingPage = () => {
   return (
     <Canvas>
         <Ocean />
-        <Cube isInHomepage={false} />
+        <Story isInHomepage={false} />
         <OrbitControls />
         <StoryPopUp onBack={handleBack} />
     </Canvas>

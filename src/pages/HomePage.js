@@ -10,7 +10,7 @@ const HomePage = () => (
     <ambientLight />
     <Boat />
     <Ocean />
-    <Story />
+    <Story isInHomepage={true} />
   </Canvas>
 )
 export default HomePage;
