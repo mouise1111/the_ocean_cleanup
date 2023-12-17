@@ -40,9 +40,9 @@ const Login = ({ onBack }) => {
             axios.post('http://localhost:8081/login', values)
             .then(res => {
                 if(res.data ==="Login Successfully"){
-                    alert("success is key")
+                    alert("Login Successfull")
                 }else{
-                    alert("No Record Exists0")
+                    alert("No Record Exists")
                 }
             })
             .catch(err => console.log(err))
