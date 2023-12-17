@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Html } from '@react-three/drei';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import validation from '../RegistrationValidation';
+import validation from './RegistrationValidation';
 
 const Register = ({ onBack }) => {
   useEffect(() => {
