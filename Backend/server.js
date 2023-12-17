@@ -7,8 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-
 // Database connection
 /*
 const db = mysql.createConnection({
@@ -26,8 +24,42 @@ const db = mysql.createConnection({
   database: 'oceanbase'
 });
 
+// login API
+app.post('/login', (req, res) => {
+  console.log('POST request to /login received');
+
+  const sql = "SELECT * FROM form WHERE username = ? AND password = ?";
+  db.query(sql, [req.body.username, req.body.password], (err, data) => {
+    if (err) {
+      return res.json("login failed");
+    }
+    if (data.length > 0) {
+      return res.json("Login Successfully");
+    }
+    else{
+      return res.json("No Record")
+    }
+  });
+});
 
 
+
+
+app.listen(8081, () => {
+  console.log("Listening...")
+
+})
+
+
+
+
+
+
+
+
+
+
+// Tutorial part
 
 db.connect(err => {
   if (err) {
@@ -37,7 +69,24 @@ db.connect(err => {
   console.log('Connected to database');
   listTables();
 });
+function listTables() {
+  db.query('SHOW TABLES', (err, result) => {
+    if (err) {
+      console.error('Error fetching tables: ', err);
+      return;
+    }
+    console.log('Tables in the database:');
+    console.log(result);
+  });
+}
 
+
+
+
+
+
+
+/* 
 // Existing route
 const POLL_INTERVAL = 10000; // 10 seconds
 let cachedData = [];
@@ -61,10 +110,7 @@ app.get("/api/data", (req, res) => {
 
 
 
-const PORT = process.env.PORT || 3030;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
 
 function listTables() {
     db.query('SHOW TABLES', (err, result) => {
@@ -76,3 +122,4 @@ function listTables() {
       console.log(result);
     });
 }
+*/
