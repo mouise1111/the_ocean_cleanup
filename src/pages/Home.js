@@ -4,7 +4,7 @@ import Ocean from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
 
-const HomePage = () => (
+const Home = () => (
   <Canvas>
     <directionalLight intensity={2} />
     <ambientLight />
@@ -13,4 +13,4 @@ const HomePage = () => (
     <Story isInHomepage={true} />
   </Canvas>
 )
-export default HomePage;
+export default Home;
