@@ -30,7 +30,7 @@ const Boat = () => {
         rotation-x={0.6}
         rotation-y={Math.PI}
       />
-      <Physics debug={true} timeStep="vary">
+      <Physics debug={false} timeStep="vary">
         <KeyboardControls map={keyboardMap}>
           <Ecctrl sprintMult={2} maxVelLimit={20} turnSpeed={10}>
             <primitive object={gltf.scene} position-y={2.5} scale={1.8} />
@@ -46,7 +46,7 @@ const Boat = () => {
         <CuboidCollider
           type="fixed"
           position={[-3.5, 0, 27]}
-          args={[23, 1, 15]}
+          args={[28, 1, 20]}
         />
       </Physics>
     </>
