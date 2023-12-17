@@ -43,7 +43,7 @@ const handleSubmit =(event) => {
     if(errors.username === "" && errors.email === "" && errors.password === ""){
         axios.post('http://localhost:8081/register', values)
         .then(res => {
-            console.log(res)
+          alert("Creating an Account Successfully")
         })
         .catch(err => console.log(err))
     }
