@@ -12,5 +12,5 @@ const HomePage = () => (
     <Ocean />
     <Story />
   </Canvas>
-)
+);
 export default HomePage;
