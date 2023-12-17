@@ -6,7 +6,7 @@ import StoryPopUp from '../components/pop-ups/StoryPopUp';
 import Story from '../components/Islands/Story'; 
 import { OrbitControls } from '@react-three/drei';
 
-const StoryTelling = () => {
+const StoryTellingPage = () => {
     const navigate = useNavigate();
 
     const handleBack = () => {
@@ -24,4 +24,4 @@ const StoryTelling = () => {
   );
 };
 
-export default StoryTelling;
+export default StoryTellingPage;
