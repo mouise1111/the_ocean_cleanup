@@ -1,10 +1,10 @@
 // App.js
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import StoryTellingPage from './pages/StoryTellingPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
+import HomePage from './pages/Home';
+import StoryTellingPage from './pages/StoryTelling';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 
 
 const App = () => (

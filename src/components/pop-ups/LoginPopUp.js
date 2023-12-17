@@ -2,7 +2,7 @@
 import React, { useState,useEffect } from 'react';
 import { Html } from '@react-three/drei';
 import axios from "axios";
-import validation from './LoginValidation';
+import validation from '../LoginValidation';
 
 const Login = ({ onBack }) => {
     // Presskey event (for the controls tutorial)

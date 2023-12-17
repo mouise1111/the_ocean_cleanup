@@ -2,7 +2,7 @@
 import {  Canvas } from '@react-three/fiber'; // Make sure to import Canvas from react-three/fiber
 import { useNavigate } from 'react-router-dom';
 import Ocean from '../components/Ocean'; 
-import StoryPopUp from '../components/RegisterPopUp'; 
+import StoryPopUp from '../components/pop-ups/RegisterPopUp'; 
 import Cube from '../components/Cube'; 
 import { OrbitControls } from '@react-three/drei';
 
