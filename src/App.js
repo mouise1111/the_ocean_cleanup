@@ -4,6 +4,8 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import StoryTellingPage from './pages/StoryTellingPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+
 
 const App = () => (
   <Router>
@@ -11,6 +13,8 @@ const App = () => (
       <Route path="/" element={<HomePage />} />
       <Route path="/story" element={<StoryTellingPage />} />
       <Route path="/Login" element={<LoginPage />} />
+      <Route path="/Register" element={<RegisterPage />} />
+
 
     </Routes>
   </Router>

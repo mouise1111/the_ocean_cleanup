@@ -1,31 +1,27 @@
-import React, { useState} from "react";
+// StoryTellingPage.js
+import {  Canvas } from '@react-three/fiber'; // Make sure to import Canvas from react-three/fiber
+import { useNavigate } from 'react-router-dom';
+import Ocean from '../components/Ocean'; 
+import StoryPopUp from '../components/RegisterPopUp'; 
+import Cube from '../components/Cube'; 
+import { OrbitControls } from '@react-three/drei';
 
-function Register() { // Renamed to Login
- 
+const LoginPage = () => {
+    const navigate = useNavigate();
 
-    return (
-        <div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <h1>Signup</h1>
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="Username">Username</label>
-                        <input type="text" placeholder="Enter Username" className="form-control" onChange={e => setUsername(e.target.value)} />
-                    </div>
-                    
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" placeholder="Enter Password" className="form-control" onChange={e => setPassword(e.target.value)} />
-                    </div>
-                    <button className="form-control">Register</button>
-                </form>
-            </div>
-            
-        </div>
-    );
-}
+    const handleBack = () => {
+      // Navigate back to the Home page or perform other actions
+      navigate('/');
+    };
 
-export default Register; // Renamed to Login
+  return (
+    <Canvas>
+        <Ocean />
+        <Cube isInHomepage={false} />
+        <OrbitControls />
+        <StoryPopUp onBack={handleBack} />
+    </Canvas>
+  );
+};
+
+export default LoginPage;
