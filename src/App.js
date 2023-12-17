@@ -1,16 +1,18 @@
-import { Canvas } from "@react-three/fiber";
-import Ocean from "./components/Ocean.js";
-import Boat from "./components/Boat.js";
-import { FloatingGarbage } from "./FloatingGarbage.js";
-import Lights from "./Lights.js";
+// App.js
+import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import HomePage from "./pages/Home";
+import StoryTellingPage from "./pages/StoryTelling";
+import LoginPage from "./pages/Login";
 
 const App = () => (
-  <Canvas>
-    <Lights />
-    <Ocean />
-    <Boat />
-    <FloatingGarbage />
-  </Canvas>
+  <Router>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/story" element={<StoryTellingPage />} />
+      <Route path="/Login" element={<LoginPage />} />
+    </Routes>
+  </Router>
 );
 
 export default App;
