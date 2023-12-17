@@ -11,7 +11,7 @@ const StoryTellingPage = () => {
 
   const handleBack = () => {
     // Navigate back to the Home page or perform other actions
-    navigate("/");
+    navigate("/home");
   };
 
   return (
