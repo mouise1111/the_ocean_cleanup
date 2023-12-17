@@ -1,7 +1,7 @@
 // HomePage.js
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import ArrowKeysPopup from '../pop-ups/ArrowKeysPopup';
+import ArrowKeysPopup from '../components/pop-ups/ArrowKeysPopup';
 
 const HomePage = () => (
   <>

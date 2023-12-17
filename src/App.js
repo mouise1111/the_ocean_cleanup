@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Loader from './components/pages/Loader';
-import HomePage from './components/pages/Home';
+import Loader from './pages/Loader';
+import HomePage from './pages/Home';
 
 const App = () => (
   <Router>
