@@ -16,6 +16,7 @@ const LoginPage = () => {
   return (
     <Canvas>
       <Ocean />
+      <Story isInHomepage={false} />
       <OrbitControls />
       <StoryPopUp onBack={handleBack} />
     </Canvas>
