@@ -23,13 +23,13 @@ const Story = ({ isInHomepage }) => {
     <Physics debug={false}>
       <RigidBody
         type="fixed"
-        position={[0, 0, 25]}
+        position={[-40, 0, 80]}
         colliders={"trimesh"}
         onClick={handleStoryClick}
         // restitution={2}
         // friction={1}
       >
-        <primitive object={gltf.scene} rotation-y={Math.PI / 2} />
+        <primitive object={gltf.scene} rotation-y={Math.PI / 2} scale={2} />
       </RigidBody>
     </Physics>
   );
