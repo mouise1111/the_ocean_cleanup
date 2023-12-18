@@ -1,8 +1,8 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import { Physics, RigidBody } from "@react-three/rapier";
-import { useNavigate } from 'react-router-dom';
-import { useThree } from 'react-three-fiber';
+import { useNavigate } from "react-router-dom";
+import { useThree } from "react-three-fiber";
 
 const Story = ({ isInHomepage }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Story = ({ isInHomepage }) => {
   const handleStoryClick = () => {
     if (isInHomepage) {
       // Navigate to the Story page only if the cube is in the homepage
-      navigate('/story');
+      navigate("/story");
 
       // Move the camera to a different position if needed
       camera.position.set(0, 0, 25);
@@ -20,7 +20,7 @@ const Story = ({ isInHomepage }) => {
   const gltf = useLoader(GLTFLoader, "/models/islands/story.gltf");
 
   return (
-    <Physics debug>
+    <Physics debug={false}>
       <RigidBody
         type="fixed"
         position={[0, 0, 25]}
