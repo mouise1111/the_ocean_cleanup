@@ -65,7 +65,7 @@ const Login = ({ onBack }) => {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" value="true" />
             <div className="-space-y-px rounded-md shadow-sm">
-              <div>
+              <div className="mb-2">
                 <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
@@ -83,7 +83,7 @@ const Login = ({ onBack }) => {
                   <span className="text-sm text-red-500">{errors.email}</span>
                 )}
               </div>
-              <div>
+              <div className="">
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
@@ -108,7 +108,7 @@ const Login = ({ onBack }) => {
             <div>
               <button
                 type="submit"
-                className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md bg-amber-500 group hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400"
+                className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md bg-amber-500 group hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400"
               >
                 Sign in
               </button>

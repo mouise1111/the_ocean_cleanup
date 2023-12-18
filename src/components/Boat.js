@@ -55,13 +55,13 @@ const Boat = () => {
       <Physics debug={true} timeStep="vary">
         <KeyboardControls map={keyboardMap}>
           <Ecctrl sprintMult={2} maxVelLimit={20} turnSpeed={10}>
-            <primitive object={gltf.scene} position-y={2.5} scale={1.8} />
+            <primitive object={gltf.scene} position-y={0} scale={1.8} />
           </Ecctrl>
         </KeyboardControls>
         {/* ocean collider */}
         <CuboidCollider
           type="fixed"
-          position={[0, -2.5, 0]}
+          position={[0, 0, 0]}
           args={[750, 1, 750]}
         />
         {/* story island collider */}
@@ -69,6 +69,12 @@ const Boat = () => {
           type="fixed"
           position={[-48, 0, 85]}
           args={[49, 2, 36]} onCollisionEnter={addScore}
+        />
+        {/* projects island collider */}
+        <CuboidCollider
+          type="fixed"
+          position={[110, 0, 300]}
+          args={[90, 2, 70]}
         />
       </Physics>
     </>
