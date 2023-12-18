@@ -30,7 +30,7 @@ const Boat = () => {
         rotation-x={0.6}
         rotation-y={Math.PI}
       />
-      <Physics debug={true} timeStep="vary">
+      <Physics debug={false} timeStep="vary">
         <KeyboardControls map={keyboardMap}>
           <Ecctrl sprintMult={2} maxVelLimit={20} turnSpeed={10}>
             <primitive object={gltf.scene} position-y={0} scale={1.8} />
