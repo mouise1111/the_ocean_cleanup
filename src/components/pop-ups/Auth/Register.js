@@ -66,7 +66,7 @@ const Register = ({ onBack }) => {
           </div>
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col justify-between h-full space-y-6 "
+            className="flex flex-col justify-between h-full space-y-4 "
           >
             <div>
               <label htmlFor="Username" className="sr-only">
@@ -83,14 +83,14 @@ const Register = ({ onBack }) => {
                 <span className="text-sm text-red-500">{errors.username}</span>
               )}
             </div>
-            <div className="my-2">
+            <div className="">
               <label htmlFor="email" className="sr-only">
                 Email
               </label>
               <input
                 type="text"
                 placeholder="Enter email"
-                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="email"
                 onChange={handleInput}
               />
@@ -104,7 +104,7 @@ const Register = ({ onBack }) => {
               <input
                 type="password"
                 placeholder="Enter Password"
-                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="password"
                 onChange={handleInput}
               />
