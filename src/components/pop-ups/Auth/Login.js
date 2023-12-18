@@ -65,7 +65,7 @@ const Login = ({ onBack }) => {
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" value="true" />
             <div className="-space-y-px rounded-md shadow-sm">
-              <div>
+              <div className="mb-2">
                 <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
@@ -83,7 +83,7 @@ const Login = ({ onBack }) => {
                   <span className="text-sm text-red-500">{errors.email}</span>
                 )}
               </div>
-              <div>
+              <div className="">
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
