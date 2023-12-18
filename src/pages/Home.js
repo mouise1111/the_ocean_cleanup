@@ -7,20 +7,21 @@ import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
+import { FloatingGarbage } from "./FloatingGarbage.js";
+import Lights from "./Lights.js";
 
 const HomePage = () => (
   <>
     <Canvas>
-      <directionalLight intensity={2} />
-      <ambientLight />
+      <Lights />
       <Boat />
       <Ocean />
       <Story isInHomepage={true} />
       <Projects isInHomepage={true} />
+      <FloatingGarbage />
     </Canvas>
     <ArrowKeysPopup />
     <Menu />
   </>
 );
-
 export default HomePage;
