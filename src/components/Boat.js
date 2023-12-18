@@ -45,8 +45,8 @@ const Boat = () => {
         {/* story island collider */}
         <CuboidCollider
           type="fixed"
-          position={[-3.5, 0, 27]}
-          args={[28, 1, 20]}
+          position={[-48, 0, 85]}
+          args={[49, 2, 36]}
         />
       </Physics>
     </>
