@@ -21,6 +21,28 @@ const Boat = () => {
     { name: "run", keys: ["Shift"] },
     // Optional animation key map
   ];
+
+  // score part
+  const [score, setScore] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
+  const currentScore = useRef(0); // Ref to track the current score
+
+  const addScore = () => {
+    if (!gameStarted) {
+      setGameStarted(true); // Start the game on the first input
+      // Start the timer when the game starts
+      setTimeout(() => {
+        console.log('Final Score:', currentScore.current); // Output the score using the ref
+        setScore(0); // Reset the score state
+        currentScore.current = 0; // Reset the score ref
+        setGameStarted(false); // Reset game start state
+      }, 6000); // 60,000 milliseconds = 1 minute
+    }
+    const newScore = currentScore.current + 100;
+    currentScore.current = newScore; // Update the ref
+    setScore(newScore); // Update the state
+  };
+
   return (
     <>
       <PerspectiveCamera
@@ -30,7 +52,7 @@ const Boat = () => {
         rotation-x={0.6}
         rotation-y={Math.PI}
       />
-      <Physics debug={false} timeStep="vary">
+      <Physics debug={true} timeStep="vary">
         <KeyboardControls map={keyboardMap}>
           <Ecctrl sprintMult={2} maxVelLimit={20} turnSpeed={10}>
             <primitive object={gltf.scene} position-y={2.5} scale={1.8} />
@@ -46,7 +68,7 @@ const Boat = () => {
         <CuboidCollider
           type="fixed"
           position={[-48, 0, 85]}
-          args={[49, 2, 36]}
+          args={[49, 2, 36]} onCollisionEnter={addScore}
         />
       </Physics>
     </>
