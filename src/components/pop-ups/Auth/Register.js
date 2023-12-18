@@ -57,46 +57,54 @@ const Register = ({ onBack }) => {
 
   return (
     <Html center>
-      <div className="fixed flex flex-col items-center w-screen h-screen p-8 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-75 top-1/2 left-1/2">
-        <div className="mb-4 text-3xl font-bold text-white">
-          <form onSubmit={handleSubmit}>
+      <div className="flex flex-col items-center justify-center w-screen h-screen ">
+        <div className="flex flex-col justify-between w-full max-w-md px-8 py-16 space-y-8 bg-white border-8 border-lime-500 rounded-3xl ">
+          <div>
+            <h2 className="text-5xl font-extrabold text-center text-amber-600 joti-one">
+              Get on Board
+            </h2>
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col justify-between h-full space-y-6 "
+          >
             <div>
-              <label htmlFor="Username">Username</label>
+              <label htmlFor="Username" className="sr-only">
+                Username
+              </label>
               <input
                 type="text"
                 placeholder="Enter Username"
-                className="text-black form-control"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="username"
                 onChange={handleInput}
               />
-              <span>
-                {errors.username && (
-                  <span className="text-red">{errors.username}</span>
-                )}
-              </span>
+              {errors.username && (
+                <span className="text-sm text-red-500">{errors.username}</span>
+              )}
             </div>
-            <div>
-              <label htmlFor="email">Email</label>
+            <div className="my-2">
+              <label htmlFor="email" className="sr-only">
+                Email
+              </label>
               <input
                 type="text"
                 placeholder="Enter email"
-                className="text-black form-control"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="email"
                 onChange={handleInput}
               />
-              <span>
-                {errors.email && (
-                  <span className="text-red">{errors.email}</span>
-                )}
-              </span>
+              {errors.email && (
+                <span className="text-sm text-red-500">{errors.email}</span>
+              )}
             </div>
 
             <div>
-              <label htmlFor="password">Password</label>
+              {/* <label htmlFor="password">Password</label> */}
               <input
                 type="password"
                 placeholder="Enter Password"
-                className="text-black form-control"
+                className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="password"
                 onChange={handleInput}
               />
@@ -106,16 +114,20 @@ const Register = ({ onBack }) => {
                 )}
               </span>
             </div>
-
-            <br></br>
-            <br></br>
-
-            <button className="form-control" type="submit">
+            <button
+              className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md bg-amber-500 group hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400"
+              type="submit"
+            >
               Create Account
             </button>
-
-            <br></br>
-            <br></br>
+            <div className="">
+              <a
+                href="/login"
+                className="font-thin transition-colors text-amber-800 hover:text-amber-600"
+              >
+                Already have an account? Login instead
+              </a>
+            </div>
           </form>
         </div>
       </div>
