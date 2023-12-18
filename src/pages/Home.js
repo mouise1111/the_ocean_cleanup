@@ -9,7 +9,6 @@ import Menu from "../components/pop-ups/menu/Menu.js";
 
 const HomePage = () => (
   <>
-    <Menu />
     <Canvas>
       <directionalLight intensity={2} />
       <ambientLight />
@@ -18,6 +17,7 @@ const HomePage = () => (
       <Story isInHomepage={true} />
     </Canvas>
     <ArrowKeysPopup />
+    <Menu />
   </>
 );
 
