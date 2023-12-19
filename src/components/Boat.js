@@ -23,38 +23,12 @@ const Boat = () => {
     // Optional animation key map
   ];
 
-  // score part
-  const [score, setScore] = useState(0);
-  const [gameStarted, setGameStarted] = useState(false);
-  const currentScore = useRef(0); // Ref to track the current score
-  const [garbageLinesVisibility, setGarbageLinesVisibility] = useState({
-    line1: true,
-    line2: true,
-    line3: true,
-    line4: true,
-    line5: true,
-    line6: true
-  });
-  const addScore = (lineId) => {
-    if (!gameStarted) {
-      setGameStarted(true); // Start the game on the first input
-      // Start the timer when the game starts
-      setTimeout(() => {
-        console.log('Final Score:', currentScore.current); // Output the score using the ref
-        setScore(0); // Reset the score state
-        currentScore.current = 0; // Reset the score ref
-        setGameStarted(false); // Reset game start state
-      }, 8000); // 60,000 milliseconds = 1 minute
-    }
-    const newScore = currentScore.current + 100;
-    currentScore.current = newScore; // Update the ref
-    setScore(newScore); // Update the state
-    setGarbageLinesVisibility(prevState => ({
-      ...prevState,
-      [lineId]: false
-    }));
-  };
+  const [isAsleep, setIsAsleep] = useState(false);
 
+  // score part
+ 
+  
+  
   return (
     <>
       <PerspectiveCamera
@@ -66,14 +40,14 @@ const Boat = () => {
       />
       <Physics debug={true} timeStep="vary">
         <KeyboardControls map={keyboardMap}>
-          <Ecctrl sprintMult={2} maxVelLimit={20} turnSpeed={10}>
-            <primitive object={gltf.scene} position-y={0} scale={1.8} />
+          <Ecctrl sprintMult={2} maxVelLimit={10} turnSpeed={10}>
+            <primitive object={gltf.scene} position-y={2.5} scale={1.8} />
           </Ecctrl>
         </KeyboardControls>
         {/* ocean collider */}
         <CuboidCollider
           type="fixed"
-          position={[0, 0, 0]}
+          position={[0, -1, 0]}
           args={[750, 1, 750]}
         />
         {/* story island collider */}
@@ -88,50 +62,9 @@ const Boat = () => {
           position={[110, 0, 300]}
           args={[90, 2, 70]}
         />
-        {/* projects garbageLine */}
-        {garbageLinesVisibility.line1 && (
-          <CuboidCollider
-            type="fixed"
-            position={[-80, 0, 150]} 
-            args={[3, 2, 4]} onCollisionEnter={() => addScore('line1')}
-          />
-        )}
-        {garbageLinesVisibility.line2 && (
-          <CuboidCollider
-            type="fixed"
-            position={[-60, 0, 250]} 
-            args={[3, 2, 4]} onCollisionEnter={() => addScore('line2')}
-          />
-        )}
-        {garbageLinesVisibility.line3 && (
-          <CuboidCollider
-            type="fixed"
-            position={[-70, 0, 200]} 
-            args={[3, 2, 4]} onCollisionEnter={() => addScore('line3')}
-          />
-        )}
-        {garbageLinesVisibility.line4 && (
-          <CuboidCollider
-            type="fixed"
-            position={[-50, 0, 300]} 
-            args={[3, 2, 4]} onCollisionEnter={() => addScore('line4')}
-          />
-        )}
-        {garbageLinesVisibility.line5 && (
-          <CuboidCollider
-            type="fixed"
-            position={[-20, 0, 350]} 
-            args={[3, 2, 4]} onCollisionEnter={() => addScore('line5')}
-          />
-        )}
-        {garbageLinesVisibility.line6 && (
-          <CuboidCollider
-            type="fixed"
-            position={[-10, 0, 390]} 
-            args={[3, 2, 4]} onCollisionEnter={() => addScore('line6')}
-          />
-        )}
-
+        
+       
+        
 
 
 
