@@ -36,8 +36,9 @@ const Boat = () => {
           turnSpeed={10}
           sprintMult={3}
           autoBalanceSpringK={0.8}
+          position-y={20}
         >
-          <primitive object={gltf.scene} position-y={1} scale={1.8} />
+          <primitive object={gltf.scene}  scale={1.8} />
         </Ecctrl>
       </KeyboardControls>
     </>
