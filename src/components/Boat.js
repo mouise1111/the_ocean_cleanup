@@ -1,25 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useLoader, useThree, useFrame } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { KeyboardControls, PerspectiveCamera } from "@react-three/drei";
-import {
-  Physics,
-  RigidBody,
-  CuboidCollider,
-  BallCollider,
-} from "@react-three/rapier";
-import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import { useControls } from "leva";
+import Ecctrl from "ecctrl";
 
 const Boat = () => {
-  const { camera } = useThree();
+  const { debug } = useControls("Boat", {
+    debug: true,
+  });
 
   const gltf = useLoader(GLTFLoader, "/models/interceptor.gltf");
+
   const keyboardMap = [
     { name: "forward", keys: ["ArrowUp", "KeyW"] },
     { name: "backward", keys: ["ArrowDown", "KeyS"] },
     { name: "leftward", keys: ["ArrowLeft", "KeyA"] },
     { name: "rightward", keys: ["ArrowRight", "KeyD"] },
     { name: "run", keys: ["Shift"] },
+    { name: "jump", keys: ["Space"] },
     // Optional animation key map
   ];
 
@@ -38,38 +36,18 @@ const Boat = () => {
         rotation-x={0.6}
         rotation-y={Math.PI}
       />
-      <Physics debug={true} timeStep="vary">
-        <KeyboardControls map={keyboardMap}>
-          <Ecctrl sprintMult={2} maxVelLimit={10} turnSpeed={10}>
-            <primitive object={gltf.scene} position-y={0} scale={1.8} />
-          </Ecctrl>
-        </KeyboardControls>
-        {/* ocean collider */}
-        <CuboidCollider
-          type="fixed"
-          position={[0, -1, 0]}
-          args={[750, 1, 750]}
-        />
-        {/* story island collider */}
-        <CuboidCollider
-          type="fixed"
-          position={[-48, 0, 85]}
-          args={[49, 2, 36]} onCollisionEnter={console.log("i'm called ")}
-        />
-        {/* projects island collider */}
-        <CuboidCollider
-          type="fixed"
-          position={[110, 0, 300]}
-          args={[90, 2, 70]} 
-        />
-        
-       
-        
-
-
-
-
-      </Physics>
+      <KeyboardControls map={keyboardMap}>
+        <Ecctrl
+          debug={true}
+          maxVelLimit={10}
+          turnSpeed={10}
+          sprintMult={3}
+          autoBalanceSpringK={0.8}
+          position-y={20}
+        >
+          <primitive object={gltf.scene} scale={1.8} position-y={0.4} />
+        </Ecctrl>
+      </KeyboardControls>
     </>
   );
 };

@@ -1,10 +1,15 @@
 import React from "react";
+import { MeshCollider, RigidBody } from "@react-three/rapier";
 
 const Ocean = () => (
-  <mesh position={(0, -6, 0)}>
-    <boxGeometry args={[1300, 0.2, 1300]} />
-    <meshBasicMaterial color={0x0065c4} flatShading={true} wireframe={false} />
-  </mesh>
+  <RigidBody type="fixed">
+    <MeshCollider type="cuboid">
+      <mesh>
+        <boxGeometry args={[1300, 1, 1300]} />
+        <meshBasicMaterial color={0x0065c4} />
+      </mesh>
+    </MeshCollider>
+  </RigidBody>
 );
 
 export default Ocean;

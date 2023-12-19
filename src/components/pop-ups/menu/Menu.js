@@ -5,7 +5,7 @@ const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div class="absolute top-0 left-0 bg-amber-600 p-5 rounded-r-xl mt-2 transition-colors hover:bg-amber-500">
+    <div className="absolute top-0 left-0 p-5 mt-2 transition-colors bg-amber-600 rounded-r-xl hover:bg-amber-500">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-col justify-around w-6 h-6"
