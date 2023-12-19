@@ -15,7 +15,7 @@ const HomePage = () => (
   <>
     <Canvas>
       <Lights />
-      <Physics debug={true} timeStep="vary">
+      <Physics debug={false} timeStep="vary">
         <Boat />
         <Ocean />
         <Story isInHomepage={true} />
