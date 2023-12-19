@@ -32,7 +32,7 @@ const Boat = () => {
       <KeyboardControls map={keyboardMap}>
         <Ecctrl
           debug={true}
-          maxVelLimit={10}
+          maxVelLimit={20}
           turnSpeed={10}
           sprintMult={3}
           autoBalanceSpringK={0.8}
