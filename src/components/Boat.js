@@ -20,6 +20,13 @@ const Boat = () => {
     { name: "jump", keys: ["Space"] },
     // Optional animation key map
   ];
+
+  const [isAsleep, setIsAsleep] = useState(false);
+
+  // score part
+ 
+  
+  
   return (
     <>
       <PerspectiveCamera
