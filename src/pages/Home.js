@@ -9,6 +9,7 @@ import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
 import { FloatingGarbage } from "./FloatingGarbage.js";
 import Lights from "./Lights.js";
+import { Whale } from "../components/Whale.js";
 
 const HomePage = () => (
   <>
@@ -17,6 +18,7 @@ const HomePage = () => (
       <Boat />
       <Ocean />
       <FloatingGarbage />
+      <Whale />
       <Story isInHomepage={true} />
       <Projects isInHomepage={true} />
       <FloatingGarbage />

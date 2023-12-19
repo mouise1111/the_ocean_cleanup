@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Bag, Banana, Bottle, Can, Net, Spray, Tube, Wine } from "../components/Garbage.js";
+import { Bag, Banana, Bottle, Can, Net, Spray, Tube, Wine, Brush } from "../components/Garbage.js";
 
 const numModels = 200;
 
@@ -21,6 +21,8 @@ const models = Array.from({ length: numModels }, (_, index) => {
       return Tube;
     case 7:
       return Wine;
+	case 8:
+	  return Brush;
     default:
       return Bottle;
   }
