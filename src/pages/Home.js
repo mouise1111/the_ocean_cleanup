@@ -11,6 +11,7 @@ import { FloatingGarbage } from "./FloatingGarbage.js";
 import Lights from "./Lights.js";
 import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
+import { Whale } from "../components/Whale.js";
 
 const HomePage = () => (
   <>
@@ -19,6 +20,7 @@ const HomePage = () => (
       <Physics debug={false} timeStep="vary">
         <Boat />
         <Ocean />
+        <Whale />
         <Story isInHomepage={true} />
         <Projects isInHomepage={true} />
         <Donate isInHomepage={true} />
