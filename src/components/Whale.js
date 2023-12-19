@@ -41,8 +41,8 @@ export const Whale = () => {
     <primitive
       object={whale.scene}
       scale={1.3}
-      position={[50, 0, 0]}
-      rotation={[-0.01, -1.3, 0]}
+      position={[50, -0.5, 0]}
+      rotation={[-0.05, 0, 0]}
       ref={whaleRef}
     />
   );
