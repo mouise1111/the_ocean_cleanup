@@ -9,16 +9,19 @@ import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
 import { FloatingGarbage } from "./FloatingGarbage.js";
 import Lights from "./Lights.js";
+import { Physics } from "@react-three/rapier";
 
 const HomePage = () => (
   <>
     <Canvas>
       <Lights />
-      <Boat />
-      <Ocean />
-      <Story isInHomepage={true} />
-      <Projects isInHomepage={true} />
-      <FloatingGarbage />
+      <Physics debug={true} timeStep="vary">
+        <Boat />
+        <Ocean />
+        <Story isInHomepage={true} />
+        <Projects isInHomepage={true} />
+        <FloatingGarbage />
+      </Physics>
     </Canvas>
     <ArrowKeysPopup />
     <Menu />
