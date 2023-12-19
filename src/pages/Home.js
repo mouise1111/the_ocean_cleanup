@@ -10,6 +10,7 @@ import Projects from "../components/Islands/Projects.js";
 import { FloatingGarbage } from "./FloatingGarbage.js";
 import Lights from "./Lights.js";
 import { Physics } from "@react-three/rapier";
+import Donate from "../components/Islands/Donate.js";
 
 const HomePage = () => (
   <>
@@ -20,6 +21,7 @@ const HomePage = () => (
         <Ocean />
         <Story isInHomepage={true} />
         <Projects isInHomepage={true} />
+        <Donate isInHomepage={true} />
         <FloatingGarbage />
       </Physics>
     </Canvas>
