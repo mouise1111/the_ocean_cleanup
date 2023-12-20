@@ -2,7 +2,6 @@ import React from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import { Clone } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
 
 const GarbageModel = ({ path, scale, position }) => {
 	const { scene } = useLoader(GLTFLoader, path);
@@ -69,6 +68,8 @@ export const GenerateGarbage = () => {
 	  }
 	}
   
-	return <>{models}</>;
+	return (
+	<>{models}</>
+	);
   };
   
