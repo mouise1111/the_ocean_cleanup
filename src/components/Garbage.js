@@ -2,10 +2,17 @@ import React from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import { Clone } from "@react-three/drei";
+import { MeshCollider, RigidBody } from "@react-three/rapier";
 
 const GarbageModel = ({ path, scale, position }) => {
 	const { scene } = useLoader(GLTFLoader, path);
-	return <Clone object={scene} scale={scale} position={position} />;
+	return (
+		<RigidBody type="fixed">
+		  <MeshCollider type="trimesh">
+		  <Clone object={scene} scale={scale} position={position} />
+		  </MeshCollider>
+		</RigidBody>
+	  );
 };  
 
 export const Bag = ({ position }) => <GarbageModel path="/models/garbage/bag.gltf" scale={1} position={position} />;
@@ -25,7 +32,7 @@ const getRandomPosition = () => ({
 });
 
 export const GenerateGarbage = () => {
-	const numModels = 1000;
+	const numModels = 100;
 	const models = [];
   
 	for (let i = 0; i < numModels; i++) {
