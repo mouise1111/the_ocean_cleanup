@@ -99,6 +99,32 @@ app.listen(port, () => {
 })
 
 
+// outputting the data from 
+const POLL_INTERVAL = 10000; // 10 seconds
+let cachedData = [];
+
+function fetchDataFromDatabase() {
+  condb.query('SELECT * FROM scoreboard', (err, results) => {
+    if (err) {
+      console.error('Error fetching data: ', err);
+    } else {
+      cachedData = results;
+    }
+  });
+}
+
+// Poll the database for new data every 10 seconds
+setInterval(fetchDataFromDatabase, POLL_INTERVAL);
+
+app.get("/api/data", (req, res) => {
+  const filteredData = cachedData.map(item => ({
+    highscore: item.highscore,
+    user_id: item.user_id
+  }));
+  res.json(filteredData);
+});
+
+
 
 
 

@@ -6,6 +6,7 @@ import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
 import GarbageLine from "../components/minigameComponents/GarbageLine.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
+import Leaderboard from "../components/pop-ups/Leaderboard.js";
 import Projects from "../components/Islands/Projects.js";
 import { FloatingGarbage } from "./FloatingGarbage.js";
 import Lights from "./Lights.js";
@@ -54,8 +55,13 @@ const HomePage = () => {
         </Physics>
       </Canvas>
       <ArrowKeysPopup />
-      <Menu />
+      
+      <Menu />  
+      <Leaderboard />
+
+      <Leaderboard />
     </Suspense>
+    
   );
 };
 
