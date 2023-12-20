@@ -21,7 +21,7 @@ export const Cloud = () => {
     <primitive
       object={cloud.scene}
       scale={1.3}
-      position={[50, 0, 0]}
+      position={[-200, 100, 20]}
       rotation={[-0.05, 0, 0]}
       ref={cloudRef}
     />
