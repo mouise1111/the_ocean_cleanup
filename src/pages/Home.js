@@ -49,7 +49,7 @@ const HomePage = () => {
       >
         <fog attach="fog" args={["#067caa", 200, 400]} />
         <Lights />
-        <Physics debug={true} timeStep="vary">
+        <Physics debug={false} timeStep="vary">
           <Boat />
           <Ocean />
           <Whale />
