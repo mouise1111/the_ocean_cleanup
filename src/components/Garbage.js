@@ -2,11 +2,16 @@ import React from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import { Clone } from "@react-three/drei";
+import { RigidBody } from "@react-three/rapier";
 
 const GarbageModel = ({ path, scale, position }) => {
 	const { scene } = useLoader(GLTFLoader, path);
-	return <Clone object={scene} scale={scale} position={position} />;
-};  
+	return (
+		<RigidBody>
+		  <Clone object={scene} scale={scale} position={position} />
+		</RigidBody>
+	  );
+};
 
 export const Bag = ({ position }) => <GarbageModel path="/models/garbage/bag.gltf" scale={1} position={position} />;
 export const Banana = ({ position }) => <GarbageModel path="/models/garbage/banana.gltf" scale={2} position={position} />;
@@ -20,12 +25,12 @@ export const Brush = ({ position }) => <GarbageModel path="/models/brush.gltf" s
 
 const getRandomPosition = () => ({
 	x: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
-	y: 0,
+	y: 10,
 	z: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
 });
 
 export const GenerateGarbage = () => {
-	const numModels = 1000;
+	const numModels = 100;
 	const models = [];
   
 	for (let i = 0; i < numModels; i++) {
