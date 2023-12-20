@@ -5,6 +5,7 @@ import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
 import GarbageLine from "../components/minigameComponents/GarbageLine.js";
+import GarbageLineT from "../components/minigameComponents/GarbageLineT.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
 import Lights from "./Lights.js";
@@ -53,8 +54,8 @@ const HomePage = () => {
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
           <Donate isInHomepage={true} />
-          <GenerateGarbage />
-          <GarbageLine position-y={6} />
+          {/* <GenerateGarbage /> */}
+          <GarbageLineT />
         </Physics>
       </Canvas>
       <ArrowKeysPopup />
