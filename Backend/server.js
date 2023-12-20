@@ -52,6 +52,7 @@ app.get('/hash', (req, res) => {
 
 
 // login API
+
 app.post('/login', (req, res) => {
   const sql = "SELECT * FROM logintest Where email = ?";
   condb.query(sql, [req.body.email], (err, result) => {
@@ -63,7 +64,7 @@ app.post('/login', (req, res) => {
                   const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
                   return res.json({Status: "Success", Token: token})
               } else {
-                  return res.json({Status: "Error", Error: "Wrong Email or Password"});
+                  return res.json({Status: "Error", Error: "Wrong email or Password"});
               }
           })
       } else {
