@@ -13,7 +13,7 @@ import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
 import { Leva, folder, useControls } from "leva";
 import Loader from "../pages/Loader.js";
-
+import Leaderboard from "../components/pop-ups/Leaderboard.js";
 const HomePage = () => {
   // Debug UI
   const [gradientColors, setGradientColors] = useState({
@@ -43,14 +43,16 @@ const HomePage = () => {
           background: `linear-gradient(180deg, ${topColor} 0%, ${bottomColor} 100%)`,
         }}
       >
+        <fog attach="fog" args={["#067caa", 200, 400]} />
         <Lights />
-        <Physics debug={false} timeStep="vary">
+        <Physics debug={true} timeStep="vary">
           <Boat />
           <Ocean />
-          <Story isInHomepage={true} />
+          {/* <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
-          <Donate isInHomepage={true} />
+          <Donate isInHomepage={true} /> */}
           <FloatingGarbage />
+          <GarbageLine position-y={6} />
         </Physics>
       </Canvas>
       <ArrowKeysPopup />
