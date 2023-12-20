@@ -39,7 +39,7 @@ const Login = ({ onBack }) => {
         console.log(res);
         if (res.data.Status === "Success") {
           console.log(res.data.Token);
-          setToken(res.data.Token);
+          //setToken(res.data.Token);
           navigate("/home");
         } else {
           setError(res.data.Error);

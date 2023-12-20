@@ -13,6 +13,7 @@ import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
 import { Leva, folder, useControls } from "leva";
 import Loader from "../pages/Loader.js";
+import { Cloud } from "../components/Cloud.js";
 
 const HomePage = () => {
   // Debug UI
@@ -47,6 +48,7 @@ const HomePage = () => {
         <Physics debug={false} timeStep="vary">
           <Boat />
           <Ocean />
+          <Cloud/>
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
           <Donate isInHomepage={true} />
