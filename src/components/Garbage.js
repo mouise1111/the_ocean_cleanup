@@ -7,9 +7,7 @@ import { RigidBody } from "@react-three/rapier";
 const GarbageModel = ({ path, scale, position }) => {
 	const { scene } = useLoader(GLTFLoader, path);
 	return (
-		<RigidBody>
-		  <Clone object={scene} scale={scale} position={position} />
-		</RigidBody>
+		<Clone object={scene} scale={scale} position={position} />
 	  );
 };
 
@@ -25,7 +23,7 @@ export const Brush = ({ position }) => <GarbageModel path="/models/brush.gltf" s
 
 const getRandomPosition = () => ({
 	x: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
-	y: 10,
+	y: 0,
 	z: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
 });
 
