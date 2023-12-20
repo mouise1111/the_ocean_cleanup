@@ -1,6 +1,7 @@
 import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
+import { Cloud } from "../components/Cloud.js";
 import Ocean from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
@@ -13,7 +14,7 @@ import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
 import { Leva, folder, useControls } from "leva";
 import Loader from "../pages/Loader.js";
-import { Cloud } from "../components/Cloud.js";
+
 
 const HomePage = () => {
   // Debug UI
@@ -48,10 +49,10 @@ const HomePage = () => {
         <Physics debug={false} timeStep="vary">
           <Boat />
           <Ocean />
-          <Cloud/>
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
           <Donate isInHomepage={true} />
+          <Cloud/>
           <FloatingGarbage />
         </Physics>
       </Canvas>
