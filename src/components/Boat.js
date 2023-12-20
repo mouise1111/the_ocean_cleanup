@@ -2,7 +2,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import { KeyboardControls, PerspectiveCamera } from "@react-three/drei";
 import Ecctrl from "ecctrl";
-
+import { Suspense } from "react";
 const Boat = () => {
   const gltf = useLoader(GLTFLoader, "/models/interceptor.gltf");
 
@@ -21,7 +21,7 @@ const Boat = () => {
   // score part
 
   return (
-    <>
+    <Suspense fallback={null}>
       <PerspectiveCamera
         makeDefault
         position-y={30}
@@ -42,7 +42,7 @@ const Boat = () => {
           <primitive object={gltf.scene} scale={1.8} />
         </Ecctrl>
       </KeyboardControls>
-    </>
+    </Suspense>
   );
 };
 
