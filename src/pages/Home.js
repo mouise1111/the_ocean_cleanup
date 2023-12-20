@@ -1,6 +1,8 @@
 import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
+import { Cloud } from "../components/Cloud.js";
+import Ocean from "../components/Ocean.js";
 import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
@@ -15,6 +17,7 @@ import { Whale } from "../components/Whale.js";
 import { GenerateGarbage } from "../components/Garbage.js";
 import Loader from "../pages/Loader.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
+
 const HomePage = () => {
   // Debug UI
   const [gradientColors, setGradientColors] = useState({
@@ -53,8 +56,12 @@ const HomePage = () => {
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
           <Donate isInHomepage={true} />
+
+          <Cloud/>
+          <FloatingGarbage />
           <GenerateGarbage />
           <GarbageLine position-y={6} />
+
         </Physics>
       </Canvas>
       <ArrowKeysPopup />
