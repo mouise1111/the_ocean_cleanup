@@ -1,7 +1,7 @@
 import React from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
-import Ocean from "../components/Ocean";
+import { Ocean } from "../components/Ocean";
 import Story from "../components/Islands/Story";
 import StoryPopUp from "../components/pop-ups/Story";
 import { OrbitControls } from "@react-three/drei";
