@@ -14,16 +14,24 @@ const Story = ({ isInHomepage, scaleMultiplier = 1 }) => {
   };
   const gltf = useLoader(GLTFLoader, "/models/islands/story.gltf");
 
-
   return (
     <RigidBody
       type="fixed"
       position={[-40, 0.5, 80]}
       onClick={handleStoryClick}
       restitution={1}
+      position-y={1}
     >
       <MeshCollider type="hull">
-       <primitive object={gltf.scene} rotation-y={Math.PI / 2} scale={[2 * scaleMultiplier, 2 * scaleMultiplier, 2 * scaleMultiplier]} />
+        <primitive
+          object={gltf.scene}
+          rotation-y={Math.PI / 2}
+          scale={[
+            2 * scaleMultiplier,
+            2 * scaleMultiplier,
+            2 * scaleMultiplier,
+          ]}
+        />
       </MeshCollider>
     </RigidBody>
   );
