@@ -2,18 +2,16 @@ import React from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import { Clone } from "@react-three/drei";
-import { MeshCollider, RigidBody } from "@react-three/rapier";
+import { RigidBody } from "@react-three/rapier";
 
 const GarbageModel = ({ path, scale, position }) => {
 	const { scene } = useLoader(GLTFLoader, path);
 	return (
-		<RigidBody type="fixed">
-		  <MeshCollider type="trimesh">
+		<RigidBody>
 		  <Clone object={scene} scale={scale} position={position} />
-		  </MeshCollider>
 		</RigidBody>
 	  );
-};  
+};
 
 export const Bag = ({ position }) => <GarbageModel path="/models/garbage/bag.gltf" scale={1} position={position} />;
 export const Banana = ({ position }) => <GarbageModel path="/models/garbage/banana.gltf" scale={2} position={position} />;
@@ -27,7 +25,7 @@ export const Brush = ({ position }) => <GarbageModel path="/models/brush.gltf" s
 
 const getRandomPosition = () => ({
 	x: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
-	y: 0,
+	y: 10,
 	z: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
 });
 
