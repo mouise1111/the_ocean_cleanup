@@ -1,48 +1,71 @@
 import React from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
+import { Clone } from "@react-three/drei";
 
-export const Bag = () => {
-  const bag = useLoader(GLTFLoader, "/models/garbage/bag.gltf");
-  return <primitive object={bag.scene} scale={0.4} />;
-};
+const GarbageModel = ({ path, scale, position }) => {
+	const { scene } = useLoader(GLTFLoader, path);
+	return <Clone object={scene} scale={scale} position={position} />;
+};  
 
-export const Banana = () => {
-  const banana = useLoader(GLTFLoader, "/models/garbage/banana.gltf");
-  return <primitive object={banana.scene} scale={0.4} />;
-};
+export const Bag = ({ position }) => <GarbageModel path="/models/garbage/bag.gltf" scale={1} position={position} />;
+export const Banana = ({ position }) => <GarbageModel path="/models/garbage/banana.gltf" scale={2} position={position} />;
+export const Bottle = ({ position }) => <GarbageModel path="/models/garbage/bottle.gltf" scale={1} position={position} />;
+export const Can = ({ position }) => <GarbageModel path="/models/garbage/can.gltf" scale={2} position={position} />;
+export const Net = ({ position }) => <GarbageModel path="/models/garbage/net.gltf" scale={1} position={position} />;
+export const Spray = ({ position }) => <GarbageModel path="/models/garbage/spray.gltf" scale={1.5} position={position} />;
+export const Tube = ({ position }) => <GarbageModel path="/models/garbage/tube.gltf" scale={1} position={position} />;
+export const Wine = ({ position }) => <GarbageModel path="/models/garbage/wine.gltf" scale={2} position={position} />;
+export const Brush = ({ position }) => <GarbageModel path="/models/brush.gltf" scale={1} position={position} />;
 
-export const Bottle = () => {
-  const bottle = useLoader(GLTFLoader, "/models/garbage/bottle.gltf");
-  return <primitive object={bottle.scene} scale={0.4} />;
-};
+const getRandomPosition = () => ({
+	x: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
+	y: 0,
+	z: (Math.random() * 500) * (Math.random() < 0.5 ? -1 : 1),
+});
 
-export const Can = () => {
-  const can = useLoader(GLTFLoader, "/models/garbage/can.gltf");
-  return <primitive object={can.scene} scale={1} />;
-};
-
-export const Net = () => {
-  const net = useLoader(GLTFLoader, "/models/garbage/net.gltf");
-  return <primitive object={net.scene} scale={0.6} />;
-};
-
-export const Spray = () => {
-  const spray = useLoader(GLTFLoader, "/models/garbage/spray.gltf");
-  return <primitive object={spray.scene} scale={1} />;
-};
-
-export const Tube = () => {
-  const tube = useLoader(GLTFLoader, "/models/garbage/tube.gltf");
-  return <primitive object={tube.scene} scale={1} />;
-};
-
-export const Wine = () => {
-  const wine = useLoader(GLTFLoader, "/models/garbage/wine.gltf");
-  return <primitive object={wine.scene} scale={0.8} />;
-};
-
-export const Brush = () => {
-  const brush= useLoader(GLTFLoader, "/models/wine.gltf");
-  return <primitive object={brush.scene} scale={0.8} />;
-};
+export const GenerateGarbage = () => {
+	const numModels = 1000;
+	const models = [];
+  
+	for (let i = 0; i < numModels; i++) {
+	  const randomPosition = getRandomPosition();
+	  const randomCase = Math.floor(Math.random() * 9);
+  
+	  switch (randomCase) {
+		case 0:
+		  models.push(<Bag key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 1:
+		  models.push(<Banana key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 2:
+		  models.push(<Bottle key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 3:
+		  models.push(<Can key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 4:
+		  models.push(<Net key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 5:
+		  models.push(<Spray key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 6:
+		  models.push(<Tube key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 7:
+		  models.push(<Wine key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		case 8:
+		  models.push(<Brush key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+		default:
+		  models.push(<Bottle key={i} position={[randomPosition.x, randomPosition.y, randomPosition.z]} />);
+		  break;
+	  }
+	}
+  
+	return <>{models}</>;
+  };
+  
