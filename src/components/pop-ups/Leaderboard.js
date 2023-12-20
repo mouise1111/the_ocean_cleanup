@@ -35,9 +35,9 @@ const Leaderboard = () => {
                 : " border-b-2 font-medium"
             }`}
           >
-            <span class="block basis-1/5">{index + 1}</span>
-            <span class="block basis-2/5">{player.name}</span>
-            <span class="block basis-2/5 text-right">{player.score}</span>
+            <span className="block basis-1/5">{index + 1}</span>
+            <span className="block basis-2/5">{player.name}</span>
+            <span className="block text-right basis-2/5">{player.score}</span>
           </li>
         ))}
       </ul>
