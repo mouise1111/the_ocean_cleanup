@@ -1,14 +1,9 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
 import { KeyboardControls, PerspectiveCamera } from "@react-three/drei";
-import { useControls } from "leva";
 import Ecctrl from "ecctrl";
-
+import { Suspense } from "react";
 const Boat = () => {
-  const { debug } = useControls("Boat", {
-    debug: true,
-  });
-
   const gltf = useLoader(GLTFLoader, "/models/interceptor.gltf");
 
   const keyboardMap = [
@@ -20,8 +15,13 @@ const Boat = () => {
     { name: "jump", keys: ["Space"] },
     // Optional animation key map
   ];
+
+  // const [isAsleep, setIsAsleep] = useState(false);
+
+  // score part
+
   return (
-    <>
+    <Suspense fallback={null}>
       <PerspectiveCamera
         makeDefault
         position-y={30}
@@ -37,11 +37,12 @@ const Boat = () => {
           sprintMult={3}
           autoBalanceSpringK={0.8}
           position-y={20}
+          floatHeight={1}
         >
-          <primitive object={gltf.scene} scale={1.8} position-y={0.4} />
+          <primitive object={gltf.scene} scale={1.8} />
         </Ecctrl>
       </KeyboardControls>
-    </>
+    </Suspense>
   );
 };
 

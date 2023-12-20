@@ -21,39 +21,28 @@ const Register = ({ onBack }) => {
   }, [onBack]);
 
   //register feature
-  // login functions
-  const [values, setValues] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [registerStatus, setRegisterStatus] = useState("");
 
-  const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+  const register = (e) => {
+      e.preventDefault();
+      axios.post("http://localhost:3030/register", {
+      username: username,  
+      email: email,
+      password: password,
+      }).then((response) => {
+        console.log(response);
+        if(response.data.message){
+          setRegisterStatus(response.data.message);
+        }else{
+          alert("ACCOUNT CREATED SUCCESSFULLY");
+        }
+      })
+  }
 
-  const handleInput = (event) => {
-    setValues((prev) => ({
-      ...prev,
-      [event.target.name]: [event.target.value],
-    }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setErrors(validation(values));
-    if (
-      errors.username === "" &&
-      errors.email === "" &&
-      errors.password === ""
-    ) {
-      axios
-        .post("http://localhost:8081/register", values)
-        .then((res) => {
-          alert("Creating an Account Successfully");
-        })
-        .catch((err) => console.log(err));
-    }
-  };
 
   return (
     <Html center>
@@ -65,7 +54,7 @@ const Register = ({ onBack }) => {
             </h2>
           </div>
           <form
-            onSubmit={handleSubmit}
+            onSubmit={register}
             className="flex flex-col justify-between h-full space-y-4 "
           >
             <div>
@@ -77,11 +66,9 @@ const Register = ({ onBack }) => {
                 placeholder="Enter Username"
                 className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="username"
-                onChange={handleInput}
-              />
-              {errors.username && (
-                <span className="text-sm text-red-500">{errors.username}</span>
-              )}
+                onChange={(e) => {setUsername(e.target.value)}}
+                />
+             
             </div>
             <div className="">
               <label htmlFor="email" className="sr-only">
@@ -92,11 +79,9 @@ const Register = ({ onBack }) => {
                 placeholder="Enter email"
                 className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="email"
-                onChange={handleInput}
+                onChange={(e) => {setEmail(e.target.value)}}
               />
-              {errors.email && (
-                <span className="text-sm text-red-500">{errors.email}</span>
-              )}
+              
             </div>
 
             <div>
@@ -106,13 +91,9 @@ const Register = ({ onBack }) => {
                 placeholder="Enter Password"
                 className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="password"
-                onChange={handleInput}
+                onChange={(e) => {setPassword(e.target.value)}}
               />
-              <span>
-                {errors.password && (
-                  <span className="text-red">{errors.password}</span>
-                )}
-              </span>
+             
             </div>
             <button
               className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md bg-amber-500 group hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400"
