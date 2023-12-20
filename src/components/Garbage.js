@@ -28,7 +28,7 @@ const getRandomPosition = () => ({
 });
 
 export const GenerateGarbage = () => {
-	const numModels = 100;
+	const numModels = 300;
 	const models = [];
   
 	for (let i = 0; i < numModels; i++) {
