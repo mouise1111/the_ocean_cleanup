@@ -39,8 +39,8 @@ const Login = ({ onBack }) => {
         console.log(res);
         if (res.data.Status === "Success") {
           console.log(res.data.Token);
-          // setToken(res.data.Token);
-          // navigate("/home");
+          setToken(res.data.Token);
+          navigate("/");
         } else {
           setError(res.data.Error);
         }
