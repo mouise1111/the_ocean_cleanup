@@ -49,7 +49,7 @@ const HomePage = () => {
       >
         <fog attach="fog" args={["#067caa", 200, 400]} />
         <Lights />
-        <Physics debug={true} timeStep="vary">
+        <Physics debug={false} timeStep="vary">
           <Boat />
           <Ocean />
           <Whale />
@@ -57,10 +57,9 @@ const HomePage = () => {
           <Projects isInHomepage={true} />
           <Donate isInHomepage={true} />
           <Cloud />
-          {/* <FloatingGarbage /> */}
-          {/* <GenerateGarbage /> */}
+          <GenerateGarbage />
           {/* <GarbageLine position-y={6} /> */}
-          <GarbageLineT />
+          {/* <GarbageLineT /> */}
         </Physics>
       </Canvas>
       <ArrowKeysPopup />
