@@ -13,10 +13,16 @@ import { Clone } from "@react-three/drei";
 
 //#region import models
 export const Bag = ({ position }) => (
-  <GarbageModel path="/models/garbage/bag.gltf" scale={1} position={position} />
+  <GarbageModel
+    name="bag"
+    path="/models/garbage/bag.gltf"
+    scale={1}
+    position={position}
+  />
 );
 export const Banana = ({ position }) => (
   <GarbageModel
+    name="banana"
     path="/models/garbage/banana.gltf"
     scale={2}
     position={position}
@@ -24,19 +30,31 @@ export const Banana = ({ position }) => (
 );
 export const Bottle = ({ position }) => (
   <GarbageModel
+    name="bottle"
     path="/models/garbage/bottle.gltf"
     scale={1}
     position={position}
   />
 );
 export const Can = ({ position }) => (
-  <GarbageModel path="/models/garbage/can.gltf" scale={2} position={position} />
+  <GarbageModel
+    name="can"
+    path="/models/garbage/can.gltf"
+    scale={2}
+    position={position}
+  />
 );
 export const Net = ({ position }) => (
-  <GarbageModel path="/models/garbage/net.gltf" scale={1} position={position} />
+  <GarbageModel
+    name="nets"
+    path="/models/garbage/net.gltf"
+    scale={1}
+    position={position}
+  />
 );
 export const Spray = ({ position }) => (
   <GarbageModel
+    name="spray"
     path="/models/garbage/spray.gltf"
     scale={1.5}
     position={position}
@@ -44,6 +62,7 @@ export const Spray = ({ position }) => (
 );
 export const Tube = ({ position }) => (
   <GarbageModel
+    name="tube"
     path="/models/garbage/tube.gltf"
     scale={1}
     position={position}
@@ -51,17 +70,23 @@ export const Tube = ({ position }) => (
 );
 export const Wine = ({ position }) => (
   <GarbageModel
+    name="wine"
     path="/models/garbage/wine.gltf"
     scale={2}
     position={position}
   />
 );
 export const Brush = ({ position }) => (
-  <GarbageModel path="/models/brush.gltf" scale={1} position={position} />
+  <GarbageModel
+    name="brush"
+    path="/models/brush.gltf"
+    scale={1}
+    position={position}
+  />
 );
 //#endregion
 
-const GarbageModel = ({ path, scale, position, addScore }) => {
+const GarbageModel = ({ path, scale, position }) => {
   const { scene } = useLoader(GLTFLoader, path);
   return (
     <RigidBody
@@ -69,8 +94,10 @@ const GarbageModel = ({ path, scale, position, addScore }) => {
       scale={5}
       position={position}
       sensor
-      // onIntersectionEnter={() => console.log("collision") && addScore}
-      onIntersectionEnter={() => console.log("collision")}
+      // onIntersectionEnter={() => addScore(1)}
+      onIntersectionEnter={(event) =>
+        console.log("collision with boat " + event.rigidBodyObject.name)
+      }
       // onIntersectionEnter={() => addScore(1)}
     >
       <Clone object={scene} />
@@ -80,7 +107,7 @@ const GarbageModel = ({ path, scale, position, addScore }) => {
 
 const getRandomPosition = () => ({
   x: Math.random() * 500 * (Math.random() < 0.5 ? -1 : 1),
-  y: -2,
+  y: 0,
   z: Math.random() * 500 * (Math.random() < 0.5 ? -1 : 1),
 });
 const GarbageLine = ({ isInHomepage }) => {
@@ -101,27 +128,29 @@ const GarbageLine = ({ isInHomepage }) => {
     line6: true,
   });
 
-  const addScore = (lineId) => {
+  const addScore = (lineId, event) => {
     console.log("addscore called");
-    if (!gameStarted) {
-      setGameStarted(true); // Start the game on the first input
-      console.log("Game started");
-      // Start the timer when the game starts
-      setTimeout(() => {
-        console.log("Final Score:", currentScore.current); // Output the score using the ref
-        setScore(0); // Reset the score state
-        currentScore.current = 0; // Reset the score ref
-        setGameStarted(false); // Reset game start state
-        console.log("Game stopped"); // Log when the game stops
-      }, 8000); // 60,000 milliseconds = 1 minute
+    if (event.rigidBodyObject.name === "boat") {
+      if (!gameStarted) {
+        setGameStarted(true); // Start the game on the first input
+        console.log("Game started");
+        // Start the timer when the game starts
+        setTimeout(() => {
+          console.log("Final Score:", currentScore.current); // Output the score using the ref
+          setScore(0); // Reset the score state
+          currentScore.current = 0; // Reset the score ref
+          setGameStarted(false); // Reset game start state
+          console.log("Game stopped"); // Log when the game stops
+        }, 8000); // 60,000 milliseconds = 1 minute
+      }
+      const newScore = currentScore.current + 100;
+      currentScore.current = newScore; // Update the ref
+      setScore(newScore); // Update the state
+      setGarbageLinesVisibility((prevState) => ({
+        ...prevState,
+        [lineId]: false,
+      }));
     }
-    const newScore = currentScore.current + 100;
-    currentScore.current = newScore; // Update the ref
-    setScore(newScore); // Update the state
-    setGarbageLinesVisibility((prevState) => ({
-      ...prevState,
-      [lineId]: false,
-    }));
   };
 
   const numModels = 100;
@@ -138,7 +167,7 @@ const GarbageLine = ({ isInHomepage }) => {
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
             // onIntersectionEnter={() => addScore(1)}
-            onIntersectionEnter={() => console.log("collision")}
+            // onIntersectionEnter={() => console.log("collision")}
             // addScore={() => {
             //   addScore(1);
             // }}
@@ -150,7 +179,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Banana
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
@@ -159,7 +187,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Bottle
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
@@ -168,7 +195,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Can
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
@@ -177,7 +203,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Net
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
@@ -186,7 +211,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Spray
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
@@ -195,7 +219,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Tube
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
@@ -204,7 +227,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Wine
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
@@ -213,7 +235,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Brush
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // addScore={addScore(1)}
           />
         );
         break;
