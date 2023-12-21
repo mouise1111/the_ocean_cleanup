@@ -56,10 +56,10 @@ const HomePage = () => {
         <Physics debug={false} timeStep="vary">
           <Boat />
           <Ocean />
-          <Whale />
+          {/* <Whale /> */}
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
-          <Donate isInHomepage={true} />
+          {/* <Donate isInHomepage={true} /> */}
           <Cloud />
           {/*<FloatingGarbage />*/}
           <GenerateGarbage />
