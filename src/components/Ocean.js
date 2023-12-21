@@ -13,3 +13,4 @@ export const Ocean = () => {
     </RigidBody>
   );
 };
+export default Ocean;
