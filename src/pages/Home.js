@@ -67,7 +67,7 @@ const HomePage = () => {
           {/* <GarbageLineT /> */}
         </Physics>
       </Canvas>
-      <ArrowKeysPopup />
+      {(!isMobile || !isTablet) && <ArrowKeysPopup />}
       <Menu />
     </Suspense>
   );
