@@ -18,6 +18,8 @@ import { Whale } from "../components/Whale.js";
 import { GenerateGarbage } from "../components/Garbage.js";
 import Loader from "../pages/Loader.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
+import Ecctrl, { EcctrlJoystick } from "ecctrl";
+import { isMobile, isTablet } from "react-device-detect";
 
 const HomePage = () => {
   // Debug UI
@@ -42,6 +44,7 @@ const HomePage = () => {
   });
   return (
     <Suspense fallback={<Loader />}>
+      {(isMobile || isTablet) && <EcctrlJoystick />}
       <Canvas
         // colorManagement
         style={{
@@ -50,7 +53,7 @@ const HomePage = () => {
       >
         <fog attach="fog" args={["#067caa", 200, 400]} />
         <Lights />
-        <Physics debug={true} timeStep="vary">
+        <Physics debug={false} timeStep="vary">
           <Boat />
           <Ocean />
           <Whale />
@@ -60,7 +63,7 @@ const HomePage = () => {
           <Cloud />
           {/*<FloatingGarbage />*/}
           <GenerateGarbage />
-          <GarbageLine position-y={6} />
+          {/* <GarbageLine position-y={6} /> */}
           {/* <GarbageLineT /> */}
         </Physics>
       </Canvas>
