@@ -69,7 +69,9 @@ const HomePage = () => {
       </Canvas>
       {(!isMobile || !isTablet) && <ArrowKeysPopup />}
       <Menu />
+      <Leaderboard />
     </Suspense>
+    
   );
 };
 
