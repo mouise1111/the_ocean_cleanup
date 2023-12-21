@@ -1,5 +1,5 @@
-import React from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { Canvas } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
 import Ocean from "../components/Ocean";
 import Story from "../components/Islands/Story";
@@ -9,10 +9,20 @@ import { OrbitControls } from "@react-three/drei";
 const StoryTellingPage = () => {
   const navigate = useNavigate();
 
-  const handleBack = () => {
-    // Navigate back to the Home page or perform other actions
-    navigate("/home");
-  };
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        // Navigate back to the Home page or perform other actions
+        navigate("/home");
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [navigate]);
 
   const islandPosition = [-30, 15, 100];
 
@@ -36,7 +46,7 @@ const StoryTellingPage = () => {
         />
       </Canvas>
       
-      <StoryPopUp onBack={handleBack} />
+      <StoryPopUp />
     </>
   );
 };
