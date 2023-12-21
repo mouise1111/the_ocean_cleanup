@@ -21,7 +21,7 @@ const getCircleMovement = () => {
 };
 
 export const Whale = () => {
-  const whale = useLoader(GLTFLoader, "/models/Whale/whale.gltf");
+  const whale = useLoader(GLTFLoader, "/models/whale/whale.gltf");
   const animations = useAnimations(whale.animations, whale.scene);
   const whaleRef = useRef();
 
@@ -40,8 +40,8 @@ export const Whale = () => {
   return (
     <primitive
       object={whale.scene}
-      scale={1.3}
-      position={[50, 10, 0]}
+      scale={1.5}
+      position={[50, 0, 0]}
       rotation={[-0.05, 0, 0]}
       ref={whaleRef}
     />
