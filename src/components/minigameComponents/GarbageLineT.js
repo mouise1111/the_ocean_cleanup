@@ -136,6 +136,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Bag
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -144,6 +145,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Banana
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -152,6 +154,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Bottle
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -160,6 +163,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Can
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -168,6 +172,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Net
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -176,6 +181,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Spray
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -184,6 +190,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Tube
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -192,6 +199,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Wine
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -200,6 +208,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Brush
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
@@ -208,6 +217,7 @@ const GarbageLineT = ({ isInHomepage }) => {
           <Bottle
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            onIntersectionEnter={() => addScore(1)}
           />
         );
         break;
