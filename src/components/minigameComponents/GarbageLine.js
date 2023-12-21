@@ -9,17 +9,80 @@ import {
   BallCollider,
   MeshCollider,
 } from "@react-three/rapier";
-import {
-  Bag,
-  Banana,
-  Bottle,
-  Can,
-  Net,
-  Spray,
-  Tube,
-  Wine,
-} from "../../helpers/Garbage";
+import { Clone } from "@react-three/drei";
 
+//#region import models
+export const Bag = ({ position }) => (
+  <GarbageModel path="/models/garbage/bag.gltf" scale={1} position={position} />
+);
+export const Banana = ({ position }) => (
+  <GarbageModel
+    path="/models/garbage/banana.gltf"
+    scale={2}
+    position={position}
+  />
+);
+export const Bottle = ({ position }) => (
+  <GarbageModel
+    path="/models/garbage/bottle.gltf"
+    scale={1}
+    position={position}
+  />
+);
+export const Can = ({ position }) => (
+  <GarbageModel path="/models/garbage/can.gltf" scale={2} position={position} />
+);
+export const Net = ({ position }) => (
+  <GarbageModel path="/models/garbage/net.gltf" scale={1} position={position} />
+);
+export const Spray = ({ position }) => (
+  <GarbageModel
+    path="/models/garbage/spray.gltf"
+    scale={1.5}
+    position={position}
+  />
+);
+export const Tube = ({ position }) => (
+  <GarbageModel
+    path="/models/garbage/tube.gltf"
+    scale={1}
+    position={position}
+  />
+);
+export const Wine = ({ position }) => (
+  <GarbageModel
+    path="/models/garbage/wine.gltf"
+    scale={2}
+    position={position}
+  />
+);
+export const Brush = ({ position }) => (
+  <GarbageModel path="/models/brush.gltf" scale={1} position={position} />
+);
+//#endregion
+
+const GarbageModel = ({ path, scale, position, addScore }) => {
+  const { scene } = useLoader(GLTFLoader, path);
+  return (
+    <RigidBody
+      type="fixed"
+      scale={5}
+      position={position}
+      sensor
+      // onIntersectionEnter={() => console.log("collision") && addScore}
+      onIntersectionEnter={() => console.log("collision")}
+      // onIntersectionEnter={() => addScore(1)}
+    >
+      <Clone object={scene} />
+    </RigidBody>
+  );
+};
+
+const getRandomPosition = () => ({
+  x: Math.random() * 500 * (Math.random() < 0.5 ? -1 : 1),
+  y: -2,
+  z: Math.random() * 500 * (Math.random() < 0.5 ? -1 : 1),
+});
 const GarbageLine = ({ isInHomepage }) => {
   const navigate = useNavigate();
   const { camera } = useThree();
@@ -39,6 +102,7 @@ const GarbageLine = ({ isInHomepage }) => {
   });
 
   const addScore = (lineId) => {
+    console.log("addscore called");
     if (!gameStarted) {
       setGameStarted(true); // Start the game on the first input
       console.log("Game started");
@@ -60,106 +124,110 @@ const GarbageLine = ({ isInHomepage }) => {
     }));
   };
 
-  return (
-    <>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Bag />
-        </MeshCollider>
-      </RigidBody>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Banana />
-        </MeshCollider>
-      </RigidBody>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Bottle />
-        </MeshCollider>
-      </RigidBody>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Can />
-        </MeshCollider>
-      </RigidBody>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Net />
-        </MeshCollider>
-      </RigidBody>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Spray />
-        </MeshCollider>
-      </RigidBody>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Tube />
-        </MeshCollider>
-      </RigidBody>
-      <RigidBody
-        scale={5}
-        type="fixed"
-        colliders="hull"
-        sensor
-        position={[5, 2, 10]}
-        onIntersectionEnter={() => addScore("line1") + console.log("collision")}
-      >
-        <MeshCollider>
-          <Wine />
-        </MeshCollider>
-      </RigidBody>
-    </>
-  );
-};
+  const numModels = 100;
+  const models = [];
 
+  for (let i = 0; i < numModels; i++) {
+    const randomPosition = getRandomPosition();
+    const randomCase = Math.floor(Math.random() * 9);
+
+    switch (randomCase) {
+      case 0:
+        models.push(
+          <Bag
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // onIntersectionEnter={() => addScore(1)}
+            onIntersectionEnter={() => console.log("collision")}
+            // addScore={() => {
+            //   addScore(1);
+            // }}
+          />
+        );
+        break;
+      case 1:
+        models.push(
+          <Banana
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      case 2:
+        models.push(
+          <Bottle
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      case 3:
+        models.push(
+          <Can
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      case 4:
+        models.push(
+          <Net
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      case 5:
+        models.push(
+          <Spray
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      case 6:
+        models.push(
+          <Tube
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      case 7:
+        models.push(
+          <Wine
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      case 8:
+        models.push(
+          <Brush
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+            // addScore={addScore(1)}
+          />
+        );
+        break;
+      default:
+        models.push(
+          <Bottle
+            key={i}
+            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
+          />
+        );
+        break;
+    }
+  }
+
+  return <>{models}</>;
+};
 export default GarbageLine;
