@@ -62,9 +62,9 @@
 			"name":"OceanMaterial",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.01,
-					0.09,
-					0.15,
+					0.0,
+					0.396,
+					0.769,
 					1
 				],
 				"metallicFactor":0,

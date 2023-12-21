@@ -20,7 +20,6 @@ export const Ocean = () => {
 		<mesh position-y={0}>
 			<boxGeometry args={[1000, 1, 1000]} />
 			<meshBasicMaterial transparent="true" opacity={0.0} flatShading={true} wireframe={false} />
-			{/* <meshBasicMaterial color={0x0A5065} flatShading={true} wireframe={false} /> */}
 		</mesh>
 		</MeshCollider>
 	</RigidBody>
