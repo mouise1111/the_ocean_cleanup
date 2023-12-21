@@ -2,7 +2,6 @@ import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
 import { Cloud } from "../components/Cloud.js";
-import Ocean from "../components/Ocean.js";
 import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
@@ -58,10 +57,10 @@ const HomePage = () => {
           <Projects isInHomepage={true} />
           <Donate isInHomepage={true} />
           <Cloud />
-          <FloatingGarbage />
-          <GenerateGarbage />
-          <GarbageLine position-y={6} />
-          {/* <GarbageLineT /> */}
+          {/* <FloatingGarbage /> */}
+          {/* <GenerateGarbage /> */}
+          {/* <GarbageLine position-y={6} /> */}
+          <GarbageLineT />
         </Physics>
       </Canvas>
       <ArrowKeysPopup />
