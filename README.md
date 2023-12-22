@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Ocean3D 🌊
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Live preview 🔴
+https://the-ocean-cleanup-ashy.vercel.app/
 
-## Available Scripts
+## Overview
+Our project, "Ocean3D," aims to raise awareness and support for The Ocean Cleanup's mission. Ocean3D will revolutionize the online presence of The Ocean Cleanup by transforming their existing 2D website into an immersive 3D experience. By incorporating interactive storytelling, we not only address the urgent issue of ocean plastic pollution but also provide a unique and engaging platform for users to explore, learn, and contribute to the cause.
 
-In the project directory, you can run:
+### Note
+This project is not made in collaboration with The Ocean Cleanup.
 
-### `npm start`
+## Features
+- Feature 1: Navigate with boat using controls or joystick (mobile and tablet)
+- Feature 2: Play minigame
+- Feature 3: Login and register
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Dependencies
+- **@react-spring/web**: Version 9.7.3
+- **@react-three/drei**: Version 9.92.1
+- **@react-three/fiber**: Version 8.15.12
+- **@react-three/rapier**: Version 1.2.1
 
-### `npm test`
+## Scripts
+- **start**: Concurrently runs backend and frontend servers.
+- **start-backend**: Starts the backend server.
+- **start-frontend**: Starts the frontend using `react-scripts`.
+- **build**: Builds the project.
+- **test**: Runs tests using `react-scripts`.
+- **eject**: Ejects from `react-scripts`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Development Setup
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Start the project using `npm start`.
 
-### `npm run build`
+## Additional Information
+- TailwindCSS is used for styling.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contributors
+- Mouise Bashir
+- Jefta Alberts
+- Jimmy De Wit
+- Rand Al Radi
+- Furqan Chaud-ry
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+&copy; 2023 All rights reserved.
+### Commisioned by:
+  ![image](https://github.com/mouise1111/the_ocean_cleanup/assets/74969971/e49671f5-7fe7-4783-a0f7-fc51020afb1a)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
