@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Html } from "@react-three/drei";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import setToken from './Auth.js';
-
+import {setToken} from './Auth.js'
+  
 const Login = ({ onBack }) => {
   // Presskey event (for the controls tutorial)
   useEffect(() => {
@@ -26,7 +26,7 @@ const Login = ({ onBack }) => {
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const login = (e) => {
     e.preventDefault();
@@ -39,14 +39,14 @@ const Login = ({ onBack }) => {
         console.log(res);
         if (res.data.Status === "Success") {
           console.log(res.data.Token);
-          // setToken(res.data.Token);
-          // navigate("/home");
+          setToken(res.data.Token);
+          navigate("/");
         } else {
           setError(res.data.Error);
         }
       })
       .catch((err) => console.log(err));
-
+    };
     return (
       <Html center>
         <div className="flex flex-col items-center justify-center w-screen h-screen">
@@ -117,6 +117,7 @@ const Login = ({ onBack }) => {
         </div>
       </Html>
     );
-  };
+  
 };
+
 export default Login;

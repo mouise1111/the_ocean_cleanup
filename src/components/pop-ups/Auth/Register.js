@@ -35,12 +35,18 @@ const Register = ({ onBack }) => {
       password: password,
       }).then((response) => {
         console.log(response);
-        if(response.data.message){
-          setRegisterStatus(response.data.message);
-        }else{
+        if(response.data.Status === "Success"){
           alert("ACCOUNT CREATED SUCCESSFULLY");
+        }else{
+          setRegisterStatus(response.data.Error);
+          alert("ERROR IN CREATING ACCOUNT: " + response.data.Error); // Show the specific error
         }
-      })
+      }).catch((error) => {
+        // Handle any other errors
+        console.error("Registration error:", error);
+        alert("An error occurred during registration.");
+      });
+      
   }
 
 

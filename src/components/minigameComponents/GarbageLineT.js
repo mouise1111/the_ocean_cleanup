@@ -100,7 +100,7 @@ const GarbageLineT = ({ isInHomepage }) => {
     line5: true,
     line6: true,
   });
-
+// isn't called
   const addScore = (lineId) => {
     if (!gameStarted) {
       setGameStarted(true); // Start the game on the first input
