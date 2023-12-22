@@ -50,6 +50,37 @@ const Menu = () => {
           >
             Our Story
           </a>
+          <a
+            href="/technologies"
+            className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
+          >
+            Technologies
+          </a>
+          <a
+            href="/donate"
+            className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
+          >
+            Donate
+          </a>
+          <a
+            href="/minigame"
+            className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
+          >
+            Minigame
+          </a>
+          <a
+            href="https://theoceancleanup.com/"
+            target="_blank"
+            className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
+          >
+            The Ocean Cleanup Website
+          </a>
+          <a
+            href="/gdpr"
+            className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
+          >
+            GDPR
+          </a>
         </div>
       )}
     </div>

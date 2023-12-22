@@ -20,6 +20,8 @@ import Loader from "../pages/Loader.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
 import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
+import { ShareButton } from "../components/pop-ups/ShareButton.js";
+import { AboutButton } from "../components/pop-ups/AboutButton.js";
 
 const HomePage = () => {
   // Debug UI
@@ -61,7 +63,6 @@ const HomePage = () => {
           <Projects isInHomepage={true} />
           {<Donate isInHomepage={true} />}
           <Cloud />
-          {/*<FloatingGarbage />*/}
           <GenerateGarbage />
           {/* <GarbageLine position-y={6} /> */}
           {/* <GarbageLineT /> */}
@@ -69,6 +70,8 @@ const HomePage = () => {
       </Canvas>
       {(!isMobile || !isTablet) && <ArrowKeysPopup />}
       <Menu />
+      <ShareButton />
+      <AboutButton />
       <Leaderboard />
     </Suspense>
     
