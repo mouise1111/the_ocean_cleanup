@@ -40,18 +40,22 @@ const Register = ({ onBack }) => {
       })
       .then((response) => {
         console.log(response);
-        if (response.data.message) {
-          setRegisterStatus(response.data.message);
-          setError(response.data.message);
-          setError("Login failed!");
-        } else {
-          setSuccess("Signup successful! Redirecting to login page...");
+        if(response.data.Status === "Success"){
+           setSuccess("Signup successful! Redirecting to login page...");
           setTimeout(() => {
             navigate("/login");
           }, 500);
+        }else{
+          setRegisterStatus(response.data.Error);
+          setError("Signup failed!")
         }
-      });
-  };
+      }).catch((error) => {
+        // Handle any other errors
+        console.error("Registration error:", error);
+        setError("An error occurred during registration.");
+      });  
+  }
+
 
   return (
     <Html center>
