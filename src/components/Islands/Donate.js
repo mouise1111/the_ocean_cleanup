@@ -12,7 +12,7 @@ const Donate = ({ isInHomepage }) => {
       const { debug, Yposition } = useControls("donate", {
         donateIsland: folder({
             Yposition: {
-                value: 5,
+                value: 5.5,
                 min: 0,
                 max: 10,
                 step: 1,

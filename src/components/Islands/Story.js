@@ -3,6 +3,7 @@ import { useLoader } from "@react-three/fiber";
 import { RigidBody, MeshCollider } from "@react-three/rapier";
 import { useNavigate } from "react-router-dom";
 
+
 const Story = ({ isInHomepage, scaleMultiplier = 1 }) => {
   const navigate = useNavigate();
 
