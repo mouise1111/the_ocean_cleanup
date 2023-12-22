@@ -21,6 +21,7 @@ import Leaderboard from "../components/pop-ups/Leaderboard.js";
 import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
 import { ShareButton } from "../components/pop-ups/ShareButton.js";
+import { AboutButton } from "../components/pop-ups/AboutButton.js";
 
 const HomePage = () => {
   // Debug UI
@@ -71,6 +72,7 @@ const HomePage = () => {
       <ArrowKeysPopup />
       <Menu />
       <ShareButton />
+      <AboutButton />
     </Suspense>
   );
 };
