@@ -19,13 +19,16 @@ export const ShareButton = () => {
   return (
     <div>
       <div>
-        <button className="absolute top-0 right-0 p-5 mt-2 transition-colors bg-amber-600 rounded-l-xl hover:bg-amber-500 text-white" onClick={handleShareClick}>
+        <button
+          className="absolute top-0 right-0 p-4 mt-2 text-right text-white transition-colors bg-amber-600 rounded-l-xl hover:bg-amber-500"
+          onClick={handleShareClick}
+        >
           Share Application
         </button>
       </div>
       {showNotification && (
-        <div className="fixed top-0 left-0 h-screen w-screen flex justify-center items-center bg-gray-800 bg-opacity-75">
-          <div className="bg-gray-300 p-6 rounded-xl text-center">
+        <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-gray-800 bg-opacity-75">
+          <div className="p-6 text-center bg-gray-300 rounded-xl">
             <p>Link copied to clipboard!</p>
             <p>{linkToCopy}</p>
           </div>

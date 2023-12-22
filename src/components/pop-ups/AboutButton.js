@@ -16,18 +16,28 @@ export const AboutButton = () => {
   return (
     <div>
       <div>
-        <button className="absolute bottom-5 right-0 p-5 mt-2 transition-colors bg-amber-600 rounded-l-xl hover:bg-amber-500 text-white" onClick={handleOpenNotification}>
+        <button
+          className="absolute right-0 p-4 mt-2 text-right text-white transition-colors bottom-5 bg-amber-600 rounded-l-xl hover:bg-amber-500"
+          onClick={handleOpenNotification}
+        >
           About
         </button>
       </div>
 
       {showNotification && (
-        <div className="fixed top-0 left-0 h-screen w-screen flex justify-center items-center bg-gray-800 bg-opacity-75">
-          <div className="bg-gray-300 p-6 rounded-xl text-center">
-            <p><strong>PROJECT: OCEAN 3D</strong></p>
+        <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-gray-800 bg-opacity-75">
+          <div className="p-6 text-center bg-gray-300 rounded-xl">
+            <p>
+              <strong>PROJECT: OCEAN 3D</strong>
+            </p>
             <br />
             <p>Commissioned by:</p>
-            <img src="/pictures/erasmus_logo.jpg" width="50%" className="mx-auto rounded-xl" alt="Erasmus University Logo" />
+            <img
+              src="/pictures/erasmus_logo.jpg"
+              width="50%"
+              className="mx-auto rounded-xl"
+              alt="Erasmus University Logo"
+            />
             <br />
             <p>Contributors:</p>
             <p>Mouise Bashir</p>
