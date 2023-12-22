@@ -60,7 +60,7 @@ app.post('/login', (req, res) => {
           bcrypt.compare(req.body.password.toString(), result[0].password, (err, response)=> {
               if(err) return res.json({Error: "password error"});
               if(response) {
-                  const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
+                  const token = jwt.sign({role: "gamer"}, "jwt-secret-key", {expiresIn: '1d'});
                   return res.json({Status: "Success", Token: token})
               } else {
                 console.log(result)
@@ -85,11 +85,34 @@ app.post('/register',(req, res) => {
           hash,
       ]
       condb.query(sql, [values], (err, result) => {
-          if(err) return res.json({Error: "Error query"});
+          if(err){
+            // Check if error is due to unique constraint violation
+            if (err.code === 'ER_DUP_ENTRY') {
+              return res.json({ Status: "Error", Error: "Username or Email already exists" });
+            } else {
+              return res.json({ Status: "Error", Error: "Error in query" });
+            }
+          }
           return res.json({Status: "Success"});
       })
   } )
 })
+
+
+// Score submission API
+app.post('/submit-score', (req, res) => {
+  const userId = 1; // Hardcoded for now, replace with dynamic data as needed
+  const { score } = req.body; // Extracting score from the request body
+
+  const sql = "INSERT INTO history_score (user_id, score) VALUES (?,?)";
+  condb.query(sql, [userId, score], (err, result) => {
+      if(err) {
+        console.error('Error in inserting score:', err);
+        return res.json({ Status: "Error", Error: "Error in inserting score" });
+      }
+      return res.json({ Status: "Success", Message: "Score submitted successfully" });
+  });
+});
 
 
 // hello world part
@@ -116,7 +139,7 @@ function fetchDataFromDatabase() {
 // Poll the database for new data every 10 seconds
 setInterval(fetchDataFromDatabase, POLL_INTERVAL);
 
-app.get("/api/data", (req, res) => {
+app.get("/ScoreBoard", (req, res) => {
   const filteredData = cachedData.map(item => ({
     highscore: item.highscore,
     user_id: item.user_id

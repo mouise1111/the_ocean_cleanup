@@ -10,6 +10,7 @@ import {
   MeshCollider,
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
+import axios from 'axios';
 
 //#region import models
 export const Bag = ({ position }) => (
@@ -18,6 +19,8 @@ export const Bag = ({ position }) => (
     path="/models/garbage/bag.gltf"
     scale={1}
     position={position}
+    
+
   />
 );
 export const Banana = ({ position }) => (
@@ -85,44 +88,60 @@ export const Brush = ({ position }) => (
   />
 );
 //#endregion
-
+let test = 0;
+let FinalScore = 0;
+let scorededPosted = 0; // Flag to track if the score has been posted
 // collision + rendering handler
-const GarbageModel = ({ path, scale, position }) => {
+const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte }) => {
   const { scene } = useLoader(GLTFLoader, path);
 
-  const [collisionCount, setCollisionCount] = useState(0);
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
-  const [gameStarted, setGameStarted] = useState(false);
-  const [gameEnded, setGameEnded] = useState(false);
-  const SCORE_PER_COLLISION = 100; // Score per collision
+  const [isScoringAllowed, setIsScoringAllowed] = useState(true);
+  const [countdown, setCountdown] = useState(60);
+  const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
+  
+  const postScore = () => {
+    if (!scorePosted && scorededPosted === 0) {
+      setTimeout(() => {
+        if (!scorePosted) { // Check again after 5 seconds to ensure it hasn't been posted
+          FinalScore = test * 100;
+          console.log(`Final Score: ${FinalScore}`);
+          axios.post('http://localhost:3030/submit-score', { score: FinalScore })
+            .then(response => {
+              console.log('Score posted successfully:', response.data);
+              setScorePosted(true); // Update the state to indicate score has been submitted
+              scorededPosted = 1; // Update the flag
+              console.log("how many posts you did: " + scorededPosted);
+            })
+            .catch(error => {
+              console.error('Error posting score:', error);
+            });
+        }
+      }, 5000); // 5 seconds delay
+    }
+  };
+
+  useEffect(() => {
+    let timer;
+    if (isScoringAllowed && countdown > 0) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    } else if (countdown === 0 && isScoringAllowed) {
+      postScore(); // Call the function to post the score
+    }
+    return () => clearTimeout(timer);
+  }, [countdown, isScoringAllowed]);
 
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision
-    if (!gameStarted) {
-      setGameStarted(true);
-      setTimeout(() => {
-        setGameEnded(true);
-      }, 8000);
-    }
-
-    if (!gameEnded) {
-      setCollisionCount(prevCount => prevCount + 1);
-      console.log("You collected a trash, you receive " + SCORE_PER_COLLISION + " dollars!"); // Log score per collision
+    console.log("collision");
+    if (isScoringAllowed) {
+      test++;
+      console.log(test);
     }
   };
-  useEffect(() => {
-    if (gameEnded) {
-      console.log("Game ended. Final score: " + collisionCount * SCORE_PER_COLLISION);
-    }
-  }, [gameEnded, collisionCount]);
 
-  useEffect(() => {
-    if (collisionCount > 0 && !gameEnded) {
-      console.log("You collected a trash, you receive " + collisionCount * 100 + " dollars!");
-    }
-  }, [collisionCount, gameEnded]);
-
+  
   return isVisible ? ( // Render based on visibility
     <RigidBody
       type="fixed"
