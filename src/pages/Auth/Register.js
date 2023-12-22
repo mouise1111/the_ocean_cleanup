@@ -5,8 +5,9 @@ import { Ocean } from "../../components/Ocean";
 import Story from "../../components/Islands/Story";
 import StoryPopUp from "../../components/pop-ups/Auth/Register";
 import { OrbitControls } from "@react-three/drei";
+import { Physics } from "@react-three/rapier";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -16,12 +17,16 @@ const LoginPage = () => {
 
   return (
     <Canvas>
+          <Physics>
+
       <Ocean />
       <Story isInHomepage={false} />
       <OrbitControls />
       <StoryPopUp onBack={handleBack} />
+      </Physics>
+
     </Canvas>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
