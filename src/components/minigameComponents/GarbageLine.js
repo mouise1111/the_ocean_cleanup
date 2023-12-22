@@ -86,23 +86,55 @@ export const Brush = ({ position }) => (
 );
 //#endregion
 
+// collision + rendering handler
 const GarbageModel = ({ path, scale, position }) => {
   const { scene } = useLoader(GLTFLoader, path);
-  return (
+
+  const [collisionCount, setCollisionCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(true); // New state for visibility
+  const [gameStarted, setGameStarted] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
+  const SCORE_PER_COLLISION = 100; // Score per collision
+
+
+  const handleCollision = (event) => {
+    setIsVisible(false); // Set visibility to false on collision
+    if (!gameStarted) {
+      setGameStarted(true);
+      setTimeout(() => {
+        setGameEnded(true);
+      }, 8000);
+    }
+
+    if (!gameEnded) {
+      setCollisionCount(prevCount => prevCount + 1);
+      console.log("You collected a trash, you receive " + SCORE_PER_COLLISION + " dollars!"); // Log score per collision
+    }
+  };
+  useEffect(() => {
+    if (gameEnded) {
+      console.log("Game ended. Final score: " + collisionCount * SCORE_PER_COLLISION);
+    }
+  }, [gameEnded, collisionCount]);
+
+  useEffect(() => {
+    if (collisionCount > 0 && !gameEnded) {
+      console.log("You collected a trash, you receive " + collisionCount * 100 + " dollars!");
+    }
+  }, [collisionCount, gameEnded]);
+
+  return isVisible ? ( // Render based on visibility
     <RigidBody
       type="fixed"
       scale={5}
       position={position}
       sensor
-      // onIntersectionEnter={() => addScore(1)}
-      onIntersectionEnter={(event) =>
-        console.log("collision with boat " + event.rigidBodyObject.name)
-      }
-      // onIntersectionEnter={() => addScore(1)}
+      onIntersectionEnter={(event) => handleCollision(event)}
+      
     >
       <Clone object={scene} />
     </RigidBody>
-  );
+  ) : null;
 };
 
 const getRandomPosition = () => ({
@@ -116,42 +148,8 @@ const GarbageLine = ({ isInHomepage }) => {
   const [isAsleep, setIsAsleep] = useState(false);
 
   // controls the visibility of the objects:
-  const [score, setScore] = useState(0);
-  const [gameStarted, setGameStarted] = useState(false);
-  const currentScore = useRef(0); // Ref to track the current score
-  const [garbageLinesVisibility, setGarbageLinesVisibility] = useState({
-    line1: true,
-    line2: true,
-    line3: true,
-    line4: true,
-    line5: true,
-    line6: true,
-  });
 
-  const addScore = (lineId, event) => {
-    console.log("addscore called");
-    if (event.rigidBodyObject.name === "boat") {
-      if (!gameStarted) {
-        setGameStarted(true); // Start the game on the first input
-        console.log("Game started");
-        // Start the timer when the game starts
-        setTimeout(() => {
-          console.log("Final Score:", currentScore.current); // Output the score using the ref
-          setScore(0); // Reset the score state
-          currentScore.current = 0; // Reset the score ref
-          setGameStarted(false); // Reset game start state
-          console.log("Game stopped"); // Log when the game stops
-        }, 8000); // 60,000 milliseconds = 1 minute
-      }
-      const newScore = currentScore.current + 100;
-      currentScore.current = newScore; // Update the ref
-      setScore(newScore); // Update the state
-      setGarbageLinesVisibility((prevState) => ({
-        ...prevState,
-        [lineId]: false,
-      }));
-    }
-  };
+
 
   const numModels = 100;
   const models = [];
