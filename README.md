@@ -44,7 +44,7 @@ This project is not made in collaboration with The Ocean Cleanup.
 - Rand Al Radi
 - Furqan Chaud-ry
 
-
+&copy; 2023 All rights reserved.
 ### Commisioned by:
   ![image](https://github.com/mouise1111/the_ocean_cleanup/assets/74969971/e49671f5-7fe7-4783-a0f7-fc51020afb1a)
 
