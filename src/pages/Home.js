@@ -10,6 +10,7 @@ import GarbageLine from "../components/minigameComponents/GarbageLine.js";
 import GarbageLineT from "../components/minigameComponents/GarbageLineT.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
+import Game from "../components/Islands/Game.js";
 import Lights from "../components/Lights.js";
 import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
@@ -62,6 +63,7 @@ const HomePage = () => {
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
           {<Donate isInHomepage={true} />}
+          {<Game isInHomepage={true}/>}
           <Cloud />
           <GenerateGarbage />
           {/* <GarbageLine position-y={6} /> */}
