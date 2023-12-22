@@ -63,6 +63,8 @@ app.post('/login', (req, res) => {
                   const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
                   return res.json({Status: "Success", Token: token})
               } else {
+                console.log(result)
+
                   return res.json({Status: "Error", Error: "Wrong Email or Password"});
               }
           })
@@ -95,6 +97,32 @@ app.post('/register',(req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+
+// outputting the data from 
+const POLL_INTERVAL = 10000; // 10 seconds
+let cachedData = [];
+
+function fetchDataFromDatabase() {
+  condb.query('SELECT * FROM scoreboard', (err, results) => {
+    if (err) {
+      console.error('Error fetching data: ', err);
+    } else {
+      cachedData = results;
+    }
+  });
+}
+
+// Poll the database for new data every 10 seconds
+setInterval(fetchDataFromDatabase, POLL_INTERVAL);
+
+app.get("/api/data", (req, res) => {
+  const filteredData = cachedData.map(item => ({
+    highscore: item.highscore,
+    user_id: item.user_id
+  }));
+  res.json(filteredData);
+});
 
 
 

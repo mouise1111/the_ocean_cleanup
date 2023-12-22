@@ -16,10 +16,6 @@ const Boat = () => {
     // Optional animation key map
   ];
 
-  // const [isAsleep, setIsAsleep] = useState(false);
-
-  // score part
-
   return (
     <Suspense fallback={null}>
       <PerspectiveCamera

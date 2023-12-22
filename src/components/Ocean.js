@@ -45,3 +45,4 @@ export const Ocean = () => {
 	</>
 	);
 };
+export default Ocean;
