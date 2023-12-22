@@ -20,6 +20,7 @@ import Loader from "../pages/Loader.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
 import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
+import { ShareButton } from "../components/pop-ups/ShareButton.js";
 
 const HomePage = () => {
   // Debug UI
@@ -69,6 +70,7 @@ const HomePage = () => {
       </Canvas>
       <ArrowKeysPopup />
       <Menu />
+      <ShareButton />
     </Suspense>
   );
 };
