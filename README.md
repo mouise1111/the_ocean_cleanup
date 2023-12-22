@@ -1,6 +1,6 @@
-# Ocean3D
+# Ocean3D 🌊
 
-### Live preview
+### Live preview 🔴
 https://the-ocean-cleanup-ashy.vercel.app/
 
 ## Overview
