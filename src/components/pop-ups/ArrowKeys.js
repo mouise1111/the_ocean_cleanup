@@ -1,29 +1,27 @@
 // ArrowKeysPopup.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const ArrowKeysPopup = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const hidePopup = (event) => {
-      if (isVisible && event.key.includes('Arrow')) {
+      if (isVisible && event.key.includes("Arrow")) {
         setIsVisible(false);
       }
     };
 
-    document.addEventListener('keydown', hidePopup);
+    document.addEventListener("keydown", hidePopup);
 
     return () => {
-      document.removeEventListener('keydown', hidePopup);
+      document.removeEventListener("keydown", hidePopup);
     };
   }, [isVisible]);
 
   return isVisible ? (
-    <div
-      className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-gray-300 bg-opacity-75 p-4 rounded"
-    >
-      <p className="text-black text-center">
-        Use your arrow keys to move. Press any arrow key to begin your adventure!
+    <div className="fixed z-50 p-4 transform -translate-x-1/2 bg-gray-300 bg-opacity-75 rounded top-4 left-1/2">
+      <p className="font-light text-center text-black uppercase">
+        Use arrow keys to move. Press any to start adventure.
       </p>
     </div>
   ) : null;
