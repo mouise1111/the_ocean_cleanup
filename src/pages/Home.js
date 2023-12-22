@@ -59,7 +59,7 @@ const HomePage = () => {
           {/* <Whale /> */}
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
-          {/* <Donate isInHomepage={true} /> */}
+          {<Donate isInHomepage={true} />}
           <Cloud />
           {/*<FloatingGarbage />*/}
           <GenerateGarbage />
