@@ -5,6 +5,7 @@ import { RigidBody, MeshCollider } from "@react-three/rapier";
 import { useNavigate } from "react-router-dom";
 import Enter from "../pop-ups/Enter";
 
+
 const Story = ({ isInHomepage, scaleMultiplier = 1 }) => {
   const navigate = useNavigate();
   const gltf = useLoader(GLTFLoader, "/models/islands/story.gltf");
