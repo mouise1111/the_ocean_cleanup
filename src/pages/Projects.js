@@ -2,12 +2,12 @@ import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
 import { Ocean } from "../components/Ocean";
-import Story from "../components/Islands/Story";
+import Projects from "../components/Islands/Projects";
 import StoryPopUp from "../components/pop-ups/Story";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 
-const StoryTellingPage = () => {
+const ProjectsPage = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -15,7 +15,7 @@ const StoryTellingPage = () => {
     navigate("/");
   };
 
-  const islandPosition = [-25, 20, 180];
+  const islandPosition = [100, 65, 320];
 
   return (
     <>
@@ -24,16 +24,16 @@ const StoryTellingPage = () => {
           <ambientLight />
           <directionalLight />
           <Ocean />
-          <Story isInHomepage={false} scaleMultiplier={2} />
+          <Projects isInHomepage={false} scaleMultiplier={2.5} />
           <OrbitControls
             enableZoom={true}
             enablePan={false}
             enableDamping={true}
             dampingFactor={0.25}
             rotateSpeed={0.5}
-            maxPolarAngle={Math.PI / 2 }
-            minPolarAngle={Math.PI / 4 }
-            initialPosition={[-50, 0, 150]}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 4}
+            initialPosition={[80, 30, 320]}
             target={islandPosition}
           />
         </Physics>
@@ -44,4 +44,4 @@ const StoryTellingPage = () => {
   );
 };
 
-export default StoryTellingPage;
+export default ProjectsPage;
