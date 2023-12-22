@@ -11,6 +11,8 @@ export const AboutButton = () => {
     setShowNotification(false);
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
     <div>
       <div>
@@ -33,6 +35,8 @@ export const AboutButton = () => {
             <p>Rand Al Radi</p>
             <p>Furqan Chaud-Ry</p>
             <p>Jefta Alberts</p>
+            <br />
+            <p>&copy; {currentYear} All rights reserved.</p>
             <br />
             <button
               className="text-red-500 hover:underline"

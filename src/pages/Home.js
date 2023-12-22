@@ -63,7 +63,6 @@ const HomePage = () => {
           <Projects isInHomepage={true} />
           <Donate isInHomepage={true} />
           <Cloud />
-          {/*<FloatingGarbage />*/}
           <GenerateGarbage />
           {/* <GarbageLine position-y={6} /> */}
           {/* <GarbageLineT /> */}
