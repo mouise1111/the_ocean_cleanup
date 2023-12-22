@@ -85,7 +85,15 @@ app.post('/register',(req, res) => {
           hash,
       ]
       condb.query(sql, [values], (err, result) => {
-          if(err) return res.json({Error: "Error query"});
+          if(err){
+            // Check if error is due to unique constraint violation
+            if (err.code === 'ER_DUP_ENTRY') {
+              return res.json({ Status: "Error", Error: "Username or Email already exists" });
+              console.log("hi little man");
+            } else {
+              return res.json({ Status: "Error", Error: "Error in query" });
+            }
+          }
           return res.json({Status: "Success"});
       })
   } )

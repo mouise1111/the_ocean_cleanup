@@ -71,7 +71,6 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
       setShowEnterPopup(true);
       handleEnterIsland();
     } else {
-      console.log("not colliding");
       setShowEnterPopup(false);
       handleExitIsland();
     }
