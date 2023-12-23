@@ -27,7 +27,7 @@ const Boat = () => {
           sprintMult={3}
           autoBalanceSpringK={0.8}
           position-y={25}
-          floatHeight={2}
+          floatHeight={1}
           camInitDir={{ x: 0.3, y: 0, z: 0 }} // Camera initial rotation direction (in rad)
           camInitDis={-40} // Initial camera distance
           camMoveSpeed={1} // Camera moving speed multiplier
