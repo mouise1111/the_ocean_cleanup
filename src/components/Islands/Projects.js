@@ -25,18 +25,18 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && isColliding) {
+    if (event.key === "Enter" && isColliding) {
       setEnterKeyPressed(true);
       // Navigate to the projects page when 'Enter' is pressed and collision is true
       navigate("/projects");
     }
   };
-  
+
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-  
+    document.addEventListener("keydown", handleKeyPress);
+
     return () => {
-      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [isColliding, navigate]);
 
@@ -48,17 +48,15 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
 
     return () => {
       // Cleanup event listeners
-      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [isColliding, enterKeyPressed, navigate]);
 
   useFrame(() => {
     if (isColliding) {
-      console.log("colliding");
       setShowEnterPopup(true);
       handleEnterIsland();
     } else {
-      console.log("not colliding");
       setShowEnterPopup(false);
       handleExitIsland();
     }
@@ -67,9 +65,8 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
   const handleEnterIsland = () => {
     // Show the Enter pop-up
     setShowEnterPopup(true);
-    
   };
-  
+
   const handleExitIsland = () => {
     // Hide the Enter pop-up
     setShowEnterPopup(false);
@@ -96,7 +93,9 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
           />
         </MeshCollider>
       </RigidBody>
-      {showEnterPopup && <Enter position={[120, 23.5, 300]} onKeyPress={handleKeyPress} />}
+      {showEnterPopup && (
+        <Enter position={[120, 23.5, 300]} onKeyPress={handleKeyPress} />
+      )}
     </>
   );
 };
