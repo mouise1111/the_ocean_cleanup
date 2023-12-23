@@ -110,6 +110,11 @@ app.post('/submit-score', (req, res) => {
 
   // Assuming 'highscore' is the same as 'score' for this example
   // You might have a different logic for calculating 'highscore'
+  if (score === 0) {
+    // If score is 0, do not insert and send a response back
+    return res.json({ Status: "Error", Error: "Score of 0 is not allowed" });
+  }
+
   const highscore = score;
 
   const sql = "INSERT INTO history_score (user_id, score, highscore) VALUES (?, ?, ?)";
@@ -135,7 +140,13 @@ const POLL_INTERVAL = 10000; // 10 seconds
 let cachedData = [];
 
 function fetchDataFromDatabase() {
-  condb.query('SELECT * FROM scoreboard', (err, results) => {
+  const query = `
+    SELECT hs.score, hs.user_id, v.username 
+    FROM history_score hs
+    JOIN visitors v ON hs.user_id = v.user_id
+  `;
+
+  condb.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching data: ', err);
     } else {
@@ -149,12 +160,11 @@ setInterval(fetchDataFromDatabase, POLL_INTERVAL);
 
 app.get("/ScoreBoard", (req, res) => {
   const filteredData = cachedData.map(item => ({
-    highscore: item.highscore,
-    user_id: item.user_id
+    score: item.score,
+    username: item.username // Send username instead of user_id
   }));
   res.json(filteredData);
 });
-
 
 
 

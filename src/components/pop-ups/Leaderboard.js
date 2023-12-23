@@ -15,25 +15,27 @@ const Leaderboard = () => {
       })
       .then(data => {
         const playerScores = new Map();
-
+  
         data.forEach(item => {
-          const playerName = `User ${item.user_id}`;
+          const playerName = item.username; // Use username
           const currentHighScore = playerScores.get(playerName) || 0;
-          if (item.highscore > currentHighScore) {
-            playerScores.set(playerName, item.highscore);
+          if (item.score > currentHighScore) {
+            playerScores.set(playerName, item.score);
           }
         });
-
+  
         const formattedData = Array.from(playerScores, ([name, score]) => ({ name, score }));
         setPlayers(formattedData);
         setLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching data:', error);
+        console.error('Error:', error);
         setError(error);
         setLoading(false);
       });
   }, []);
+  
+  
 
   const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
 
