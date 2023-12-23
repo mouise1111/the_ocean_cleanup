@@ -11,7 +11,8 @@ import {
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
+
+import {jwtDecode} from 'jwt-decode';
 
 const token = localStorage.getItem('Token');
 console.log("here's your token: " + token);
@@ -108,24 +109,32 @@ const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte })
   
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
-      setTimeout(() => {
-        if (!scorePosted) { // Check again after 5 seconds to ensure it hasn't been posted
-          const token = localStorage.getItem('Token');
+      const token = localStorage.getItem('Token');
+      if (token) {
+        try {
+          const decodedToken = jwtDecode(token);
+          const userId = decodedToken.user_id; // Extract user_id from token
+
           FinalScore = test * 100;
           console.log(`Final Score: ${FinalScore}`);
-          axios.post('http://localhost:3030/submit-score', { user_id: userId, // Send user_id along with the score
-              score: FinalScore  })
-            .then(response => {
-              console.log('Score posted successfully:', response.data);
-              setScorePosted(true); // Update the state to indicate score has been submitted
-              scorededPosted = 1; // Update the flag
-              console.log("how many posts you did: " + scorededPosted);
-            })
-            .catch(error => {
-              console.error('Error posting score:', error);
-            });
+
+          axios.post('http://localhost:3030/submit-score', { 
+            user_id: userId, // Send user_id along with the score
+            score: FinalScore 
+          })
+          .then(response => {
+            console.log('Score posted successfully:', response.data);
+            setScorePosted(true); // Update the state to indicate score has been submitted
+            scorededPosted = 1; // Update the flag
+            console.log("how many posts you did: " + scorededPosted);
+          })
+          .catch(error => {
+            console.error('Error posting score:', error);
+          });
+        } catch (error) {
+          console.error('Error decoding token:', error);
         }
-      }, 5000); // 5 seconds delay
+      }
     }
   };
 
