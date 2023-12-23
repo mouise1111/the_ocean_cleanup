@@ -69,14 +69,8 @@ const HomePage = () => {
           {<Donate isInHomepage={true} />}
           {<Game isInHomepage={true}/>}
           <Cloud />
-<<<<<<< HEAD
-          {/* <GenerateGarbage /> */}
-          <GarbageLine position-y={0} />
-=======
+          {/* <GarbageLine position-y={0} /> */}
           <GenerateGarbage />
-          {/* <GarbageLine position-y={6} /> */}
-          {/* <GarbageLineT /> */}
->>>>>>> 51a1eff4e24999110f691124c1f8a50596d6b6cd
         </Physics>
       </Canvas>
       {!isMobile && !isTablet && <ArrowKeysPopup />}
