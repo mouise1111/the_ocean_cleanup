@@ -44,6 +44,7 @@ const HomePage = () => {
   });
   return (
     <Suspense fallback={<Loader />}>
+      <Leva hidden={false} collapsed={true} />
       {(isMobile || isTablet) && <EcctrlJoystick />}
       <Canvas
         // colorManagement
@@ -67,11 +68,10 @@ const HomePage = () => {
           {/* <GarbageLineT /> */}
         </Physics>
       </Canvas>
-      {(!isMobile || !isTablet) && <ArrowKeysPopup />}
+      {!isMobile && !isTablet && <ArrowKeysPopup />}
       <Menu />
       <Leaderboard />
     </Suspense>
-    
   );
 };
 
