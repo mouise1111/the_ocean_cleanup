@@ -10,7 +10,7 @@ import {
   MeshCollider,
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
-import axios from 'axios';
+import axios from "axios";
 
 //#region import models
 export const Bag = ({ position }) => (
@@ -19,8 +19,6 @@ export const Bag = ({ position }) => (
     path="/models/garbage/bag.gltf"
     scale={1}
     position={position}
-    
-
   />
 );
 export const Banana = ({ position }) => (
@@ -92,7 +90,13 @@ let test = 0;
 let FinalScore = 0;
 let scorededPosted = 0; // Flag to track if the score has been posted
 // collision + rendering handler
-const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte }) => {
+const GarbageModel = ({
+  path,
+  scale,
+  position,
+  instanceId,
+  onIntersectionEnte,
+}) => {
   const { scene } = useLoader(GLTFLoader, path);
 
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
@@ -100,22 +104,23 @@ const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte })
   const [countdown, setCountdown] = useState(60);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
-  
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
       setTimeout(() => {
-        if (!scorePosted) { // Check again after 5 seconds to ensure it hasn't been posted
+        if (!scorePosted) {
+          // Check again after 5 seconds to ensure it hasn't been posted
           FinalScore = test * 100;
           console.log(`Final Score: ${FinalScore}`);
-          axios.post('http://localhost:3030/submit-score', { score: FinalScore })
-            .then(response => {
-              console.log('Score posted successfully:', response.data);
+          axios
+            .post("http://localhost:3030/submit-score", { score: FinalScore })
+            .then((response) => {
+              console.log("Score posted successfully:", response.data);
               setScorePosted(true); // Update the state to indicate score has been submitted
               scorededPosted = 1; // Update the flag
               console.log("how many posts you did: " + scorededPosted);
             })
-            .catch(error => {
-              console.error('Error posting score:', error);
+            .catch((error) => {
+              console.error("Error posting score:", error);
             });
         }
       }, 5000); // 5 seconds delay
@@ -141,15 +146,14 @@ const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte })
     }
   };
 
-  
   return isVisible ? ( // Render based on visibility
     <RigidBody
       type="fixed"
+      colliders="hull"
       scale={5}
       position={position}
       sensor
       onIntersectionEnter={(event) => handleCollision(event)}
-      
     >
       <Clone object={scene} />
     </RigidBody>
@@ -166,10 +170,6 @@ const GarbageLine = ({ isInHomepage }) => {
   const { camera } = useThree();
   const [isAsleep, setIsAsleep] = useState(false);
 
-  // controls the visibility of the objects:
-
-
-
   const numModels = 100;
   const models = [];
 
@@ -183,11 +183,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Bag
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // onIntersectionEnter={() => addScore(1)}
-            // onIntersectionEnter={() => console.log("collision")}
-            // addScore={() => {
-            //   addScore(1);
-            // }}
           />
         );
         break;
