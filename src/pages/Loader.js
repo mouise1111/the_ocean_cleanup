@@ -12,7 +12,7 @@ const Loader = () => {
           </h2>
 
           <h3 className="text-3xl font-light text-center">
-            {progress} % loaded
+            {Math.ceil(progress)} % loaded
           </h3>
         </div>
       </div>
