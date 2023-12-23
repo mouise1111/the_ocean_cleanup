@@ -21,6 +21,7 @@ import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
 import { ShareButton } from "../components/pop-ups/ShareButton.js";
 import { AboutButton } from "../components/pop-ups/AboutButton.js";
+import { AudioButton } from "../components/AudioButton.js";
 
 const HomePage = () => {
   // Debug UI
@@ -76,6 +77,7 @@ const HomePage = () => {
       <Menu />
       <ShareButton />
       <AboutButton />
+      <AudioButton />
       <Leaderboard />
     </Suspense>
   );
