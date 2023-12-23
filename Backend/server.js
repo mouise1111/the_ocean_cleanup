@@ -26,7 +26,6 @@ const condb = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'itproject'
-  database: 'itproject'
 });
 
 
