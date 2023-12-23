@@ -1,6 +1,6 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
-import { RigidBody, RoundCuboidCollider } from "@react-three/rapier";
+import { RigidBody } from "@react-three/rapier";
 import { useNavigate } from "react-router-dom";
 import { useThree } from "react-three-fiber";
 import React, { useEffect, useState, useRef } from "react";
@@ -11,11 +11,10 @@ import {
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
 import axios from "axios";
-import { getRandomPosition } from "../Garbage.js";
 
 //#region import models
 export const Bag = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="bag"
     path="/models/garbage/bag.gltf"
     scale={1}
@@ -23,7 +22,7 @@ export const Bag = ({ position }) => (
   />
 );
 export const Banana = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="banana"
     path="/models/garbage/banana.gltf"
     scale={2}
@@ -31,7 +30,7 @@ export const Banana = ({ position }) => (
   />
 );
 export const Bottle = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="bottle"
     path="/models/garbage/bottle.gltf"
     scale={1}
@@ -39,7 +38,7 @@ export const Bottle = ({ position }) => (
   />
 );
 export const Can = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="can"
     path="/models/garbage/can.gltf"
     scale={2}
@@ -47,7 +46,7 @@ export const Can = ({ position }) => (
   />
 );
 export const Net = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="nets"
     path="/models/garbage/net.gltf"
     scale={1}
@@ -55,7 +54,7 @@ export const Net = ({ position }) => (
   />
 );
 export const Spray = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="spray"
     path="/models/garbage/spray.gltf"
     scale={1.5}
@@ -63,7 +62,7 @@ export const Spray = ({ position }) => (
   />
 );
 export const Tube = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="tube"
     path="/models/garbage/tube.gltf"
     scale={1}
@@ -71,7 +70,7 @@ export const Tube = ({ position }) => (
   />
 );
 export const Wine = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="wine"
     path="/models/garbage/wine.gltf"
     scale={2}
@@ -79,7 +78,7 @@ export const Wine = ({ position }) => (
   />
 );
 export const Brush = ({ position }) => (
-  <GarbageModelGame
+  <GarbageModel
     name="brush"
     path="/models/brush.gltf"
     scale={1}
@@ -91,81 +90,19 @@ let test = 0;
 let FinalScore = 0;
 let scorededPosted = 0; // Flag to track if the score has been posted
 // collision + rendering handler
-// const GarbageModel = ({
-//   path,
-//   scale,
-//   position,
-//   instanceId,
-//   onIntersectionEnte,
-// }) => {
-//   const { scene } = useLoader(GLTFLoader, path);
+const GarbageModel = ({
+  path,
+  scale,
+  position,
+  instanceId,
+  onIntersectionEnte,
+}) => {
+  const { scene } = useLoader(GLTFLoader, path);
 
-//   const [isVisible, setIsVisible] = useState(true); // New state for visibility
-//   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
-//   const [countdown, setCountdown] = useState(60);
-//   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
-
-//   const postScore = () => {
-//     if (!scorePosted && scorededPosted === 0) {
-//       setTimeout(() => {
-//         if (!scorePosted) {
-//           // Check again after 5 seconds to ensure it hasn't been posted
-//           FinalScore = test * 100;
-//           console.log(`Final Score: ${FinalScore}`);
-//           axios
-//             .post("http://localhost:3030/submit-score", { score: FinalScore })
-//             .then((response) => {
-//               console.log("Score posted successfully:", response.data);
-//               setScorePosted(true); // Update the state to indicate score has been submitted
-//               scorededPosted = 1; // Update the flag
-//               console.log("how many posts you did: " + scorededPosted);
-//             })
-//             .catch((error) => {
-//               console.error("Error posting score:", error);
-//             });
-//         }
-//       }, 5000); // 5 seconds delay
-//     }
-//   };
-
-//   useEffect(() => {
-//     let timer;
-//     if (isScoringAllowed && countdown > 0) {
-//       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-//     } else if (countdown === 0 && isScoringAllowed) {
-//       postScore(); // Call the function to post the score
-//     }
-//     return () => clearTimeout(timer);
-//   }, [countdown, isScoringAllowed]);
-
-// const handleCollision = (event) => {
-//   setIsVisible(false); // Set visibility to false on collision
-//   console.log("collision");
-//   if (isScoringAllowed) {
-//     test++;
-//     console.log(test);
-//   }
-// };
-
-//   return isVisible ? ( // Render based on visibility
-//     <RigidBody
-//       type="fixed"
-//       // scale={2}
-//       // position={position}
-//       sensor
-//       onIntersectionEnter={(event) => handleCollision(event)}
-//     >
-//       <Clone object={scene} />
-//     </RigidBody>
-//   ) : null;
-// };
-
-const GarbageModelGame = ({ path, scale, position }) => {
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
   const [countdown, setCountdown] = useState(60);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
-  const { scene } = useLoader(GLTFLoader, path);
 
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
@@ -208,21 +145,31 @@ const GarbageModelGame = ({ path, scale, position }) => {
       console.log(test);
     }
   };
+
   return isVisible ? ( // Render based on visibility
-    <RigidBody colliders="hull" sensor type="fixed">
-      {/* <CuboidCollider> */}
-      <Clone
-        object={scene}
-        scale={scale * 2}
-        position={position}
-        onIntersectionEnter={(event) => handleCollision(event)}
-      />
-      {/* </CuboidCollider> */}
+    <RigidBody
+      type="fixed"
+      colliders="hull"
+      scale={5}
+      position={position}
+      sensor
+      onIntersectionEnter={(event) => handleCollision(event)}
+    >
+      <Clone object={scene} />
     </RigidBody>
   ) : null;
 };
 
-export const GenerateGarbageGame = (isInHomepage) => {
+const getRandomPosition = () => ({
+  x: Math.random() * 500 * (Math.random() < 0.5 ? -1 : 1),
+  y: 0,
+  z: Math.random() * 500 * (Math.random() < 0.5 ? -1 : 1),
+});
+const GarbageLine = ({ isInHomepage }) => {
+  const navigate = useNavigate();
+  const { camera } = useThree();
+  const [isAsleep, setIsAsleep] = useState(false);
+
   const numModels = 100;
   const models = [];
 
@@ -316,4 +263,4 @@ export const GenerateGarbageGame = (isInHomepage) => {
 
   return <>{models}</>;
 };
-export default GenerateGarbageGame;
+export default GarbageLine;
