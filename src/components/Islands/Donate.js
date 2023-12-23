@@ -4,7 +4,7 @@ import { useLoader, useFrame } from "@react-three/fiber";
 import { RigidBody, MeshCollider } from "@react-three/rapier";
 import { useNavigate } from "react-router-dom";
 import { useThree } from "react-three-fiber";
-import { folder, useControls } from 'leva';
+import { folder, useControls } from "leva";
 import Enter from "../pop-ups/Enter";
 
 const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
@@ -26,18 +26,18 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && isColliding) {
+    if (event.key === "Enter" && isColliding) {
       setEnterKeyPressed(true);
       // Navigate to the projects page when 'Enter' is pressed and collision is true
       navigate("/donate");
     }
   };
-  
+
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-  
+    document.addEventListener("keydown", handleKeyPress);
+
     return () => {
-      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [isColliding, navigate]);
 
@@ -46,20 +46,18 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
       // Navigate to the story page when 'Enter' is pressed and collision is true
       navigate("/donate");
     }
-    
+
     return () => {
       // Cleanup event listeners
-      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [isColliding, enterKeyPressed, navigate]);
 
   useFrame(() => {
     if (isColliding) {
-      console.log("colliding");
       setShowEnterPopup(true);
       handleEnterIsland();
     } else {
-      console.log("not colliding");
       setShowEnterPopup(false);
       handleExitIsland();
     }
@@ -68,20 +66,19 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
   const handleEnterIsland = () => {
     // Show the Enter pop-up
     setShowEnterPopup(true);
-    
   };
-  
+
   const handleExitIsland = () => {
     // Hide the Enter pop-up
     setShowEnterPopup(false);
   };
 
-
   return (
     <>
       <RigidBody
         type="fixed"
-        position={[-120, 5.1, 300]}
+        position={[-250, 5.1, 300]}
+        rotation-y={0}
         onClick={handleStoryClick}
         onCollisionEnter={() => {
           setIsColliding(true);
@@ -98,7 +95,9 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
           />
         </MeshCollider>
       </RigidBody>
-      {showEnterPopup && <Enter position={[-120, 23.5, 300]} onKeyPress={handleKeyPress} />}
+      {showEnterPopup && (
+        <Enter position={[-120, 23.5, 300]} onKeyPress={handleKeyPress} />
+      )}
     </>
   );
 };
