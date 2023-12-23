@@ -49,11 +49,9 @@ const Story = ({ isInHomepage, scaleMultiplier = 1 }) => {
 
   useFrame(() => {
     if (isColliding) {
-      console.log("colliding");
       setShowEnterPopup(true);
       handleEnterIsland();
     } else {
-      console.log("not colliding");
       setShowEnterPopup(false);
       handleExitIsland();
     }

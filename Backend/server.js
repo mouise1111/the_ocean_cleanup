@@ -25,7 +25,7 @@ const condb = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'oceanbase'
+  database: 'itproject'
 });
 
 
@@ -101,11 +101,12 @@ app.post('/register',(req, res) => {
 
 // Score submission API
 app.post('/submit-score', (req, res) => {
-  const userId = 1; // Hardcoded for now, replace with dynamic data as needed
+  const userId = 19; // Hardcoded for now, replace with dynamic data as needed
   const { score } = req.body; // Extracting score from the request body
+  const highscore = score;
 
-  const sql = "INSERT INTO history_score (user_id, score) VALUES (?,?)";
-  condb.query(sql, [userId, score], (err, result) => {
+  const sql = "INSERT INTO history_score (user_id, score, highscore) VALUES (?,?,?)";
+  condb.query(sql, [userId, score,highscore], (err, result) => {
       if(err) {
         console.error('Error in inserting score:', err);
         return res.json({ Status: "Error", Error: "Error in inserting score" });
