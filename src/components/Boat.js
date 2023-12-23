@@ -17,14 +17,7 @@ const Boat = () => {
   ];
 
   return (
-    <Suspense fallback={null}>
-      <PerspectiveCamera
-        makeDefault
-        position-y={30}
-        position-z={-45}
-        rotation-x={0.6}
-        rotation-y={Math.PI}
-      />
+    <>
       <KeyboardControls map={keyboardMap}>
         <Ecctrl
           name="boat"
@@ -33,13 +26,19 @@ const Boat = () => {
           turnSpeed={10}
           sprintMult={3}
           autoBalanceSpringK={0.8}
-          position-y={50}
-          floatHeight={1}
+          position-y={25}
+          floatHeight={2}
+          camInitDir={{ x: 0.3, y: 0, z: 0 }} // Camera initial rotation direction (in rad)
+          camInitDis={-40} // Initial camera distance
+          camMoveSpeed={1} // Camera moving speed multiplier
+          camZoomSpeed={1} // Camera zooming speed multiplier
+          camCollision={true} // Camera collision active/deactive
+          camCollisionOffset={0.7} // Camera collision offset
         >
           <primitive object={gltf.scene} scale={1.8} />
         </Ecctrl>
       </KeyboardControls>
-    </Suspense>
+    </>
   );
 };
 

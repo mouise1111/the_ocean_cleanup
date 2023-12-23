@@ -10,14 +10,10 @@ import {
   MeshCollider,
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
-import axios from 'axios';
-
+import axios from "axios";
 import {jwtDecode} from 'jwt-decode';
 
 const token = localStorage.getItem('Token');
-console.log("here's your token: " + token);
-
-
 //#region import models
 export const Bag = ({ position }) => (
   <GarbageModel
@@ -25,8 +21,6 @@ export const Bag = ({ position }) => (
     path="/models/garbage/bag.gltf"
     scale={1}
     position={position}
-    
-
   />
 );
 export const Banana = ({ position }) => (
@@ -98,7 +92,13 @@ let test = 0;
 let FinalScore = 0;
 let scorededPosted = 0; // Flag to track if the score has been posted
 // collision + rendering handler
-const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte }) => {
+const GarbageModel = ({
+  path,
+  scale,
+  position,
+  instanceId,
+  onIntersectionEnte,
+}) => {
   const { scene } = useLoader(GLTFLoader, path);
 
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
@@ -106,7 +106,7 @@ const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte })
   const [countdown, setCountdown] = useState(60);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
-  
+ 
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
       const token = localStorage.getItem('Token');
@@ -137,7 +137,6 @@ const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte })
       }
     }
   };
-
   useEffect(() => {
     let timer;
     if (isScoringAllowed && countdown > 0) {
@@ -157,15 +156,14 @@ const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte })
     }
   };
 
-  
   return isVisible ? ( // Render based on visibility
     <RigidBody
       type="fixed"
+      colliders="hull"
       scale={5}
       position={position}
       sensor
       onIntersectionEnter={(event) => handleCollision(event)}
-      
     >
       <Clone object={scene} />
     </RigidBody>
@@ -182,10 +180,6 @@ const GarbageLine = ({ isInHomepage }) => {
   const { camera } = useThree();
   const [isAsleep, setIsAsleep] = useState(false);
 
-  // controls the visibility of the objects:
-
-
-
   const numModels = 100;
   const models = [];
 
@@ -199,11 +193,6 @@ const GarbageLine = ({ isInHomepage }) => {
           <Bag
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-            // onIntersectionEnter={() => addScore(1)}
-            // onIntersectionEnter={() => console.log("collision")}
-            // addScore={() => {
-            //   addScore(1);
-            // }}
           />
         );
         break;
