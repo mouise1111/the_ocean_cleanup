@@ -50,6 +50,7 @@ const HomePage = () => {
   });
   return (
     <Suspense fallback={<Loader />}>
+      <Leva hidden={false} collapsed={true} />
       {(isMobile || isTablet) && <EcctrlJoystick />}
       <Canvas
         // colorManagement
@@ -78,13 +79,12 @@ const HomePage = () => {
 >>>>>>> 51a1eff4e24999110f691124c1f8a50596d6b6cd
         </Physics>
       </Canvas>
-      {(!isMobile || !isTablet) && <ArrowKeysPopup />}
+      {!isMobile && !isTablet && <ArrowKeysPopup />}
       <Menu />
       <ShareButton />
       <AboutButton />
       <Leaderboard />
     </Suspense>
-    
   );
 };
 
