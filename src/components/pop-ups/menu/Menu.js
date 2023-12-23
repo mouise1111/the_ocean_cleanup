@@ -51,10 +51,10 @@ const Menu = () => {
             Our Story
           </a>
           <a
-            href="/technologies"
+            href="/projects"
             className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
           >
-            Technologies
+            Projects
           </a>
           <a
             href="/donate"

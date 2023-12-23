@@ -89,7 +89,7 @@ const Story = ({ isInHomepage, scaleMultiplier = 1 }) => {
         </MeshCollider>
       </RigidBody>
       {showEnterPopup && (
-        <Enter position={[-30, 23.5, 40]} onKeyPress={handleKeyPress} />
+        <Enter position={[-30, 24, 90]} onKeyPress={handleKeyPress} />
       )}
     </>
   );
