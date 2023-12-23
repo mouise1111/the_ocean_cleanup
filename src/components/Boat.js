@@ -24,7 +24,7 @@ const Boat = () => {
           // debug={true}
           maxVelLimit={30}
           turnSpeed={10}
-          sprintMult={1.8}
+          sprintMult={1.5}
           autoBalanceSpringK={0.8}
           position-y={25}
           floatHeight={2}
