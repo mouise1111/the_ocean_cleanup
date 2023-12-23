@@ -6,7 +6,7 @@ const Game = ({ sInHomepage }) => {
   const game = useLoader(GLTFLoader, "/models/islands/game.gltf");
   return (
     <RigidBody type="fixed">
-      <MeshCollider type="trimesh">
+      <MeshCollider type="hull">
         <primitive
           object={game.scene}
           scale={2}
