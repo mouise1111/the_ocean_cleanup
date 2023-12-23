@@ -11,6 +11,11 @@ import {
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+
+const token = localStorage.getItem('Token');
+console.log("here's your token: " + token);
+
 
 //#region import models
 export const Bag = ({ position }) => (
@@ -105,9 +110,11 @@ const GarbageModel = ({ path, scale, position, instanceId, onIntersectionEnte })
     if (!scorePosted && scorededPosted === 0) {
       setTimeout(() => {
         if (!scorePosted) { // Check again after 5 seconds to ensure it hasn't been posted
+          const token = localStorage.getItem('Token');
           FinalScore = test * 100;
           console.log(`Final Score: ${FinalScore}`);
-          axios.post('http://localhost:3030/submit-score', { score: FinalScore })
+          axios.post('http://localhost:3030/submit-score', { user_id: userId, // Send user_id along with the score
+              score: FinalScore  })
             .then(response => {
               console.log('Score posted successfully:', response.data);
               setScorePosted(true); // Update the state to indicate score has been submitted
