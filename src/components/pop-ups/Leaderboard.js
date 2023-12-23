@@ -6,7 +6,7 @@ const Leaderboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3030/api/data')
+    fetch('http://localhost:3030/ScoreBoard')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

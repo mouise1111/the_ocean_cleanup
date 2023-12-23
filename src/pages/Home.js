@@ -7,9 +7,9 @@ import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
 import GarbageLine from "../components/minigameComponents/GarbageLine.js";
-import GarbageLineT from "../components/minigameComponents/GarbageLineT.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
+import Game from "../components/Islands/Game.js";
 import Lights from "../components/Lights.js";
 import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
@@ -30,7 +30,7 @@ const HomePage = () => {
     bottomColor: "#FFFFFF",
   });
 
-  const { topColor, bottomColor } = useControls({
+  const { topColor, bottomColor, isPhysics } = useControls({
     "Color Skybow": folder({
       topColor: {
         label: "Top Color",
@@ -42,10 +42,15 @@ const HomePage = () => {
         value: gradientColors.bottomColor,
         color: true,
       },
+      isPhysics: {
+        label: "Phsics debugger",
+        value: false,
+      },
     }),
   });
   return (
     <Suspense fallback={<Loader />}>
+      <Leva hidden={false} collapsed={true} />
       {(isMobile || isTablet) && <EcctrlJoystick />}
       <Canvas
         // colorManagement
@@ -55,26 +60,25 @@ const HomePage = () => {
       >
         <fog attach="fog" args={["#067caa", 200, 400]} />
         <Lights />
-        <Physics debug={false} timeStep="vary">
+        <Physics timeStep="vary">
           <Boat />
           <Ocean />
           {/* <Whale /> */}
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
           {<Donate isInHomepage={true} />}
+          {<Game isInHomepage={true}/>}
           <Cloud />
+          {/* <GarbageLine position-y={0} /> */}
           <GenerateGarbage />
-          {/* <GarbageLine position-y={6} /> */}
-          {/* <GarbageLineT /> */}
         </Physics>
       </Canvas>
-      {(!isMobile || !isTablet) && <ArrowKeysPopup />}
+      {!isMobile && !isTablet && <ArrowKeysPopup />}
       <Menu />
       <ShareButton />
       <AboutButton />
       <Leaderboard />
     </Suspense>
-    
   );
 };
 

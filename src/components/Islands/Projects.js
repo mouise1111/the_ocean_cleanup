@@ -54,8 +54,10 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
 
   useFrame(() => {
     if (isColliding) {
+      setShowEnterPopup(true);
       handleEnterIsland();
     } else {
+      setShowEnterPopup(false);
       handleExitIsland();
     }
   });
@@ -83,19 +85,14 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
           setIsColliding(false);
         }}
       >
-        <MeshCollider type="hull">
+        <MeshCollider>
           <primitive
             object={gltf.scene}
             rotation-y={Math.PI / 2}
-            scale={[
-              2 * scaleMultiplier,
-              2 * scaleMultiplier,
-              2 * scaleMultiplier,
-            ]}
+            scale={2 * scaleMultiplier}
           />
         </MeshCollider>
       </RigidBody>
-
       {showEnterPopup && (
         <Enter position={[120, 23.5, 300]} onKeyPress={handleKeyPress} />
       )}

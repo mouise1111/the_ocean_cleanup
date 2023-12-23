@@ -71,10 +71,8 @@ const Story = ({ isInHomepage, scaleMultiplier = 1 }) => {
     <>
       <RigidBody
         type="fixed"
-        position={[-40, 0.5, 80]}
+        position={[-40, 2, 80]}
         onClick={handleIslandClick}
-        restitution={1}
-        position-y={1}
         onCollisionEnter={() => {
           setIsColliding(true);
         }}
@@ -86,11 +84,7 @@ const Story = ({ isInHomepage, scaleMultiplier = 1 }) => {
           <primitive
             object={gltf.scene}
             rotation-y={Math.PI / 2}
-            scale={[
-              2 * scaleMultiplier,
-              2 * scaleMultiplier,
-              2 * scaleMultiplier,
-            ]}
+            scale={2 * scaleMultiplier}
           />
         </MeshCollider>
       </RigidBody>

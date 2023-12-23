@@ -1,6 +1,5 @@
 // Story.js
 import React, { useEffect } from 'react';
-import { Html } from '@react-three/drei';
 
 const Story = ({ onBack }) => {
   useEffect(() => {

@@ -4,26 +4,17 @@ import { useLoader, useFrame } from "@react-three/fiber";
 import { RigidBody, MeshCollider } from "@react-three/rapier";
 import { useNavigate } from "react-router-dom";
 import { useThree } from "react-three-fiber";
-import { folder, useControls } from 'leva'
+import { folder, useControls } from "leva";
 import Enter from "../pop-ups/Enter";
 
 const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
   const navigate = useNavigate();
+  const gltf = useLoader(GLTFLoader, "/models/islands/donate.gltf");
   const { camera } = useThree();
   const [showEnterPopup, setShowEnterPopup] = useState(false);
   const [enterKeyPressed, setEnterKeyPressed] = useState(false);
   const [isColliding, setIsColliding] = useState(false);
 
-  const { debug, Yposition } = useControls("donate", {
-    donateIsland: folder({
-      Yposition: {
-        value: 5.1,
-        min: 0,
-        max: 10,
-        step: 1,
-      },
-    }),
-  });
   const handleStoryClick = () => {
     if (isInHomepage) {
       // Navigate to the Story page only if the cube is in the homepage
@@ -33,7 +24,6 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
       camera.position.set(0, 0, 25);
     }
   };
-  const gltf = useLoader(GLTFLoader, "/models/islands/donate.gltf");
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && isColliding) {
@@ -87,7 +77,8 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
     <>
       <RigidBody
         type="fixed"
-        position={[-120, Yposition, 300]}
+        position={[-250, 5.1, 300]}
+        rotation-y={0}
         onClick={handleStoryClick}
         onCollisionEnter={() => {
           setIsColliding(true);
@@ -96,15 +87,11 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
           setIsColliding(false);
         }}
       >
-        <MeshCollider type="hull">
+        <MeshCollider>
           <primitive
             object={gltf.scene}
             rotation-y={Math.PI / 2}
-            scale={[
-              2 * scaleMultiplier,
-              2 * scaleMultiplier,
-              2 * scaleMultiplier,
-            ]}
+            scale={2 * scaleMultiplier}
           />
         </MeshCollider>
       </RigidBody>
