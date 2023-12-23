@@ -55,16 +55,20 @@ app.get('/hash', (req, res) => {
 app.post('/login', (req, res) => {
   const sql = "SELECT * FROM visitors Where email = ?";
   condb.query(sql, [req.body.email], (err, result) => {
-      if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
+      if(err) return res.json({Status: "Error", Error: "Error in running query"});
       if(result.length > 0) {
           bcrypt.compare(req.body.password.toString(), result[0].password, (err, response)=> {
               if(err) return res.json({Error: "password error"});
               if(response) {
-                  const token = jwt.sign({role: "gamer"}, "jwt-secret-key", {expiresIn: '1d'});
+                  // Include user_id in the JWT token
+                  const token = jwt.sign({
+                      user_id: result[0].user_id, // Add user_id to the token
+                      role: "gamer"
+                  }, "jwt-secret-key", {expiresIn: '1d'});
+
                   return res.json({Status: "Success", Token: token})
               } else {
-                console.log(result)
-
+                  console.log(result)
                   return res.json({Status: "Error", Error: "Wrong Email or Password"});
               }
           })
@@ -101,11 +105,15 @@ app.post('/register',(req, res) => {
 
 // Score submission API
 app.post('/submit-score', (req, res) => {
-  const userId = 1; // Hardcoded for now, replace with dynamic data as needed
-  const { score } = req.body; // Extracting score from the request body
+  // Extracting user_id and score from the request body
+  const { user_id, score } = req.body;
 
-  const sql = "INSERT INTO history_score (user_id, score) VALUES (?,?)";
-  condb.query(sql, [userId, score], (err, result) => {
+  // Assuming 'highscore' is the same as 'score' for this example
+  // You might have a different logic for calculating 'highscore'
+  const highscore = score;
+
+  const sql = "INSERT INTO history_score (user_id, score, highscore) VALUES (?, ?, ?)";
+  condb.query(sql, [user_id, score, highscore], (err, result) => {
       if(err) {
         console.error('Error in inserting score:', err);
         return res.json({ Status: "Error", Error: "Error in inserting score" });
