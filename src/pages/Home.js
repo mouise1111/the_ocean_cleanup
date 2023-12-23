@@ -10,7 +10,7 @@ import GarbageLine from "../components/minigameComponents/GarbageLine.js";
 import GarbageLineT from "../components/minigameComponents/GarbageLineT.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
-import Lights from "./Lights.js";
+import Lights from "../components/Lights.js";
 import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
 import { Leva, folder, useControls } from "leva";
@@ -58,21 +58,23 @@ const HomePage = () => {
         <Physics debug={false} timeStep="vary">
           <Boat />
           <Ocean />
-          <Whale />
+          {/* <Whale /> */}
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
-          <Donate isInHomepage={true} />
+          {<Donate isInHomepage={true} />}
           <Cloud />
           <GenerateGarbage />
           {/* <GarbageLine position-y={6} /> */}
           {/* <GarbageLineT /> */}
         </Physics>
       </Canvas>
-      <ArrowKeysPopup />
+      {(!isMobile || !isTablet) && <ArrowKeysPopup />}
       <Menu />
       <ShareButton />
       <AboutButton />
+      <Leaderboard />
     </Suspense>
+    
   );
 };
 

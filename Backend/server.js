@@ -25,7 +25,7 @@ const condb = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'ocean'
+  database: 'oceanbase'
 });
 
 
@@ -53,16 +53,18 @@ app.get('/hash', (req, res) => {
 
 // login API
 app.post('/login', (req, res) => {
-  const sql = "SELECT * FROM logintest Where email = ?";
+  const sql = "SELECT * FROM visitors Where email = ?";
   condb.query(sql, [req.body.email], (err, result) => {
       if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
       if(result.length > 0) {
           bcrypt.compare(req.body.password.toString(), result[0].password, (err, response)=> {
               if(err) return res.json({Error: "password error"});
               if(response) {
-                  const token = jwt.sign({role: "admin"}, "jwt-secret-key", {expiresIn: '1d'});
+                  const token = jwt.sign({role: "gamer"}, "jwt-secret-key", {expiresIn: '1d'});
                   return res.json({Status: "Success", Token: token})
               } else {
+                console.log(result)
+
                   return res.json({Status: "Error", Error: "Wrong Email or Password"});
               }
           })
@@ -74,7 +76,7 @@ app.post('/login', (req, res) => {
 
 // Registration API
 app.post('/register',(req, res) => {
-  const sql = "INSERT INTO logintest (username,email,password) VALUES (?)"; 
+  const sql = "INSERT INTO visitors (username,email,password) VALUES (?)"; 
   bcrypt.hash(req.body.password.toString(), 10, (err, hash) => {
       if(err) return res.json({Error: "Error in hashing password"});
       const values = [
@@ -83,7 +85,15 @@ app.post('/register',(req, res) => {
           hash,
       ]
       condb.query(sql, [values], (err, result) => {
-          if(err) return res.json({Error: "Error query"});
+          if(err){
+            // Check if error is due to unique constraint violation
+            if (err.code === 'ER_DUP_ENTRY') {
+              return res.json({ Status: "Error", Error: "Username or Email already exists" });
+              console.log("hi little man");
+            } else {
+              return res.json({ Status: "Error", Error: "Error in query" });
+            }
+          }
           return res.json({Status: "Success"});
       })
   } )
@@ -95,6 +105,32 @@ app.post('/register',(req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+
+// outputting the data from 
+const POLL_INTERVAL = 10000; // 10 seconds
+let cachedData = [];
+
+function fetchDataFromDatabase() {
+  condb.query('SELECT * FROM scoreboard', (err, results) => {
+    if (err) {
+      console.error('Error fetching data: ', err);
+    } else {
+      cachedData = results;
+    }
+  });
+}
+
+// Poll the database for new data every 10 seconds
+setInterval(fetchDataFromDatabase, POLL_INTERVAL);
+
+app.get("/api/data", (req, res) => {
+  const filteredData = cachedData.map(item => ({
+    highscore: item.highscore,
+    user_id: item.user_id
+  }));
+  res.json(filteredData);
+});
 
 
 
