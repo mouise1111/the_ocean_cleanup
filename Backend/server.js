@@ -26,6 +26,7 @@ const condb = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'oceanbase'
+  database: 'oceanbase'
 });
 
 
@@ -54,12 +55,14 @@ app.get('/hash', (req, res) => {
 // login API
 app.post('/login', (req, res) => {
   const sql = "SELECT * FROM visitors Where email = ?";
+  const sql = "SELECT * FROM visitors Where email = ?";
   condb.query(sql, [req.body.email], (err, result) => {
       if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
       if(result.length > 0) {
           bcrypt.compare(req.body.password.toString(), result[0].password, (err, response)=> {
               if(err) return res.json({Error: "password error"});
               if(response) {
+                  const token = jwt.sign({role: "gamer"}, "jwt-secret-key", {expiresIn: '1d'});
                   const token = jwt.sign({role: "gamer"}, "jwt-secret-key", {expiresIn: '1d'});
                   return res.json({Status: "Success", Token: token})
               } else {
@@ -77,6 +80,7 @@ app.post('/login', (req, res) => {
 // Registration API
 app.post('/register',(req, res) => {
   const sql = "INSERT INTO visitors (username,email,password) VALUES (?)"; 
+  const sql = "INSERT INTO visitors (username,email,password) VALUES (?)"; 
   bcrypt.hash(req.body.password.toString(), 10, (err, hash) => {
       if(err) return res.json({Error: "Error in hashing password"});
       const values = [
@@ -89,7 +93,6 @@ app.post('/register',(req, res) => {
             // Check if error is due to unique constraint violation
             if (err.code === 'ER_DUP_ENTRY') {
               return res.json({ Status: "Error", Error: "Username or Email already exists" });
-              console.log("hi little man");
             } else {
               return res.json({ Status: "Error", Error: "Error in query" });
             }
@@ -98,6 +101,22 @@ app.post('/register',(req, res) => {
       })
   } )
 })
+
+
+// Score submission API
+app.post('/submit-score', (req, res) => {
+  const userId = 1; // Hardcoded for now, replace with dynamic data as needed
+  const { score } = req.body; // Extracting score from the request body
+
+  const sql = "INSERT INTO history_score (user_id, score) VALUES (?,?)";
+  condb.query(sql, [userId, score], (err, result) => {
+      if(err) {
+        console.error('Error in inserting score:', err);
+        return res.json({ Status: "Error", Error: "Error in inserting score" });
+      }
+      return res.json({ Status: "Success", Message: "Score submitted successfully" });
+  });
+});
 
 
 // hello world part
@@ -124,7 +143,7 @@ function fetchDataFromDatabase() {
 // Poll the database for new data every 10 seconds
 setInterval(fetchDataFromDatabase, POLL_INTERVAL);
 
-app.get("/api/data", (req, res) => {
+app.get("/ScoreBoard", (req, res) => {
   const filteredData = cachedData.map(item => ({
     highscore: item.highscore,
     user_id: item.user_id

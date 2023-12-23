@@ -7,7 +7,6 @@ import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
 import GarbageLine from "../components/minigameComponents/GarbageLine.js";
-import GarbageLineT from "../components/minigameComponents/GarbageLineT.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
 import Game from "../components/Islands/Game.js";
@@ -31,7 +30,7 @@ const HomePage = () => {
     bottomColor: "#FFFFFF",
   });
 
-  const { topColor, bottomColor } = useControls({
+  const { topColor, bottomColor, isPhysics } = useControls({
     "Color Skybow": folder({
       topColor: {
         label: "Top Color",
@@ -42,6 +41,10 @@ const HomePage = () => {
         label: "Bottom Color",
         value: gradientColors.bottomColor,
         color: true,
+      },
+      isPhysics: {
+        label: "Phsics debugger",
+        value: false,
       },
     }),
   });
@@ -56,7 +59,7 @@ const HomePage = () => {
       >
         <fog attach="fog" args={["#067caa", 200, 400]} />
         <Lights />
-        <Physics debug={false} timeStep="vary">
+        <Physics debug={true} timeStep="vary">
           <Boat />
           <Ocean />
           {/* <Whale /> */}
@@ -65,9 +68,14 @@ const HomePage = () => {
           {<Donate isInHomepage={true} />}
           {<Game isInHomepage={true}/>}
           <Cloud />
+<<<<<<< HEAD
+          {/* <GenerateGarbage /> */}
+          <GarbageLine position-y={0} />
+=======
           <GenerateGarbage />
           {/* <GarbageLine position-y={6} /> */}
           {/* <GarbageLineT /> */}
+>>>>>>> 51a1eff4e24999110f691124c1f8a50596d6b6cd
         </Physics>
       </Canvas>
       {(!isMobile || !isTablet) && <ArrowKeysPopup />}

@@ -27,6 +27,7 @@ const Boat = () => {
       />
       <KeyboardControls map={keyboardMap}>
         <Ecctrl
+          name="boat"
           debug={true}
           maxVelLimit={20}
           turnSpeed={10}
