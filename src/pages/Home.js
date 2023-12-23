@@ -9,6 +9,7 @@ import Story from "../components/Islands/Story.js";
 import GarbageLine from "../components/minigameComponents/GarbageLine.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
+import Game from "../components/Islands/Game.js";
 import Lights from "../components/Lights.js";
 import { Physics } from "@react-three/rapier";
 import Donate from "../components/Islands/Donate.js";
@@ -19,6 +20,8 @@ import Loader from "../pages/Loader.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
 import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
+import { ShareButton } from "../components/pop-ups/ShareButton.js";
+import { AboutButton } from "../components/pop-ups/AboutButton.js";
 
 const HomePage = () => {
   // Debug UI
@@ -62,14 +65,23 @@ const HomePage = () => {
           {/* <Whale /> */}
           <Story isInHomepage={true} />
           <Projects isInHomepage={true} />
-          {/* <Donate isInHomepage={true} /> */}
+          {<Donate isInHomepage={true} />}
+          {<Game isInHomepage={true}/>}
           <Cloud />
+<<<<<<< HEAD
           {/* <GenerateGarbage /> */}
           <GarbageLine position-y={0} />
+=======
+          <GenerateGarbage />
+          {/* <GarbageLine position-y={6} /> */}
+          {/* <GarbageLineT /> */}
+>>>>>>> 51a1eff4e24999110f691124c1f8a50596d6b6cd
         </Physics>
       </Canvas>
       {(!isMobile || !isTablet) && <ArrowKeysPopup />}
       <Menu />
+      <ShareButton />
+      <AboutButton />
       <Leaderboard />
     </Suspense>
     

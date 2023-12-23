@@ -21,26 +21,39 @@ const Register = ({ onBack }) => {
   }, [onBack]);
 
   //register feature
-  
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [registerStatus, setRegisterStatus] = useState("");
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const register = (e) => {
-      e.preventDefault();
-      axios.post("http://localhost:3030/register", {
-      username: username,  
-      email: email,
-      password: password,
-      }).then((response) => {
-        console.log(response);
-        if(response.data.message){
-          setRegisterStatus(response.data.message);
-        }else{
-          alert("ACCOUNT CREATED SUCCESSFULLY");
-        }
+    e.preventDefault();
+    axios
+      .post("http://localhost:3030/register", {
+        username: username,
+        email: email,
+        password: password,
       })
+      .then((response) => {
+        console.log(response);
+        if(response.data.Status === "Success"){
+           setSuccess("Signup successful! Redirecting to login page...");
+          setTimeout(() => {
+            navigate("/login");
+          }, 500);
+        }else{
+          setRegisterStatus(response.data.Error);
+          setError("Signup failed!")
+        }
+      }).catch((error) => {
+        // Handle any other errors
+        console.error("Registration error:", error);
+        setError("An error occurred during registration.");
+      });  
   }
 
 
@@ -66,9 +79,10 @@ const Register = ({ onBack }) => {
                 placeholder="Enter Username"
                 className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="username"
-                onChange={(e) => {setUsername(e.target.value)}}
-                />
-             
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
             </div>
             <div className="">
               <label htmlFor="email" className="sr-only">
@@ -79,9 +93,10 @@ const Register = ({ onBack }) => {
                 placeholder="Enter email"
                 className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="email"
-                onChange={(e) => {setEmail(e.target.value)}}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
-              
             </div>
 
             <div>
@@ -91,9 +106,10 @@ const Register = ({ onBack }) => {
                 placeholder="Enter Password"
                 className="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:ring-amber-500 focus:border-amber-500 focus:z-10 sm:text-sm"
                 name="password"
-                onChange={(e) => {setPassword(e.target.value)}}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
-             
             </div>
             <button
               className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md bg-amber-500 group hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400"
@@ -102,6 +118,8 @@ const Register = ({ onBack }) => {
               Create Account
             </button>
             <div className="">
+              {success && <div className="text-lime-500">{success}</div>}
+              {error && <div className="text-red-500">{error}</div>}
               <a
                 href="/login"
                 className="font-thin transition-colors text-amber-800 hover:text-amber-600"
