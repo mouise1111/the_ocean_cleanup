@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-// import { Html } from "@react-three/drei";
+import { isAuthenticated } from "../Auth/Auth";
+import { useNavigate } from "react-router-dom";
 
-const Menu = () => {
+const Menu = ({ setPopUpStatus }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleMenu = () => {
     setIsOpen(!isOpen);
@@ -12,6 +14,15 @@ const Menu = () => {
 
   const handleGDPRClick = () => {
     setShowNotification(true);
+  };
+
+  const handleMinigameClick = () => {
+    if (isAuthenticated()) {
+      setPopUpStatus({ showStartGame: true, showLeaderboard: false });
+    } else {
+      navigate("/login");
+      // console.log("Redirecting to login page");
+    }
   };
 
   return (
@@ -55,6 +66,12 @@ const Menu = () => {
             Sign Up
           </a>
           <a
+            href="/"
+            className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
+          >
+            Home
+          </a>
+          <a
             href="/story"
             className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
           >
@@ -73,7 +90,7 @@ const Menu = () => {
             Donate
           </a>
           <a
-            href="/minigame"
+            onClick={handleMinigameClick}
             className="w-full p-2 text-center text-white transition-transform rounded-lg hover:scale-110 bg-amber-700"
           >
             Minigame

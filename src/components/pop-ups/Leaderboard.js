@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { setGlobalState } from "../minigameComponents/globalstate";
 
 const Leaderboard = ({ onStopClick }) => {
 
@@ -72,11 +73,15 @@ const Leaderboard = ({ onStopClick }) => {
           ))}
         </ul>
         <button
-          onClick={onStopClick}
-          className="px-4 py-2 mt-4 text-lg bg-red-500 text-white rounded-lg"
-        >
-          Stop Game
-        </button>
+        onClick={() => {
+          onStopClick();
+          // Set the global state to false when the button is clicked
+          setGlobalState("Gamestarted", false);
+        }}
+        className="px-4 py-2 mt-4 text-lg bg-red-500 text-white rounded-lg"
+      >
+        Stop Game
+      </button>
       </div>
   );
 };

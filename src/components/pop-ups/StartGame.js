@@ -18,7 +18,7 @@ const StartGame = ({ onStartClick, onCloseClick }) => {
         className="close-button absolute top-1 right-1 px-3 py-1 text-lg bg-red-500 text-white rounded-lg" 
         onClick={onCloseClick}
       >
-        
+        X
       </button>
       <h2 className="text-center text-4xl text-amber-600 joti-one mb-4">
         In this game you'll have to clean up as much garbage from the ocean as you can in just one minute. Good Luck!

@@ -144,7 +144,7 @@ const HomePage = () => {
           />
         )}
 
-        <Menu />
+        <Menu setPopUpStatus={setPopUpStatus} />
         <ShareButton />
         <AboutButton />
       </Suspense>

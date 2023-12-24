@@ -17,7 +17,7 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
 
   const handleStoryClick = () => {
     if (isInHomepage) {
-      // Navigate to the Story page only if the cube is in the homepage
+      // Navigate to the donate page only if the cube is in the homepage
       navigate("/donate");
 
       // Move the camera to a different position if needed

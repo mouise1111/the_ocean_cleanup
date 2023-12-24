@@ -42,7 +42,7 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
 
   useEffect(() => {
     if (isColliding && enterKeyPressed) {
-      // Navigate to the story page when 'Enter' is pressed and collision is true
+      // Navigate to the projects page when 'Enter' is pressed and collision is true
       navigate("/projects");
     }
 
