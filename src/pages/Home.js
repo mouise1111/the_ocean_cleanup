@@ -73,7 +73,7 @@ const HomePage = () => {
           <Physics debug={isPhysics} timeStep="vary">
             <Boat />
             <Ocean />
-            {/* <Whale /> */}
+            <Whale />
             <Story isInHomepage={true} />
             <Projects isInHomepage={true} />
             <Donate isInHomepage={true} />
