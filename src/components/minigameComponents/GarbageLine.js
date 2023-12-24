@@ -24,14 +24,7 @@ export const Bag = ({ position }) => (
     position={position}
   />
 );
-export const Banana = ({ position }) => (
-  <GarbageModel
-    name="banana"
-    path="/models/garbage/banana.gltf"
-    scale={2}
-    position={position}
-  />
-);
+
 export const Bottle = ({ position }) => (
   <GarbageModel
     name="bottle"
@@ -203,15 +196,8 @@ const GarbageLine = ({ isInHomepage }) => {
           />
         );
         break;
+    
       case 1:
-        models.push(
-          <Banana
-            key={i}
-            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-          />
-        );
-        break;
-      case 2:
         models.push(
           <Bottle
             key={i}
@@ -219,7 +205,7 @@ const GarbageLine = ({ isInHomepage }) => {
           />
         );
         break;
-      case 3:
+      case 2:
         models.push(
           <Can
             key={i}
@@ -227,7 +213,7 @@ const GarbageLine = ({ isInHomepage }) => {
           />
         );
         break;
-      case 4:
+      case 3:
         models.push(
           <Net
             key={i}
@@ -235,7 +221,7 @@ const GarbageLine = ({ isInHomepage }) => {
           />
         );
         break;
-      case 5:
+      case 4:
         models.push(
           <Spray
             key={i}
@@ -243,7 +229,7 @@ const GarbageLine = ({ isInHomepage }) => {
           />
         );
         break;
-      case 6:
+      case 5:
         models.push(
           <Tube
             key={i}
@@ -251,17 +237,9 @@ const GarbageLine = ({ isInHomepage }) => {
           />
         );
         break;
-      case 7:
+      case 6:
         models.push(
           <Wine
-            key={i}
-            position={[randomPosition.x, randomPosition.y, randomPosition.z]}
-          />
-        );
-        break;
-      case 8:
-        models.push(
-          <Brush
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
           />

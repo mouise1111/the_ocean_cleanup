@@ -13,11 +13,11 @@ function validation(values){
     }
     
     if(values.email ==="") {
-    error.username = "Name should not be empty"
+    error.email = "Name should not be empty"
     }
 
     else if(!email_pattern.test(values.email)) { 
-        error.email = "Email Didn't match"
+        error.email = "This is not a valid email"
     }
     else {
     error.email = ""
@@ -27,7 +27,7 @@ function validation(values){
     }
 
     else if(!password_pattern.test(values.password)) {
-    error.password="Password didn't match"
+    error.password="Please use at least one uppercase letter, one lowercase letter and one number"
     } 
     
     else {
