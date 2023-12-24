@@ -149,8 +149,8 @@ const GarbageModel = ({
   return isVisible ? ( // Render based on visibility
     <RigidBody
       type="fixed"
-      colliders="hull"
-      scale={5}
+      colliders="ball"
+      scale={scale * 2}
       position={position}
       sensor
       onIntersectionEnter={(event) => handleCollision(event)}
@@ -170,7 +170,7 @@ const GarbageLine = ({ isInHomepage }) => {
   const { camera } = useThree();
   const [isAsleep, setIsAsleep] = useState(false);
 
-  const numModels = 100;
+  const numModels = 200;
   const models = [];
 
   for (let i = 0; i < numModels; i++) {
