@@ -22,6 +22,7 @@ import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
 import { ShareButton } from "../components/ShareButton.js";
 import { AboutButton } from "../components/AboutButton.js";
+import { useGlobalState } from "../components/minigameComponents/globalstate.js";
 import { AudioButton } from "../components/AudioButton.js";
 import {createGlobalState} from 'react-hooks-global-state';
 import TimerExpiredPopUp from "../components/pop-ups/TimerExpired.js";
@@ -145,6 +146,7 @@ const HomePage = () => {
 
         <Menu />
         <ShareButton />
+        <AudioButton />
         <AboutButton />
       </Suspense>
     </>
