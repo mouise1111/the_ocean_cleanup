@@ -2,7 +2,6 @@ import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
 import { Cloud } from "../components/Cloud.js";
-//import Ocean from "../components/Ocean.js";
 import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
@@ -17,13 +16,20 @@ import { Leva, folder, useControls } from "leva";
 import { Whale } from "../components/Whale.js";
 import { GenerateGarbage } from "../components/Garbage.js";
 import Loader from "../pages/Loader.js";
+import StartGame from "../components/pop-ups/StartGame.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
 import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
 import { ShareButton } from "../components/pop-ups/ShareButton.js";
 import { AboutButton } from "../components/pop-ups/AboutButton.js";
+import { AudioButton } from "../components/AudioButton.js";
 
 const HomePage = () => {
+  const [popUpStatus, setPopUpStatus] = useState({
+    showStartGame: false,
+    showLeaderboard: false,
+  });
+
   // Debug UI
   const [gradientColors, setGradientColors] = useState({
     topColor: "#6BB1CC",
@@ -43,42 +49,58 @@ const HomePage = () => {
         color: true,
       },
       isPhysics: {
-        label: "Phsics debugger",
+        label: "Physics debugger",
         value: false,
       },
     }),
   });
+
   return (
-    <Suspense fallback={<Loader />}>
-      <Leva hidden={false} collapsed={true} />
-      {(isMobile || isTablet) && <EcctrlJoystick />}
-      <Canvas
+    <>
+      <Suspense fallback={<Loader />}>
+        <Leva hidden={false} collapsed={true} />
+        {(isMobile || isTablet) && <EcctrlJoystick />}
+        <Canvas
         // colorManagement
-        style={{
-          background: `linear-gradient(180deg, ${topColor} 0%, ${bottomColor} 100%)`,
-        }}
-      >
-        <fog attach="fog" args={["#067caa", 200, 400]} />
-        <Lights />
-        <Physics timeStep="vary">
-          <Boat />
-          <Ocean />
-          {/* <Whale /> */}
-          <Story isInHomepage={true} />
-          <Projects isInHomepage={true} />
-          {<Donate isInHomepage={true} />}
-          {<Game isInHomepage={true}/>}
-          <Cloud />
-          {/* <GarbageLine position-y={0} /> */}
-          <GenerateGarbage />
-        </Physics>
-      </Canvas>
-      {!isMobile && !isTablet && <ArrowKeysPopup />}
-      <Menu />
-      <ShareButton />
-      <AboutButton />
-      <Leaderboard />
-    </Suspense>
+          style={{
+            background: `linear-gradient(180deg, ${topColor} 0%, ${bottomColor} 100%)`,
+          }}
+        >
+          <fog attach="fog" args={["#067caa", 200, 400]} />
+          <Lights />
+          <Physics debug={isPhysics} timeStep="vary">
+            <Boat />
+            <Ocean />
+            {/* <Whale /> */}
+            <Story isInHomepage={true} />
+            <Projects isInHomepage={true} />
+            <Donate isInHomepage={true} />
+            {/* Pass setPopUpStatus function to the Game component */}
+            <Game setPopUpStatus={setPopUpStatus} isInHomePage={true} />
+            <Cloud />
+            <GarbageLine position-y={0} />
+            {/* <GenerateGarbage /> */}
+          </Physics>
+        </Canvas>
+        {!isMobile && !isTablet && <ArrowKeysPopup />}
+        {popUpStatus.showStartGame && (
+          <StartGame
+            isInHomepage={true}
+            setShowStartGame={() => setPopUpStatus({ showStartGame: false })}
+            setShowLeaderboard={() => setPopUpStatus({ showLeaderboard: true })}
+          />
+        )}
+        {popUpStatus.showLeaderboard && (
+          <Leaderboard
+            isInHomepage={true}
+            setShowLeaderboard={() => setPopUpStatus({ showLeaderboard: false })}
+          />
+        )}
+        <Menu />
+        <ShareButton />
+        <AboutButton />
+      </Suspense>
+    </>
   );
 };
 

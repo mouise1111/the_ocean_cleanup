@@ -25,8 +25,7 @@ const condb = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'oceanbase'
-  database: 'oceanbase'
+  database: 'itproject'
 });
 
 
@@ -55,19 +54,21 @@ app.get('/hash', (req, res) => {
 // login API
 app.post('/login', (req, res) => {
   const sql = "SELECT * FROM visitors Where email = ?";
-  const sql = "SELECT * FROM visitors Where email = ?";
   condb.query(sql, [req.body.email], (err, result) => {
-      if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
+      if(err) return res.json({Status: "Error", Error: "Error in running query"});
       if(result.length > 0) {
           bcrypt.compare(req.body.password.toString(), result[0].password, (err, response)=> {
               if(err) return res.json({Error: "password error"});
               if(response) {
-                  const token = jwt.sign({role: "gamer"}, "jwt-secret-key", {expiresIn: '1d'});
-                  const token = jwt.sign({role: "gamer"}, "jwt-secret-key", {expiresIn: '1d'});
+                  // Include user_id in the JWT token
+                  const token = jwt.sign({
+                      user_id: result[0].user_id, // Add user_id to the token
+                      role: "gamer"
+                  }, "jwt-secret-key", {expiresIn: '1d'});
+
                   return res.json({Status: "Success", Token: token})
               } else {
-                console.log(result)
-
+                  console.log(result)
                   return res.json({Status: "Error", Error: "Wrong Email or Password"});
               }
           })
@@ -79,7 +80,6 @@ app.post('/login', (req, res) => {
 
 // Registration API
 app.post('/register',(req, res) => {
-  const sql = "INSERT INTO visitors (username,email,password) VALUES (?)"; 
   const sql = "INSERT INTO visitors (username,email,password) VALUES (?)"; 
   bcrypt.hash(req.body.password.toString(), 10, (err, hash) => {
       if(err) return res.json({Error: "Error in hashing password"});
@@ -105,11 +105,20 @@ app.post('/register',(req, res) => {
 
 // Score submission API
 app.post('/submit-score', (req, res) => {
-  const userId = 1; // Hardcoded for now, replace with dynamic data as needed
-  const { score } = req.body; // Extracting score from the request body
+  // Extracting user_id and score from the request body
+  const { user_id, score } = req.body;
 
-  const sql = "INSERT INTO history_score (user_id, score) VALUES (?,?)";
-  condb.query(sql, [userId, score], (err, result) => {
+  // Assuming 'highscore' is the same as 'score' for this example
+  // You might have a different logic for calculating 'highscore'
+  if (score === 0) {
+    // If score is 0, do not insert and send a response back
+    return res.json({ Status: "Error", Error: "Score of 0 is not allowed" });
+  }
+
+  const highscore = score;
+
+  const sql = "INSERT INTO history_score (user_id, score, highscore) VALUES (?, ?, ?)";
+  condb.query(sql, [user_id, score, highscore], (err, result) => {
       if(err) {
         console.error('Error in inserting score:', err);
         return res.json({ Status: "Error", Error: "Error in inserting score" });
@@ -131,7 +140,13 @@ const POLL_INTERVAL = 10000; // 10 seconds
 let cachedData = [];
 
 function fetchDataFromDatabase() {
-  condb.query('SELECT * FROM scoreboard', (err, results) => {
+  const query = `
+    SELECT hs.score, hs.user_id, v.username 
+    FROM history_score hs
+    JOIN visitors v ON hs.user_id = v.user_id
+  `;
+
+  condb.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching data: ', err);
     } else {
@@ -145,12 +160,11 @@ setInterval(fetchDataFromDatabase, POLL_INTERVAL);
 
 app.get("/ScoreBoard", (req, res) => {
   const filteredData = cachedData.map(item => ({
-    highscore: item.highscore,
-    user_id: item.user_id
+    score: item.score,
+    username: item.username // Send username instead of user_id
   }));
   res.json(filteredData);
 });
-
 
 
 
