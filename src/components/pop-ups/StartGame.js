@@ -1,5 +1,5 @@
 import React from "react";
-import { setGlobalState, useGlobalState } from "../minigameComponents/globalstate";
+import { setGlobalState } from "../minigameComponents/globalstate";
 
 
 const StartGame = ({ onStartClick, onCloseClick }) => {
