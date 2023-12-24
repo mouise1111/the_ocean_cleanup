@@ -30,8 +30,15 @@ const Register = ({ onBack }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const [errors, setErrors] = useState({}); // State to hold validation errors 
+
   const register = (e) => {
     e.preventDefault();
+    const validationErrors = validation({ username, email, password });
+    console.log(validationErrors); // Check what the validation function returns
+    const noErrors = Object.values(validationErrors).every(val => val === "");
+
+    if (noErrors) { 
     axios
       .post("http://localhost:3030/register", {
         username: username,
@@ -54,6 +61,7 @@ const Register = ({ onBack }) => {
         console.error("Registration error:", error);
         setError("An error occurred during registration.");
       });  
+    }
   }
 
 
@@ -83,6 +91,7 @@ const Register = ({ onBack }) => {
                   setUsername(e.target.value);
                 }}
               />
+              {errors.username && <div className="text-red-500">{errors.username}</div>}
             </div>
             <div className="">
               <label htmlFor="email" className="sr-only">
@@ -97,6 +106,7 @@ const Register = ({ onBack }) => {
                   setEmail(e.target.value);
                 }}
               />
+              {errors.email && <div className="text-red-500">{errors.email}</div>}
             </div>
 
             <div>
@@ -110,6 +120,7 @@ const Register = ({ onBack }) => {
                   setPassword(e.target.value);
                 }}
               />
+              {errors.password && <div className="text-red-500">{errors.password}</div>}
             </div>
             <button
               className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md bg-amber-500 group hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400"
