@@ -2,7 +2,6 @@ import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
 import { Cloud } from "../components/Cloud.js";
-//import Ocean from "../components/Ocean.js";
 import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
@@ -68,7 +67,7 @@ const HomePage = () => {
         >
           <fog attach="fog" args={["#067caa", 200, 400]} />
           <Lights />
-          <Physics timeStep="vary">
+          <Physics debug={isPhysics} timeStep="vary">
             <Boat />
             <Ocean />
             {/* <Whale /> */}
@@ -78,8 +77,8 @@ const HomePage = () => {
             {/* Pass setPopUpStatus function to the Game component */}
             <Game setPopUpStatus={setPopUpStatus} isInHomePage={true} />
             <Cloud />
-            {/* <GarbageLine position-y={0} /> */}
-            <GenerateGarbage />
+            <GarbageLine position-y={0} />
+            {/* <GenerateGarbage /> */}
           </Physics>
         </Canvas>
         {!isMobile && !isTablet && <ArrowKeysPopup />}

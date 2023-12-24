@@ -17,7 +17,7 @@ const Game = ({ isInHomePage, setPopUpStatus }) => {
   return (
     <>
       <RigidBody type="fixed" onClick={handleIslandClick}>
-        <MeshCollider type="trimesh">
+        <MeshCollider type="hull">
           <primitive
             object={game.scene}
             scale={2}
