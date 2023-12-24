@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { RigidBody, MeshCollider } from "@react-three/rapier";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
+import { isAuthenticated } from "../pop-ups/Auth/Auth";
+import { useNavigate } from "react-router-dom";
 import StartGame from "../pop-ups/StartGame";
 import Leaderboard from "../pop-ups/Leaderboard";
 
@@ -9,9 +11,15 @@ const Game = ({ isInHomePage, setPopUpStatus }) => {
   const game = useLoader(GLTFLoader, "/models/islands/game.gltf");
   const [showStartGame, setShowStartGame] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const navigate = useNavigate();
 
   const handleIslandClick = () => {
-    setPopUpStatus({ showStartGame: true, showLeaderboard: false });
+    if (isAuthenticated()) {
+      setPopUpStatus({ showStartGame: true, showLeaderboard: false });
+    } else {
+      navigate("/login");
+      console.log("Redirecting to login page");
+    }
   };
 
   return (
