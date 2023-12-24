@@ -7,7 +7,6 @@ import Donate from "./pages/Donate";
 import LoginPage from "./pages/Auth/Login";
 import RegisterPage from "./pages/Auth/Register";
 
-
 const App = () => (
   <Router>
     <Routes>
