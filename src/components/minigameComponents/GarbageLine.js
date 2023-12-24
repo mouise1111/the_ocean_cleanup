@@ -239,7 +239,7 @@ const GarbageLine = ({ isInHomepage }) => {
       case 6:
         models.push(
           <Tube
-            scale={2}
+            scale={3}
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
           />
