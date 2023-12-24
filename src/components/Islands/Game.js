@@ -11,7 +11,7 @@ const Game = ({ isInHomePage, setPopUpStatus }) => {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const handleIslandClick = () => {
-    setShowStartGame(true);
+    setPopUpStatus({ showStartGame: true, showLeaderboard: false });
   };
 
   return (
