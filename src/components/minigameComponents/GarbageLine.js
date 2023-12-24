@@ -90,14 +90,14 @@ const GarbageModel = ({
   path,
   scale,
   position,
-  instanceId,
+  instanceId, 
   onIntersectionEnte,
 }) => {
   const { scene } = useLoader(GLTFLoader, path);
 
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
-  const [countdown, setCountdown] = useState(20);
+  const [countdown, setCountdown] = useState(15);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
  
@@ -153,8 +153,8 @@ const GarbageModel = ({
   return isVisible ? ( // Render based on visibility
     <RigidBody
       type="fixed"
-      colliders="hull"
-      scale={5}
+      colliders="ball"
+      scale={scale*2}
       position={position}
       sensor
       onIntersectionEnter={(event) => handleCollision(event)}
