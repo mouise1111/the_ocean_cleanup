@@ -57,7 +57,7 @@ const Login = ({ onBack }) => {
         <div className="flex flex-col justify-between w-full max-w-md px-8 py-16 space-y-8 bg-white border-8 border-lime-500 rounded-3xl ">
           <div>
             <h2 className="text-5xl font-extrabold text-center text-amber-600 joti-one">
-              Sign in to your account
+              Log in to your account
             </h2>
           </div>
           <form className="mt-8 space-y-6" onSubmit={login}>
