@@ -23,6 +23,8 @@ import { isMobile, isTablet } from "react-device-detect";
 import { ShareButton } from "../components/pop-ups/ShareButton.js";
 import { AboutButton } from "../components/pop-ups/AboutButton.js";
 import { AudioButton } from "../components/AudioButton.js";
+import {createGlobalState} from 'react-hooks-global-state';
+
 
 const HomePage = () => {
   const [popUpStatus, setPopUpStatus] = useState({
@@ -84,11 +86,13 @@ const HomePage = () => {
         </Canvas>
         {!isMobile && !isTablet && <ArrowKeysPopup />}
         {popUpStatus.showStartGame && (
+          
         <StartGame 
           onStartClick={() => setPopUpStatus({ showStartGame: false, showLeaderboard: true })} 
           onCloseClick={() => setPopUpStatus({ showStartGame: false})} 
         />
         )}
+       
         {popUpStatus.showLeaderboard && (
           <Leaderboard
             onStopClick={() => setPopUpStatus({ showLeaderboard: false })}

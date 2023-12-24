@@ -11,9 +11,10 @@ import {
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from 'jwt-decode';
+import { useGlobalState } from "../minigameComponents/globalstate"; // Import useGlobalState
 
-const token = localStorage.getItem("Token");
+const token = localStorage.getItem('Token');
 //#region import models
 export const Bag = ({ position }) => (
   <GarbageModel
@@ -106,9 +107,10 @@ const GarbageModel = ({
   const [countdown, setCountdown] = useState(20);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
+ 
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
-      const token = localStorage.getItem("Token");
+      const token = localStorage.getItem('Token');
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
@@ -117,22 +119,21 @@ const GarbageModel = ({
           FinalScore = test * 100;
           console.log(`Final Score: ${FinalScore}`);
 
-          axios
-            .post("http://localhost:3030/submit-score", {
-              user_id: userId, // Send user_id along with the score
-              score: FinalScore,
-            })
-            .then((response) => {
-              console.log("Score posted successfully:", response.data);
-              setScorePosted(true); // Update the state to indicate score has been submitted
-              scorededPosted = 1; // Update the flag
-              console.log("how many posts you did: " + scorededPosted);
-            })
-            .catch((error) => {
-              console.error("Error posting score:", error);
-            });
+          axios.post('http://localhost:3030/submit-score', { 
+            user_id: userId, // Send user_id along with the score
+            score: FinalScore 
+          })
+          .then(response => {
+            console.log('Score posted successfully:', response.data);
+            setScorePosted(true); // Update the state to indicate score has been submitted
+            scorededPosted = 1; // Update the flag
+            console.log("how many posts you did: " + scorededPosted);
+          })
+          .catch(error => {
+            console.error('Error posting score:', error);
+          });
         } catch (error) {
-          console.error("Error decoding token:", error);
+          console.error('Error decoding token:', error);
         }
       }
     }
@@ -159,8 +160,8 @@ const GarbageModel = ({
   return isVisible ? ( // Render based on visibility
     <RigidBody
       type="fixed"
-      colliders="ball"
-      scale={scale * 2}
+      colliders="hull"
+      scale={5}
       position={position}
       sensor
       onIntersectionEnter={(event) => handleCollision(event)}
@@ -180,8 +181,14 @@ const GarbageLine = ({ isInHomepage }) => {
   const { camera } = useThree();
   const [isAsleep, setIsAsleep] = useState(false);
 
-  const numModels = 200;
+  const numModels = 100;
   const models = [];
+
+  const [gameStarted] = useGlobalState('Gamestarted'); // Access the global state
+
+  if (!gameStarted) {
+    return null; // Or return some JSX to indicate the game hasn't started
+  }
 
   for (let i = 0; i < numModels; i++) {
     const randomPosition = getRandomPosition();

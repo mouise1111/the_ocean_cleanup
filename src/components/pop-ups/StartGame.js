@@ -1,6 +1,16 @@
 import React from "react";
+import { setGlobalState, useGlobalState } from "../minigameComponents/globalstate";
+
 
 const StartGame = ({ onStartClick, onCloseClick }) => {
+
+  const handleStartGameClick = () => {
+    setGlobalState('Gamestarted', true); // Update the global state
+    if (onStartClick) {
+      onStartClick(); // Call the onStartClick prop if it's provided
+    }
+  };
+
 
   return (
     <div className="flex flex-col items-center fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-8 border-amber-300 bg-amber-100 rounded-3xl p-8 w-96">
@@ -15,7 +25,7 @@ const StartGame = ({ onStartClick, onCloseClick }) => {
       </h2>
       <button
         className="px-5 py-3 text-lg bg-emerald-600 text-white rounded-lg"
-        onClick={onStartClick}
+        onClick={handleStartGameClick}
       >
         Start Game
       </button>
