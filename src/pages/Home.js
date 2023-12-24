@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
 import { Cloud } from "../components/Cloud.js";
@@ -24,13 +24,37 @@ import { ShareButton } from "../components/ShareButton.js";
 import { AboutButton } from "../components/AboutButton.js";
 import { AudioButton } from "../components/AudioButton.js";
 import {createGlobalState} from 'react-hooks-global-state';
-
+import TimerExpiredPopUp from "../components/pop-ups/TimerExpired.js";
+import Timer from "../components/pop-ups/Timer.js";
 
 const HomePage = () => {
   const [popUpStatus, setPopUpStatus] = useState({
     showStartGame: false,
     showLeaderboard: false,
+    showTimerExpiredPopUp: false,
+    showTimer: false,
   });
+
+  const [gameStarted] = useGlobalState('Gamestarted');
+
+  const handleTimerExpired = () => {
+    // console.log("Timer expired!");
+    setPopUpStatus((prevStatus) => ({
+      ...prevStatus,
+      showTimer: false,
+      showTimerExpiredPopUp: true,
+    }));
+  };
+
+  const handleRestart = () => {
+    // console.log("Restarting the game...");
+    setPopUpStatus({
+      showStartGame: true,
+      showLeaderboard: false,
+      showTimerExpiredPopUp: false,
+      showTimer: true,
+    });
+  };
 
   // Debug UI
   const [gradientColors, setGradientColors] = useState({
@@ -62,6 +86,7 @@ const HomePage = () => {
       <Suspense fallback={<Loader />}>
         <Leva hidden={false} collapsed={true} />
         {(isMobile || isTablet) && <EcctrlJoystick />}
+
         <Canvas
         // colorManagement
           style={{
@@ -81,23 +106,43 @@ const HomePage = () => {
             <Game setPopUpStatus={setPopUpStatus} isInHomePage={true} />
             <Cloud />
             <GarbageLine position-y={0} />
+
             {/* <GenerateGarbage /> */}
           </Physics>
         </Canvas>
+
         {!isMobile && !isTablet && <ArrowKeysPopup />}
         {popUpStatus.showStartGame && (
-          
-        <StartGame 
-          onStartClick={() => setPopUpStatus({ showStartGame: false, showLeaderboard: true })} 
-          onCloseClick={() => setPopUpStatus({ showStartGame: false})} 
-        />
+          <StartGame
+            onStartClick={() =>
+              setPopUpStatus({
+                showStartGame: false,
+                showLeaderboard: true,
+              })
+            }
+            onCloseClick={() =>
+              setPopUpStatus({ showStartGame: false })
+            }
+          />
         )}
-       
+
         {popUpStatus.showLeaderboard && (
           <Leaderboard
             onStopClick={() => setPopUpStatus({ showLeaderboard: false })}
           />
-          )}
+        )}
+
+        {gameStarted && <Timer gameStarted={gameStarted} onTimerExpired={handleTimerExpired} />}
+
+        {popUpStatus.showTimerExpiredPopUp && (
+          <TimerExpiredPopUp
+            onRestart={handleRestart}
+            onStop={() => setPopUpStatus({
+              showTimerExpiredPopUp: false 
+            })}
+          />
+        )}
+
         <Menu />
         <ShareButton />
         <AboutButton />
