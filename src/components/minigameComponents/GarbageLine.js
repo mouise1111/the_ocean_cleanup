@@ -11,9 +11,9 @@ import {
 } from "@react-three/rapier";
 import { Clone } from "@react-three/drei";
 import axios from "axios";
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
-const token = localStorage.getItem('Token');
+const token = localStorage.getItem("Token");
 //#region import models
 export const Bag = ({ position }) => (
   <GarbageModel
@@ -106,10 +106,9 @@ const GarbageModel = ({
   const [countdown, setCountdown] = useState(20);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
- 
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
-      const token = localStorage.getItem('Token');
+      const token = localStorage.getItem("Token");
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
@@ -118,21 +117,22 @@ const GarbageModel = ({
           FinalScore = test * 100;
           console.log(`Final Score: ${FinalScore}`);
 
-          axios.post('http://localhost:3030/submit-score', { 
-            user_id: userId, // Send user_id along with the score
-            score: FinalScore 
-          })
-          .then(response => {
-            console.log('Score posted successfully:', response.data);
-            setScorePosted(true); // Update the state to indicate score has been submitted
-            scorededPosted = 1; // Update the flag
-            console.log("how many posts you did: " + scorededPosted);
-          })
-          .catch(error => {
-            console.error('Error posting score:', error);
-          });
+          axios
+            .post("http://localhost:3030/submit-score", {
+              user_id: userId, // Send user_id along with the score
+              score: FinalScore,
+            })
+            .then((response) => {
+              console.log("Score posted successfully:", response.data);
+              setScorePosted(true); // Update the state to indicate score has been submitted
+              scorededPosted = 1; // Update the flag
+              console.log("how many posts you did: " + scorededPosted);
+            })
+            .catch((error) => {
+              console.error("Error posting score:", error);
+            });
         } catch (error) {
-          console.error('Error decoding token:', error);
+          console.error("Error decoding token:", error);
         }
       }
     }
@@ -239,6 +239,7 @@ const GarbageLine = ({ isInHomepage }) => {
       case 6:
         models.push(
           <Tube
+            scale={2}
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
           />
