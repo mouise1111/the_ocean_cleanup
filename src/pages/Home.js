@@ -83,18 +83,16 @@ const HomePage = () => {
         </Canvas>
         {!isMobile && !isTablet && <ArrowKeysPopup />}
         {popUpStatus.showStartGame && (
-          <StartGame
-            isInHomepage={true}
-            setShowStartGame={() => setPopUpStatus({ showStartGame: false })}
-            setShowLeaderboard={() => setPopUpStatus({ showLeaderboard: true })}
-          />
+        <StartGame 
+          onStartClick={() => setPopUpStatus({ showStartGame: false, showLeaderboard: true })} 
+          onCloseClick={() => setPopUpStatus({ showStartGame: false})} 
+        />
         )}
         {popUpStatus.showLeaderboard && (
           <Leaderboard
-            isInHomepage={true}
-            setShowLeaderboard={() => setPopUpStatus({ showLeaderboard: false })}
+            onStopClick={() => setPopUpStatus({ showLeaderboard: false })}
           />
-        )}
+          )}
         <Menu />
         <ShareButton />
         <AboutButton />

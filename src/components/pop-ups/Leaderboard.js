@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Html } from "@react-three/drei";
 
-const Leaderboard = ({ setShowLeaderboard }) => {
+const Leaderboard = ({ onStopClick }) => {
 
-  const handleStopClick = () => {
-    // You can add any logic related to stopping the game here
-    setShowLeaderboard(false);
-  };
+  // const handleStopClick = () => {
+  //   // You can add any logic related to stopping the game here
+  //   setShowLeaderboard(false);
+  // };
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,16 +45,15 @@ const Leaderboard = ({ setShowLeaderboard }) => {
   const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
 
   if (loading) {
-    return <Html><div>Loading...</div></Html>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <Html><div>Error: {error.message}</div></Html>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (
-    <Html>
-      <div className="absolute left-5 bottom-0 px-4 py-2 border-8 border-amber-300 bg-amber-100 rounded-3xl">
+      <div className="absolute left-5 bottom-5 px-4 py-2 border-8 border-amber-300 bg-amber-100 rounded-3xl">
         <h2 className="p-2 mb-2 text-4xl text-amber-600 joti-one">Leaderboard</h2>
         <ul className="p-4 mb-2 rounded-lg bg-amber-200">
           {sortedPlayers.map((player, index) => (
@@ -74,13 +72,12 @@ const Leaderboard = ({ setShowLeaderboard }) => {
           ))}
         </ul>
         <button
-          onClick={handleStopClick}
+          onClick={onStopClick}
           className="px-4 py-2 mt-4 text-lg bg-red-500 text-white rounded-lg"
         >
           Stop Game
         </button>
       </div>
-    </Html>
   );
 };
 
