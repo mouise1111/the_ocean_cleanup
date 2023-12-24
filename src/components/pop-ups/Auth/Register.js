@@ -36,7 +36,9 @@ const Register = ({ onBack }) => {
     e.preventDefault();
     const validationErrors = validation({ username, email, password });
     console.log(validationErrors); // Check what the validation function returns
-    if (Object.keys(validationErrors).length === 0) { 
+    const noErrors = Object.values(validationErrors).every(val => val === "");
+
+    if (noErrors) { 
     axios
       .post("http://localhost:3030/register", {
         username: username,
