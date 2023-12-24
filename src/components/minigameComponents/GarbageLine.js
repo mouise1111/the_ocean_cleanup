@@ -67,7 +67,7 @@ export const Tube = ({ position }) => (
   <GarbageModel
     name="tube"
     path="/models/garbage/tube.gltf"
-    scale={1}
+    scale={2.5}
     position={position}
   />
 );
@@ -239,7 +239,6 @@ const GarbageLine = ({ isInHomepage }) => {
       case 6:
         models.push(
           <Tube
-            scale={3}
             key={i}
             position={[randomPosition.x, randomPosition.y, randomPosition.z]}
           />
