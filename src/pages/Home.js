@@ -20,8 +20,8 @@ import StartGame from "../components/pop-ups/StartGame.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
 import Ecctrl, { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
-import { ShareButton } from "../components/pop-ups/ShareButton.js";
-import { AboutButton } from "../components/pop-ups/AboutButton.js";
+import { ShareButton } from "../components/ShareButton.js";
+import { AboutButton } from "../components/AboutButton.js";
 import { AudioButton } from "../components/AudioButton.js";
 import {createGlobalState} from 'react-hooks-global-state';
 
