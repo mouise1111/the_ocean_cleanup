@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
 import { Ocean } from "../components/Ocean";
 import Projects from "../components/Islands/Projects";
-import StoryPopUp from "../components/pop-ups/Story";
+import { OceansAndRiversPopUp } from "../components/pop-ups/OceansAndRiversPopUp";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 
@@ -39,7 +39,7 @@ const ProjectsPage = () => {
         </Physics>
       </Canvas>
 
-      <StoryPopUp onBack={handleBack} />   
+      <OceansAndRiversPopUp onBack={handleBack} />   
     </>
   );
 };

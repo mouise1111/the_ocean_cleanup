@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
 import { Ocean } from "../components/Ocean";
 import Donate from "../components/Islands/Donate";
-import StoryPopUp from "../components/pop-ups/Story";
+import { DonatePopUp } from "../components/pop-ups/DonatePopUp";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 
@@ -39,7 +39,7 @@ const DonatePage = () => {
         </Physics>
       </Canvas>
 
-      <StoryPopUp onBack={handleBack} />   
+      <DonatePopUp onBack={handleBack} />   
     </>
   );
 };
