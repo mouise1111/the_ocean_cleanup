@@ -97,7 +97,7 @@ const GarbageModel = ({
 
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
-  const [countdown, setCountdown] = useState(15);
+  const [countdown, setCountdown] = useState(60);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
  
