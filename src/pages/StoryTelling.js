@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
 import { Ocean } from "../components/Ocean";
 import Story from "../components/Islands/Story";
-import StoryPopUp from "../components/pop-ups/Story";
+import { StoryPopUp } from "../components/pop-ups/StoryPopUp";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 

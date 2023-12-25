@@ -1,7 +1,7 @@
 // Story.js
 import React, { useEffect } from 'react';
 
-const Story = ({ onBack }) => {
+export const StoryPopUp = ({ onBack }) => {
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -35,5 +35,3 @@ const Story = ({ onBack }) => {
       </div>
   );
 };
-
-export default Story;
