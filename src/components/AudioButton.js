@@ -18,7 +18,7 @@ export const AudioButton = () => {
 
   return (
     <div>
-      <button className="absolute right-0 p-4 mt-2 text-right text-white transition-colors bottom-20 bg-amber-600 rounded-l-xl hover:bg-amber-500" onClick={toggleAudio}>
+      <button className="absolute right-0 px-4 py-2 mt-2 text-right text-white transition-colors bottom-20 bg-amber-600 rounded-l-xl hover:bg-amber-500" onClick={toggleAudio}>
         <img width="43px" src={isPlaying ? "/pictures/volume_on.png" : "/pictures/volume_off.png"} />
       </button>
       <audio ref={audioRef} controls loop>
