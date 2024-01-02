@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { Suspense, useState,  } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
 import { Cloud } from "../components/Cloud.js";
@@ -19,7 +19,7 @@ import { GenerateGarbage } from "../components/Garbage.js";
 import Loader from "../pages/Loader.js";
 import StartGame from "../components/pop-ups/StartGame.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
-import Ecctrl, { EcctrlJoystick } from "ecctrl";
+import  { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
 import { ShareButton } from "../components/ShareButton.js";
 import { AboutButton } from "../components/AboutButton.js";

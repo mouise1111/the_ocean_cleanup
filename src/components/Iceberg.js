@@ -1,7 +1,7 @@
 import React from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
-import { MeshCollider, RigidBody } from "@react-three/rapier";
+import { RigidBody } from "@react-three/rapier";
 
 export const Iceberg = () => {
   const iceberg = useLoader(GLTFLoader, "/models/iceberg.gltf");
