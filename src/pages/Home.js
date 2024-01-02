@@ -2,6 +2,7 @@ import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
 import { Cloud } from "../components/Cloud.js";
+import { Iceberg } from "../components/Iceberg.js";
 import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
@@ -109,6 +110,7 @@ const HomePage = () => {
             <GarbageLine position-y={0} />
 
             {/* <GenerateGarbage /> */}
+            <Iceberg />
           </Physics>
         </Canvas>
 
