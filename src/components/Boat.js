@@ -12,7 +12,6 @@ const Boat = () => {
     { name: "leftward", keys: ["ArrowLeft", "KeyA"] },
     { name: "rightward", keys: ["ArrowRight", "KeyD"] },
     { name: "run", keys: ["Shift"] },
-    { name: "jump", keys: ["Space"] },
     // Optional animation key map
   ];
 
