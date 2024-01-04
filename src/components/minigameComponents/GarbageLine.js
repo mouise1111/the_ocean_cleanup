@@ -12,7 +12,7 @@ import {
 import { Clone } from "@react-three/drei";
 import axios from "axios";
 import {jwtDecode} from 'jwt-decode';
-import { useGlobalState } from "../minigameComponents/globalstate"; // Import useGlobalState
+import { useGlobalState, setGlobalState } from "../minigameComponents/globalstate";
 
 const token = localStorage.getItem('Token');
 //#region import models
@@ -97,10 +97,11 @@ const GarbageModel = ({
 
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
-  const [countdown, setCountdown] = useState(60);
+  const [countdown, setCountdown] = useState(59);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
- 
+  const [endScore] = useGlobalState('EndScore'); // Access EndScore from global state
+
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
       const token = localStorage.getItem('Token');
@@ -110,7 +111,12 @@ const GarbageModel = ({
           const userId = decodedToken.user_id; // Extract user_id from token
 
           FinalScore = test * 100;
+          setGlobalState('EndScore', FinalScore);
+
+
           console.log(`Final Score: ${FinalScore}`);
+
+
 
           axios.post('http://localhost:3030/submit-score', { 
             user_id: userId, // Send user_id along with the score
@@ -141,14 +147,20 @@ const GarbageModel = ({
     return () => clearTimeout(timer);
   }, [countdown, isScoringAllowed]);
 
+  
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision
-    console.log("collision");
     if (isScoringAllowed) {
       test++;
-      console.log(test);
+      console.log( "collision -> " + test);
     }
   };
+
+useEffect(() => {
+  if (countdown === 0) {
+    console.log(`Final End Score: ${endScore}`); // Log the final End Score
+  }
+}, [countdown, endScore]);
 
   return isVisible ? ( // Render based on visibility
     <RigidBody
@@ -180,6 +192,7 @@ const GarbageLine = ({ isInHomepage }) => {
   const [gameStarted] = useGlobalState('Gamestarted'); // Access the global state
 
   if (!gameStarted) {
+    test = 0;
     return null; // Or return some JSX to indicate the game hasn't started
   }
 
