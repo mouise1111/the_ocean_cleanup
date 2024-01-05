@@ -12,7 +12,7 @@ import {
 import { Clone } from "@react-three/drei";
 import axios from "axios";
 import {jwtDecode} from 'jwt-decode';
-import { useGlobalState } from "../minigameComponents/globalstate"; // Import useGlobalState
+import { useGlobalState, setGlobalState } from "../minigameComponents/globalstate";
 
 const token = localStorage.getItem('Token');
 //#region import models
@@ -84,7 +84,8 @@ export const Brush = ({ position }) => (
 //#endregion
 let test = 0;
 let FinalScore = 0;
-let scorededPosted = 0; // Flag to track if the score has been posted
+
+
 // collision + rendering handler
 const GarbageModel = ({
   path,
@@ -97,10 +98,23 @@ const GarbageModel = ({
 
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
-  const [countdown, setCountdown] = useState(60);
+  const [countdown, setCountdown] = useState(59);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
- 
+  const [gameStarted] = useGlobalState('Gamestarted'); // Access the global state
+
+  const [endScore] = useGlobalState('EndScore'); // Access EndScore from global state
+
+
+  const [scorededPosted, setScorededPosted] = useState(0);
+  useEffect(() => {
+    if (gameStarted) {
+      setScorededPosted(0);
+      // Reset other relevant states if necessary
+    }
+  }, [gameStarted]);
+
+
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
       const token = localStorage.getItem('Token');
@@ -110,7 +124,12 @@ const GarbageModel = ({
           const userId = decodedToken.user_id; // Extract user_id from token
 
           FinalScore = test * 100;
+          setGlobalState('EndScore', FinalScore);
+
+
           console.log(`Final Score: ${FinalScore}`);
+
+
 
           axios.post('http://localhost:3030/submit-score', { 
             user_id: userId, // Send user_id along with the score
@@ -119,7 +138,7 @@ const GarbageModel = ({
           .then(response => {
             console.log('Score posted successfully:', response.data);
             setScorePosted(true); // Update the state to indicate score has been submitted
-            scorededPosted = 1; // Update the flag
+            setScorededPosted(1); // Update using setState
             console.log("how many posts you did: " + scorededPosted);
           })
           .catch(error => {
@@ -133,22 +152,28 @@ const GarbageModel = ({
   };
   useEffect(() => {
     let timer;
-    if (isScoringAllowed && countdown > 0) {
+    if (gameStarted && countdown > 0) {
       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    } else if (countdown === 0 && isScoringAllowed) {
+    } else if (countdown === 0 && gameStarted) {
       postScore(); // Call the function to post the score
     }
     return () => clearTimeout(timer);
-  }, [countdown, isScoringAllowed]);
+  }, [countdown, gameStarted]);
 
+  
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision
-    console.log("collision");
-    if (isScoringAllowed) {
+    if (gameStarted) {
       test++;
-      console.log(test);
+      console.log( "collision -> " + test);
     }
   };
+
+useEffect(() => {
+  if (countdown === 0) {
+    console.log(`Final End Score: ${endScore}`); // Log the final End Score
+  }
+}, [countdown, endScore]);
 
   return isVisible ? ( // Render based on visibility
     <RigidBody
@@ -180,6 +205,7 @@ const GarbageLine = ({ isInHomepage }) => {
   const [gameStarted] = useGlobalState('Gamestarted'); // Access the global state
 
   if (!gameStarted) {
+    test = 0;
     return null; // Or return some JSX to indicate the game hasn't started
   }
 
