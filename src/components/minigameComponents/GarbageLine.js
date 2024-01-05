@@ -84,7 +84,8 @@ export const Brush = ({ position }) => (
 //#endregion
 let test = 0;
 let FinalScore = 0;
-let scorededPosted = 0; // Flag to track if the score has been posted
+
+
 // collision + rendering handler
 const GarbageModel = ({
   path,
@@ -100,7 +101,19 @@ const GarbageModel = ({
   const [countdown, setCountdown] = useState(59);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
+  const [gameStarted] = useGlobalState('Gamestarted'); // Access the global state
+
   const [endScore] = useGlobalState('EndScore'); // Access EndScore from global state
+
+
+  const [scorededPosted, setScorededPosted] = useState(0);
+  useEffect(() => {
+    if (gameStarted) {
+      setScorededPosted(0);
+      // Reset other relevant states if necessary
+    }
+  }, [gameStarted]);
+
 
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
@@ -125,7 +138,7 @@ const GarbageModel = ({
           .then(response => {
             console.log('Score posted successfully:', response.data);
             setScorePosted(true); // Update the state to indicate score has been submitted
-            scorededPosted = 1; // Update the flag
+            setScorededPosted(1); // Update using setState
             console.log("how many posts you did: " + scorededPosted);
           })
           .catch(error => {
@@ -139,18 +152,18 @@ const GarbageModel = ({
   };
   useEffect(() => {
     let timer;
-    if (isScoringAllowed && countdown > 0) {
+    if (gameStarted && countdown > 0) {
       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    } else if (countdown === 0 && isScoringAllowed) {
+    } else if (countdown === 0 && gameStarted) {
       postScore(); // Call the function to post the score
     }
     return () => clearTimeout(timer);
-  }, [countdown, isScoringAllowed]);
+  }, [countdown, gameStarted]);
 
   
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision
-    if (isScoringAllowed) {
+    if (gameStarted) {
       test++;
       console.log( "collision -> " + test);
     }
