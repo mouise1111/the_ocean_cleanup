@@ -166,6 +166,7 @@ const GarbageModel = ({
     if (gameStarted) {
       test++;
       console.log( "collision -> " + test);
+      setGlobalState('CurrentScore', test*100); // Update CurrentScore in the global state
     }
   };
 
