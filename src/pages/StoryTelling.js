@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
 import { Ocean } from "../components/Ocean";
@@ -9,38 +9,66 @@ import { Physics } from "@react-three/rapier";
 
 const StoryTellingPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [canvasComponentsRendered, setCanvasComponentsRendered] = useState(false);
+  const canvasRef = useRef();
 
   const handleBack = () => {
-    // Navigate back to the Home page or perform other actions
     navigate("/");
   };
 
   const islandPosition = [-25, 20, 180];
 
-  return (
-    <>
-      <Canvas>
-        <Physics>
-          <ambientLight />
-          <directionalLight />
-          <Ocean />
-          <Story isInHomepage={false} scaleMultiplier={2} />
-          <OrbitControls
-            enableZoom={true}
-            enablePan={false}
-            enableDamping={true}
-            dampingFactor={0.25}
-            rotateSpeed={0.5}
-            maxPolarAngle={Math.PI / 2 }
-            minPolarAngle={Math.PI / 4 }
-            initialPosition={[-50, 0, 150]}
-            target={islandPosition}
-          />
-        </Physics>
-      </Canvas>
+  const handleCanvasCreated = () => {
+    setCanvasComponentsRendered(true);
+  };
 
-      <StoryPopUp onBack={handleBack} />   
-    </>
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="relative w-full h-full">
+      {loading && (
+        <div className="fixed bg-blue-400 top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-80 z-50">
+          <div className="border-t-8 border-blue-500 border-solid rounded-full animate-spin h-16 w-16"></div>
+        </div>
+      )}
+      <button
+        className="absolute bottom-0.5 left-0 p-5 mt-2 transition-colors bg-amber-600 rounded-r-xl hover:bg-amber-500"
+        onClick={handleBack}
+        style={{ zIndex: 1 }}
+      >
+        Esc
+      </button>
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-400 to-white opacity-70"></div>
+      <Canvas onCreated={handleCanvasCreated} ref={canvasRef}>
+        <Suspense fallback={null}>
+          <Physics>
+            <ambientLight />
+            <directionalLight />
+            <Ocean />
+            <Story isInHomepage={false} scaleMultiplier={2} />
+            <OrbitControls
+              enableZoom={true}
+              enablePan={false}
+              enableDamping={true}
+              dampingFactor={0.25}
+              rotateSpeed={0.5}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={Math.PI / 4}
+              initialPosition={[-20, 50, 180]}
+              target={islandPosition}
+            />
+          </Physics>
+        </Suspense>
+      </Canvas>
+      {!loading && <StoryPopUp onBack={handleBack} />}
+    </div>
   );
 };
 

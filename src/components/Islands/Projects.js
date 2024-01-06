@@ -94,7 +94,7 @@ const Projects = ({ isInHomepage, scaleMultiplier = 1 }) => {
         </MeshCollider>
       </RigidBody>
       {showEnterPopup && (
-        <Enter position={[150, 65, 350]} onKeyPress={handleKeyPress} />
+        <Enter position={[135, 50, 370]} onKeyPress={handleKeyPress} />
       )}
     </>
   );
