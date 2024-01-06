@@ -13,7 +13,7 @@ function validation(values){
     }
     
     if(values.email ==="") {
-    error.email = "Name should not be empty"
+    error.email = "Please provide an email"
     }
 
     else if(!email_pattern.test(values.email)) { 
