@@ -23,6 +23,9 @@ const ArrowKeysPopup = () => {
       <p className="font-light text-center text-black uppercase">
         Use arrow keys or WASD keys to move. Press any to start adventure.
       </p>
+      <p className="font-light text-center text-black uppercase">
+        Use the Shift key to move your boat faster.
+      </p>
     </div>
   ) : null;
 };

@@ -96,7 +96,7 @@ const Donate = ({ isInHomepage, scaleMultiplier = 1 }) => {
         </MeshCollider>
       </RigidBody>
       {showEnterPopup && (
-        <Enter position={[-250, 50, 320]} onKeyPress={handleKeyPress} />
+        <Enter position={[-240, 40, 320]} onKeyPress={handleKeyPress} />
       )}
     </>
   );

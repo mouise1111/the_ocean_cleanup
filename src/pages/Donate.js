@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useNavigate } from "react-router-dom";
 import { Ocean } from "../components/Ocean";
@@ -9,38 +9,66 @@ import { Physics } from "@react-three/rapier";
 
 const DonatePage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [canvasComponentsRendered, setCanvasComponentsRendered] = useState(false);
+  const canvasRef = useRef();
 
   const handleBack = () => {
-    // Navigate back to the Home page or perform other actions
     navigate("/");
   };
 
-  const islandPosition = [-80, 80, 280];
+  const islandPosition = [-140, 90, 320];
+
+  const handleCanvasCreated = () => {
+    setCanvasComponentsRendered(true);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <>
-      <Canvas>
-        <Physics>
-          <ambientLight />
-          <directionalLight />
-          <Ocean />
-          <Donate isInHomepage={false} scaleMultiplier={3.5} />
-          <OrbitControls
-            enableZoom={true}
-            enablePan={false}
-            enableDamping={true}
-            dampingFactor={0.25}
-            rotateSpeed={0.5}
-            maxPolarAngle={Math.PI / 2 -0.15}
-            minPolarAngle={Math.PI / 4 -0.15}
-            initialPosition={[-110, 30, 300]}
-            target={islandPosition}
-          />
-        </Physics>
+    <div className="relative w-full h-full">
+      {loading && (
+        <div className="fixed bg-blue-400 top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-80 z-50">
+          <div className="border-t-8 border-blue-500 border-solid rounded-full animate-spin h-16 w-16"></div>
+        </div>
+      )}
+      <button
+        className="absolute bottom-0.5 left-0 p-5 mt-2 transition-colors bg-amber-600 rounded-r-xl hover:bg-amber-500"
+        onClick={handleBack}
+        style={{ zIndex: 1 }}
+      >
+        Esc
+      </button>
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-400 to-white opacity-70"></div>
+      <Canvas onCreated={handleCanvasCreated} ref={canvasRef}>
+        <Suspense fallback={null}>
+          <Physics>
+            <ambientLight />
+            <directionalLight intensity={0.5} position={[0, 10, 5]} />
+            <Ocean />
+            <Donate isInHomepage={false} scaleMultiplier={4} />
+            <OrbitControls
+              enableZoom={true}
+              enablePan={false}
+              enableDamping={true}
+              dampingFactor={0.25}
+              rotateSpeed={0.5}
+              maxPolarAngle={Math.PI / 2 - 0.15}
+              minPolarAngle={Math.PI / 4 - 0.15}
+              initialPosition={[-110, 30, 300]}
+              target={islandPosition}
+            />
+          </Physics>
+        </Suspense>
       </Canvas>
-
-      <DonatePopUp onBack={handleBack} />   
-    </>
+      {!loading && <DonatePopUp onBack={handleBack} />}
+    </div>
   );
 };
 
