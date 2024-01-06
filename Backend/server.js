@@ -115,10 +115,9 @@ app.post('/submit-score', (req, res) => {
     return res.json({ Status: "Error", Error: "Score of 0 is not allowed" });
   }
 
-  const highscore = score;
 
-  const sql = "INSERT INTO history_score (user_id, score, highscore) VALUES (?, ?, ?)";
-  condb.query(sql, [user_id, score, highscore], (err, result) => {
+  const sql = "INSERT INTO history_score (user_id, score) VALUES (?, ?)";
+  condb.query(sql, [user_id, score], (err, result) => {
       if(err) {
         console.error('Error in inserting score:', err);
         return res.json({ Status: "Error", Error: "Error in inserting score" });
