@@ -3,18 +3,16 @@ import { useLoader } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
 import { useNavigate } from "react-router-dom";
 import { useThree } from "react-three-fiber";
-import React, { useEffect, useState, useRef } from "react";
-import {
-  CuboidCollider,
-  BallCollider,
-  MeshCollider,
-} from "@react-three/rapier";
-import { Clone } from "@react-three/drei";
+import React, { useEffect, useState, Suspense } from "react";
+import { Clone, Text } from "@react-three/drei";
 import axios from "axios";
-import {jwtDecode} from 'jwt-decode';
-import { useGlobalState, setGlobalState } from "../minigameComponents/globalstate";
+import { jwtDecode } from "jwt-decode";
+import {
+  useGlobalState,
+  setGlobalState,
+} from "../minigameComponents/globalstate";
 
-const token = localStorage.getItem('Token');
+const token = localStorage.getItem("Token");
 //#region import models
 export const Bag = ({ position }) => (
   <GarbageModel
@@ -85,26 +83,24 @@ export const Brush = ({ position }) => (
 let test = 0;
 let FinalScore = 0;
 
-
 // collision + rendering handler
 const GarbageModel = ({
   path,
   scale,
   position,
-  instanceId, 
+  instanceId,
   onIntersectionEnte,
 }) => {
   const { scene } = useLoader(GLTFLoader, path);
-
+  const [intersecting, setIntersection] = useState(false);
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
   const [countdown, setCountdown] = useState(59);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
-  const [gameStarted] = useGlobalState('Gamestarted'); // Access the global state
+  const [gameStarted] = useGlobalState("Gamestarted"); // Access the global state
 
-  const [endScore] = useGlobalState('EndScore'); // Access EndScore from global state
-
+  const [endScore] = useGlobalState("EndScore"); // Access EndScore from global state
 
   const [scorededPosted, setScorededPosted] = useState(0);
   useEffect(() => {
@@ -114,38 +110,35 @@ const GarbageModel = ({
     }
   }, [gameStarted]);
 
-
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
-      const token = localStorage.getItem('Token');
+      const token = localStorage.getItem("Token");
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
           const userId = decodedToken.user_id; // Extract user_id from token
 
           FinalScore = test * 100;
-          setGlobalState('EndScore', FinalScore);
-
+          setGlobalState("EndScore", FinalScore);
 
           console.log(`Final Score: ${FinalScore}`);
 
-
-
-          axios.post('http://localhost:3030/submit-score', { 
-            user_id: userId, // Send user_id along with the score
-            score: FinalScore 
-          })
-          .then(response => {
-            console.log('Score posted successfully:', response.data);
-            setScorePosted(true); // Update the state to indicate score has been submitted
-            setScorededPosted(1); // Update using setState
-            console.log("how many posts you did: " + scorededPosted);
-          })
-          .catch(error => {
-            console.error('Error posting score:', error);
-          });
+          axios
+            .post("http://localhost:3030/submit-score", {
+              user_id: userId, // Send user_id along with the score
+              score: FinalScore,
+            })
+            .then((response) => {
+              console.log("Score posted successfully:", response.data);
+              setScorePosted(true); // Update the state to indicate score has been submitted
+              setScorededPosted(1); // Update using setState
+              console.log("how many posts you did: " + scorededPosted);
+            })
+            .catch((error) => {
+              console.error("Error posting score:", error);
+            });
         } catch (error) {
-          console.error('Error decoding token:', error);
+          console.error("Error decoding token:", error);
         }
       }
     }
@@ -160,34 +153,57 @@ const GarbageModel = ({
     return () => clearTimeout(timer);
   }, [countdown, gameStarted]);
 
-  
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision
     if (gameStarted) {
       test++;
-      console.log( "collision -> " + test);
-      setGlobalState('CurrentScore', test*100); // Update CurrentScore in the global state
+      console.log("collision -> " + test);
+      setGlobalState("CurrentScore", test * 100); // Update CurrentScore in the global state
     }
   };
 
-useEffect(() => {
-  if (countdown === 0) {
-    console.log(`Final End Score: ${endScore}`); // Log the final End Score
-  }
-}, [countdown, endScore]);
+  useEffect(() => {
+    if (countdown === 0) {
+      console.log(`Final End Score: ${endScore}`); // Log the final End Score
+    }
+  }, [countdown, endScore]);
 
-  return isVisible ? ( // Render based on visibility
-    <RigidBody
-      type="fixed"
-      colliders="ball"
-      scale={scale*2}
-      position={position}
-      sensor
-      onIntersectionEnter={(event) => handleCollision(event)}
-    >
-      <Clone object={scene} />
-    </RigidBody>
-  ) : null;
+  return (
+    <>
+      {isVisible && (
+        <RigidBody
+          type="fixed"
+          colliders="ball"
+          scale={scale * 2}
+          position={position}
+          sensor
+          onIntersectionEnter={(event) => {
+            handleCollision(event);
+            setIntersection(true);
+            setTimeout(() => {
+              setIntersection(false);
+            }, 500); // Set intersection to false after 2 seconds
+          }}
+          onIntersectionExit={() => setIntersection(false)}
+        >
+          <Clone object={scene} />
+        </RigidBody>
+      )}
+      <Suspense fallback={null}>
+        {intersecting && (
+          <Text
+            color="orange"
+            position={position}
+            position-y={position[1] + 12}
+            fontSize={9}
+            rotation-y={Math.PI} // Rotate 180 degrees around the y-axis
+          >
+            +100
+          </Text>
+        )}
+      </Suspense>
+    </>
+  );
 };
 
 const getRandomPosition = () => ({
@@ -203,7 +219,7 @@ const GarbageLine = ({ isInHomepage }) => {
   const numModels = 100;
   const models = [];
 
-  const [gameStarted] = useGlobalState('Gamestarted'); // Access the global state
+  const [gameStarted] = useGlobalState("Gamestarted"); // Access the global state
 
   if (!gameStarted) {
     test = 0;
@@ -223,7 +239,7 @@ const GarbageLine = ({ isInHomepage }) => {
           />
         );
         break;
-    
+
       case 1:
         models.push(
           <Bottle
