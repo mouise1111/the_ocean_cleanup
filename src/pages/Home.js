@@ -86,7 +86,7 @@ const HomePage = () => {
   return (
     <>
       <Suspense fallback={<Loader />}>
-        <Leva hidden={false} collapsed={true} />
+        <Leva hidden={true} collapsed={true} />
         {(isMobile || isTablet) && <EcctrlJoystick />}
 
         <Canvas
