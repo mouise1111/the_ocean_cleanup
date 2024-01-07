@@ -10,7 +10,8 @@ import { Physics } from "@react-three/rapier";
 const ProjectsPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [canvasComponentsRendered, setCanvasComponentsRendered] = useState(false);
+  const [canvasComponentsRendered, setCanvasComponentsRendered] =
+    useState(false);
   const canvasRef = useRef();
 
   const islandPosition = [67, 70, 277];
@@ -37,12 +38,12 @@ const ProjectsPage = () => {
   return (
     <div className="relative w-full h-full">
       {loading && (
-        <div className="fixed bg-blue-400 top-0 left-0 w-full h-full flex items-center justify-center bg-opacity-80 z-50">
-          <div className="border-t-8 border-blue-500 border-solid rounded-full animate-spin h-16 w-16"></div>
+        <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-blue-400 bg-opacity-80">
+          <div className="w-16 h-16 border-t-8 border-blue-500 border-solid rounded-full animate-spin"></div>
         </div>
       )}
       <button
-        className="absolute bottom-0.5 left-0 p-5 mt-2 transition-colors bg-amber-600 rounded-r-xl hover:bg-amber-500"
+        className="absolute uppercase text-white bottom-0.5 left-0 p-5 mt-2 transition-colors bg-amber-600 rounded-r-xl hover:bg-amber-500"
         onClick={handleBack}
         style={{ zIndex: 1 }}
       >
