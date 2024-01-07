@@ -1,4 +1,4 @@
-import React, { Suspense, useState,  } from "react";
+import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import ArrowKeysPopup from "../components/pop-ups/ArrowKeys";
 import { Cloud } from "../components/Cloud.js";
@@ -19,13 +19,13 @@ import { GenerateGarbage } from "../components/Garbage.js";
 import Loader from "../pages/Loader.js";
 import StartGame from "../components/pop-ups/StartGame.js";
 import Leaderboard from "../components/pop-ups/Leaderboard.js";
-import  { EcctrlJoystick } from "ecctrl";
+import { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
-import { ShareButton } from "../components/ShareButton.js";
-import { AboutButton } from "../components/AboutButton.js";
+import { ShareButton } from "../components/Buttons/ShareButton.js";
+import { AboutButton } from "../components/Buttons/ShareButton.js";
 import { useGlobalState } from "../components/minigameComponents/globalstate.js";
-import { AudioButton } from "../components/AudioButton.js";
-import {createGlobalState} from 'react-hooks-global-state';
+import { AudioButton } from "../components/Buttons/ShareButton.js";
+import { createGlobalState } from "react-hooks-global-state";
 import TimerExpiredPopUp from "../components/pop-ups/TimerExpired.js";
 import Timer from "../components/pop-ups/Timer.js";
 
@@ -37,7 +37,7 @@ const HomePage = () => {
     showTimer: false,
   });
 
-  const [gameStarted] = useGlobalState('Gamestarted');
+  const [gameStarted] = useGlobalState("Gamestarted");
 
   const handleTimerExpired = () => {
     // console.log("Timer expired!");
@@ -90,7 +90,7 @@ const HomePage = () => {
         {(isMobile || isTablet) && <EcctrlJoystick />}
 
         <Canvas
-        // colorManagement
+          // colorManagement
           style={{
             background: `linear-gradient(180deg, ${topColor} 0%, ${bottomColor} 100%)`,
           }}
@@ -123,9 +123,7 @@ const HomePage = () => {
                 showLeaderboard: true,
               })
             }
-            onCloseClick={() =>
-              setPopUpStatus({ showStartGame: false })
-            }
+            onCloseClick={() => setPopUpStatus({ showStartGame: false })}
           />
         )}
 
@@ -135,14 +133,21 @@ const HomePage = () => {
           />
         )}
 
-        {gameStarted && <Timer gameStarted={gameStarted} onTimerExpired={handleTimerExpired} />}
+        {gameStarted && (
+          <Timer
+            gameStarted={gameStarted}
+            onTimerExpired={handleTimerExpired}
+          />
+        )}
 
         {popUpStatus.showTimerExpiredPopUp && (
           <TimerExpiredPopUp
             onRestart={handleRestart}
-            onStop={() => setPopUpStatus({
-              showTimerExpiredPopUp: false 
-            })}
+            onStop={() =>
+              setPopUpStatus({
+                showTimerExpiredPopUp: false,
+              })
+            }
           />
         )}
 
