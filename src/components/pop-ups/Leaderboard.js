@@ -12,34 +12,28 @@ const Leaderboard = ({ onStopClick }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3030/ScoreBoard')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const playerScores = new Map();
-  
-        data.forEach(item => {
-          const playerName = item.username; // Use username
-          const currentHighScore = playerScores.get(playerName) || 0;
-          if (item.score > currentHighScore) {
-            playerScores.set(playerName, item.score);
-          }
-        });
-  
-        const formattedData = Array.from(playerScores, ([name, score]) => ({ name, score }));
-        setPlayers(formattedData);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
+  fetch('http://localhost:3030/ScoreBoard')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Data is already sorted and limited to top 5, so just format it
+      const formattedData = data.map(item => ({
+        name: item.username,
+        score: item.highscore
+      }));
+      setPlayers(formattedData);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setError(error);
+      setLoading(false);
+    });
+}, []);
   
   
 

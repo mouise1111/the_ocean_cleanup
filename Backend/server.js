@@ -140,9 +140,11 @@ let cachedData = [];
 
 function fetchDataFromDatabase() {
   const query = `
-    SELECT hs.score, hs.user_id, v.username 
-    FROM history_score hs
-    JOIN visitors v ON hs.user_id = v.user_id
+    SELECT sb.highscore, sb.user_id, v.username 
+    FROM scoreboard sb
+    JOIN visitors v ON sb.user_id = v.user_id
+    ORDER BY sb.highscore DESC
+    LIMIT 5
   `;
 
   condb.query(query, (err, results) => {
@@ -159,8 +161,8 @@ setInterval(fetchDataFromDatabase, POLL_INTERVAL);
 
 app.get("/ScoreBoard", (req, res) => {
   const filteredData = cachedData.map(item => ({
-    score: item.score,
-    username: item.username // Send username instead of user_id
+    highscore: item.highscore,
+    username: item.username // Send username and highscore
   }));
   res.json(filteredData);
 });

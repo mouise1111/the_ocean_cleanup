@@ -16,7 +16,7 @@ export const DonatePopUp = ({ onBack }) => {
   }, [onBack]);
 
   return (
-
+    <>
     <div className="fixed top-0 left-0 w-full "> 
     <div className="bg-gray-800 bg-opacity-95 w-full max-w-screen-md mx-auto p-8 rounded-lg my-8 py-2 flex items-center">
       <div className="flex-1">
@@ -66,6 +66,7 @@ export const DonatePopUp = ({ onBack }) => {
           </button>
       </div>
     </div>
-
+    </>
   );
+
 };
