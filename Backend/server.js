@@ -12,22 +12,23 @@ const port = 3030;
 
 
 // Database connection
-/*
-const db = mysql.createConnection({
+
+const condb = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 });
-*/
 
+
+/*
 const condb = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
   database: 'itproject'
 });
-
+*/
 
 condb.connect(function(err) {
   if(err) {

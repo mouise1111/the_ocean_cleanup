@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/three": "^0.159.0",
     "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
     "ecctrl": "^1.0.50",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
