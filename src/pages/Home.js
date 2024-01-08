@@ -23,11 +23,12 @@ import { EcctrlJoystick } from "ecctrl";
 import { isMobile, isTablet } from "react-device-detect";
 import { ShareButton } from "../components/Buttons/ShareButton.js";
 import { AboutButton } from "../components/Buttons/AboutButton.js";
-import { useGlobalState } from "../components/minigameComponents/globalstate.js";
 import { AudioButton } from "../components/Buttons/AudioButton.js";
 import { createGlobalState } from "react-hooks-global-state";
 import TimerExpiredPopUp from "../components/pop-ups/TimerExpired.js";
 import Timer from "../components/pop-ups/Timer.js";
+import { useGlobalState, setGlobalState } from "../components/minigameComponents/globalstate.js"; // Adjust the path as needed
+
 
 const HomePage = () => {
   const [popUpStatus, setPopUpStatus] = useState({
@@ -49,6 +50,11 @@ const HomePage = () => {
   };
 
   const handleRestart = () => {
+    setGlobalState('Gamestarted', true); // Restart the game
+    setGlobalState('EndScore', 0); // Reset end score
+    setGlobalState('CurrentScore', 0); // Reset current score
+    setGlobalState('Timer', 60); // Reset timer to its initial value
+
     // console.log("Restarting the game...");
     setPopUpStatus({
       showStartGame: true,
