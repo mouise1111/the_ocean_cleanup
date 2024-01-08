@@ -17,10 +17,10 @@ export const OceansAndRiversPopUp = ({ onBack }) => {
 
   return (
 <>
-<div className="fixed top-0 left-0 w-full "> 
+<div className="fixed top-0 left-0 w-full mr-4 mt-4 mb-6"> 
   <div className="bg-gray-800 bg-opacity-95 w-full max-w-screen-md mx-auto p-8 rounded-lg my-8 py-2 flex items-center">
     <div className="flex-1">
-      <h1 className="font-inter text-[50px] text-base font-bold mb-4 text-white text-left py-4">Oceans and Rivers</h1>
+      <h1 className="font-inter text-[50px] text-base font-bold mb-4 text-white text-left py-4 ">Oceans and Rivers</h1>
       <h1 className="text-3xl font-bold mb-2 text-white">Tackling Plastic Pollution</h1>
 
         <p className="text-sm mb-2 text-white">

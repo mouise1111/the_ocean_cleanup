@@ -40,7 +40,7 @@ export const DonatePopUp = ({ onBack }) => {
           <div className="flex justify-center mt-4">
             <button
               type="button"
-              className="px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 w-full"
+              className="px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 w-full mr-4 mt-4 mb-4"
               onClick={() => {
                 window.location.href = 'https://theoceancleanup.com/donate/';
               }}
