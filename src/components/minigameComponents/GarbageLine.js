@@ -95,7 +95,6 @@ const GarbageModel = ({
   const [intersecting, setIntersection] = useState(false);
   const [isVisible, setIsVisible] = useState(true); // New state for visibility
   const [isScoringAllowed, setIsScoringAllowed] = useState(true);
-  const [countdown, setCountdown] = useState(59);
   const [scorePosted, setScorePosted] = useState(false); // Correctly defined state and setter
 
   const [gameStarted] = useGlobalState("Gamestarted"); // Access the global state
@@ -103,12 +102,29 @@ const GarbageModel = ({
   const [endScore] = useGlobalState("EndScore"); // Access EndScore from global state
 
   const [scorededPosted, setScorededPosted] = useState(0);
+
+  const [timer, setTimer] = useGlobalState("Timer"); // Use global timer state
+
+
   useEffect(() => {
     if (gameStarted) {
       setScorededPosted(0);
       // Reset other relevant states if necessary
     }
   }, [gameStarted]);
+
+useEffect(() => {
+  let timerInterval;
+  if (gameStarted && timer > 0) {
+    timerInterval = setInterval(() => {
+      setTimer(timer - 1);
+    }, 1000);
+  } else if (timer === 0 && gameStarted) {
+    setGlobalState("Gamestarted", false); // Stop the game when the timer reaches 0
+    postScore();
+  }
+  return () => clearInterval(timerInterval);
+}, [gameStarted, timer, setTimer]);
 
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
@@ -143,15 +159,7 @@ const GarbageModel = ({
       }
     }
   };
-  useEffect(() => {
-    let timer;
-    if (gameStarted && countdown > 0) {
-      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    } else if (countdown === 0 && gameStarted) {
-      postScore(); // Call the function to post the score
-    }
-    return () => clearTimeout(timer);
-  }, [countdown, gameStarted]);
+  
 
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision
@@ -163,10 +171,10 @@ const GarbageModel = ({
   };
 
   useEffect(() => {
-    if (countdown === 0) {
+    if (timer === 0) {
       console.log(`Final End Score: ${endScore}`); // Log the final End Score
     }
-  }, [countdown, endScore]);
+  }, [timer, endScore]);
 
   return (
     <>
