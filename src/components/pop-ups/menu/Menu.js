@@ -27,11 +27,11 @@ const Menu = ({ setPopUpStatus }) => {
   };
 
   return (
-    <div
-      onClick={handleToggleMenu}
-      className="absolute top-0 left-0 p-5 mt-2 transition-colors bg-amber-600 rounded-r-xl hover:bg-amber-500"
-    >
-      <button className="flex flex-col justify-around w-6 h-6">
+    <div className="absolute top-0 left-0 p-5 mt-2 transition-colors bg-amber-600 rounded-r-xl hover:bg-amber-500">
+      <button
+        className="flex flex-col justify-around w-6 h-6"
+        onClick={handleToggleMenu}
+      >
         <div
           className={
             isOpen
