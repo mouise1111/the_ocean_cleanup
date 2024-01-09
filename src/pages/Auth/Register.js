@@ -1,5 +1,4 @@
-// StoryTellingPage.js
-import { Canvas } from "@react-three/fiber"; // Make sure to import Canvas from react-three/fiber
+import { Canvas } from "@react-three/fiber"; 
 import { useNavigate } from "react-router-dom";
 import { Ocean } from "../../components/Ocean";
 import Story from "../../components/Islands/Story";
