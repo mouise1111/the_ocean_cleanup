@@ -21,8 +21,8 @@ export const DonatePopUp = ({ onBack }) => {
         <div className="bg-gray-800 bg-opacity-95 w-full max-w-screen-md mx-auto p-8 rounded-lg my-8 py-2">
           <div className="flex items-center">
             <div className="flex-1">
-              <h1 className="font-inter text-[50px] text-base font-bold mb-4 text-white text-left py-4">Donate</h1>
-              <h1 className="text-3xl font-bold mb-3 text-white">Support Clean Our Oceans</h1>
+              <h1 className="text-3xl font-bold mb-2 text-white">Donate</h1>
+              <h1 className="text-2xl font-bold mb-3 text-white">Support Clean Our Oceans</h1>
               <h3 className="text-xl font-bold text-white">Why Donate?</h3>
               <ul className="list-disc list-inside text-sm mb-1 text-white">
                 <li>Proven technology for ocean cleanup (Oct 2021)</li>
