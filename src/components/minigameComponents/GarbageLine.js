@@ -121,7 +121,9 @@ useEffect(() => {
     }, 1000);
   } else if (timer === 0 && gameStarted) {
     setGlobalState("Gamestarted", false); // Stop the game when the timer reaches 0
-    postScore();
+    if(scorePosted === false){
+      postScore();
+    }
   }
   return () => clearInterval(timerInterval);
 }, [gameStarted, timer, setTimer]);
@@ -129,7 +131,7 @@ useEffect(() => {
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
       const token = localStorage.getItem("Token");
-      if (token) {
+      if (token && scorePosted == false) {
         try {
           const decodedToken = jwtDecode(token);
           const userId = decodedToken.user_id; // Extract user_id from token
@@ -146,8 +148,6 @@ useEffect(() => {
             })
             .then((response) => {
               console.log("Score posted successfully:", response.data);
-              setScorePosted(true); // Update the state to indicate score has been submitted
-              setScorededPosted(1); // Update using setState
               console.log("how many posts you did: " + scorededPosted);
             })
             .catch((error) => {

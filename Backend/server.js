@@ -21,6 +21,21 @@ const condb = mysql.createConnection({
 });
 
 
+// ddos avoid attacks: 
+
+const rateLimit = require("express-rate-limit");
+
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10000, // limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again after 15 minutes",
+});
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter);
+
+
 /*
 const condb = mysql.createConnection({
   host: 'localhost',
