@@ -1,8 +1,7 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useLoader } from "@react-three/fiber";
-import { KeyboardControls, PerspectiveCamera } from "@react-three/drei";
+import { KeyboardControls } from "@react-three/drei";
 import Ecctrl from "ecctrl";
-import { Suspense } from "react";
 const Boat = () => {
   const gltf = useLoader(GLTFLoader, "/models/interceptor.gltf");
 
@@ -12,7 +11,6 @@ const Boat = () => {
     { name: "leftward", keys: ["ArrowLeft", "KeyA"] },
     { name: "rightward", keys: ["ArrowRight", "KeyD"] },
     { name: "run", keys: ["Shift"] },
-    // Optional animation key map
   ];
 
   return (
