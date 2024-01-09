@@ -19,7 +19,7 @@ export const StoryPopUp = ({ onBack }) => {
   return (
     <>
 <div className="fixed top-0 left-0 w-full "> 
-  <div className="bg-gray-800 bg-opacity-95 mx-12 p-8 rounded-lg my-2 py-2 flex items-center">
+  <div className="bg-gray-800 bg-opacity-70 mx-12 p-8 rounded-lg my-2 py-2 flex items-center">
     <div className="flex-1">
     <h1 className="text-3xl font-bold mb-2 text-white">Our Story</h1>
 

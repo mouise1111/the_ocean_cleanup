@@ -18,7 +18,7 @@ export const OceansAndRiversPopUp = ({ onBack }) => {
   return (
 <>
 <div className="fixed top-0 left-0 w-full"> 
-  <div className="bg-gray-800 bg-opacity-95 mx-12 p-8 rounded-lg my-2 py- flex items-center">
+  <div className="bg-gray-800 bg-opacity-70 mx-12 p-8 rounded-lg my-2 py- flex items-center">
     <div className="flex-1">
       <h1 className="text-3xl font-bold mb-2 text-white">Oceans and Rivers</h1>
       <h1 className="text-2xl font-bold mb-2 text-white">Tackling Plastic Pollution</h1>
