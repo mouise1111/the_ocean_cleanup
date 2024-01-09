@@ -6,6 +6,7 @@ import Donate from "../components/Islands/Donate";
 import { DonatePopUp } from "../components/pop-ups/DonatePopUp";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
+import Lights from "../components/Lights.js";
 
 const DonatePage = () => {
   const navigate = useNavigate();
@@ -50,8 +51,7 @@ const DonatePage = () => {
       <Canvas onCreated={handleCanvasCreated} ref={canvasRef}>
         <Suspense fallback={null}>
           <Physics>
-            <ambientLight />
-            <directionalLight intensity={0.5} position={[0, 10, 5]} />
+            <Lights />
             <Ocean />
             <Donate isInHomepage={false} scaleMultiplier={4} />
             <OrbitControls

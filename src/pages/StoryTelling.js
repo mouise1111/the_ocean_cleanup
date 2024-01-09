@@ -6,6 +6,7 @@ import Story from "../components/Islands/Story";
 import { StoryPopUp } from "../components/pop-ups/StoryPopUp";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
+import Lights from "../components/Lights.js";
 
 const StoryTellingPage = () => {
   const navigate = useNavigate();
@@ -50,8 +51,7 @@ const StoryTellingPage = () => {
       <Canvas onCreated={handleCanvasCreated} ref={canvasRef}>
         <Suspense fallback={null}>
           <Physics>
-            <ambientLight />
-            <directionalLight />
+            <Lights />
             <Ocean />
             <Story isInHomepage={false} scaleMultiplier={2} />
             <OrbitControls

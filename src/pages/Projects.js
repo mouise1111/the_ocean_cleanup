@@ -6,6 +6,7 @@ import Projects from "../components/Islands/Projects";
 import { OceansAndRiversPopUp } from "../components/pop-ups/OceansAndRiversPopUp";
 import { OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
+import Lights from "../components/Lights.js";
 
 const ProjectsPage = () => {
   const navigate = useNavigate();
@@ -53,8 +54,7 @@ const ProjectsPage = () => {
       <Canvas onCreated={handleCanvasCreated} ref={canvasRef}>
         <Suspense fallback={null}>
           <Physics>
-            <ambientLight />
-            <directionalLight />
+            <Lights />
             <Ocean />
             <Projects isInHomepage={false} scaleMultiplier={2.5} />
             <OrbitControls
