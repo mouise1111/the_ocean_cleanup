@@ -36,9 +36,9 @@ const Login = ({ onBack }) => {
         password: password,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.Status === "Success") {
-          console.log(res.data.Token);
+          // console.log(res.data.Token);
           setToken(res.data.Token);
           setSuccess("Login successful! Redirecting to home page...");
           setTimeout(() => {
@@ -49,7 +49,7 @@ const Login = ({ onBack }) => {
           setError("Wrong Email or Password");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log());
   };
   return (
     <Html center>

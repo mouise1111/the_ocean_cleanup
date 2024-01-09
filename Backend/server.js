@@ -83,7 +83,6 @@ app.post('/login', (req, res) => {
 
                   return res.json({Status: "Success", Token: token})
               } else {
-                  console.log(result)
                   return res.json({Status: "Error", Error: "Wrong Email or Password"});
               }
           })
@@ -139,10 +138,9 @@ app.post('/submit-score', (req, res) => {
 });
 
 
-// hello world part
 
+// starting the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
 })
 
 
@@ -182,42 +180,3 @@ app.get("/ScoreBoard", (req, res) => {
 
 
 
-
-
-/* 
-// Existing route
-const POLL_INTERVAL = 10000; // 10 seconds
-let cachedData = [];
-
-function fetchDataFromDatabase() {
-  db.query('SELECT * FROM USERS', (err, results) => {
-    if (err) {
-      console.error('Error fetching data: ', err);
-    } else {
-      cachedData = results;
-    }
-  });
-}
-
-// Poll the database for new data every 10 seconds
-setInterval(fetchDataFromDatabase, POLL_INTERVAL);
-
-app.get("/api/data", (req, res) => {
-  res.json(cachedData);
-});
-
-
-
-
-
-function listTables() {
-    db.query('SHOW TABLES', (err, result) => {
-      if (err) {
-        console.error('Error fetching tables: ', err);
-        return;
-      }
-      console.log('Tables in the database:');
-      console.log(result);
-    });
-}
-*/

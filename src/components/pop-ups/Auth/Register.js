@@ -35,7 +35,7 @@ const Register = ({ onBack }) => {
   const register = (e) => {
     e.preventDefault();
     const validationErrors = validation({ username, email, password });
-    console.log(validationErrors); // Check what the validation function returns
+    // console.log(validationErrors); // Check what the validation function returns
     const noErrors = Object.values(validationErrors).every(val => val === "");
     setErrors(validationErrors);
     if (noErrors) { 
@@ -46,7 +46,7 @@ const Register = ({ onBack }) => {
         password: password,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if(response.data.Status === "Success"){
            setSuccess("Signup successful! Redirecting to login page...");
           setTimeout(() => {

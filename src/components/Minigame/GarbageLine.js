@@ -135,17 +135,13 @@ const GarbageModel = ({
           FinalScore = score * 100;
           setGlobalState("EndScore", FinalScore);
 
-          console.log(`Final Score: ${FinalScore}`);
 
           axios
             .post("http://localhost:3030/submit-score", {
               user_id: userId, // Send user_id along with the score
               score: FinalScore,
             })
-            .then((response) => {
-              console.log("Score posted successfully:", response.data);
-              console.log("how many posts you did: " + scorededPosted);
-            })
+            
             .catch((error) => {
               console.error("Error posting score:", error);
             });
@@ -160,14 +156,14 @@ const GarbageModel = ({
     setIsVisible(false); // Set visibility to false on collision
     if (gameStarted) {
       score++;
-      console.log("collision -> " + score);
+      // console.log("collision -> " + score);
       setGlobalState("CurrentScore", score * 100); // Update CurrentScore in the global state
     }
   };
 
   useEffect(() => {
     if (timer === 0) {
-      console.log(`Final End Score: ${endScore}`); // Log the final End Score
+      // console.log(`Final End Score: ${endScore}`); // Log the final End Score
     }
   }, [timer, endScore]);
 
