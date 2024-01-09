@@ -77,7 +77,7 @@ export const Brush = ({ position }) => (
   />
 );
 //#endregion
-let test = 0;
+let score = 0;
 let FinalScore = 0;
 
 // collision + rendering handler
@@ -132,7 +132,7 @@ const GarbageModel = ({
           const decodedToken = jwtDecode(token);
           const userId = decodedToken.user_id; // Extract user_id from token
 
-          FinalScore = test * 100;
+          FinalScore = score * 100;
           setGlobalState("EndScore", FinalScore);
 
           console.log(`Final Score: ${FinalScore}`);
@@ -159,9 +159,9 @@ const GarbageModel = ({
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision
     if (gameStarted) {
-      test++;
-      console.log("collision -> " + test);
-      setGlobalState("CurrentScore", test * 100); // Update CurrentScore in the global state
+      score++;
+      console.log("collision -> " + score);
+      setGlobalState("CurrentScore", score * 100); // Update CurrentScore in the global state
     }
   };
 
@@ -225,7 +225,7 @@ const GarbageLine = ({ isInHomepage }) => {
   const [gameStarted] = useGlobalState("Gamestarted"); // Access the global state
 
   if (!gameStarted) {
-    test = 0;
+    score = 0;
     return null; // Or return some JSX to indicate the game hasn't started
   }
 

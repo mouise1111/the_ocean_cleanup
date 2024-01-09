@@ -46,7 +46,7 @@ const Login = ({ onBack }) => {
           }, 500);
         } else {
           setError(res.data.Error);
-          setError("Login failed!");
+          setError("Wrong Email or Password");
         }
       })
       .catch((err) => console.log(err));

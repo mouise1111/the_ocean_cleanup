@@ -28,7 +28,7 @@ const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10000, // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
   message: "Too many requests from this IP, please try again after 15 minutes",
 });
 
@@ -54,9 +54,9 @@ condb.connect(function(err) {
 })
 
 
-// hashing code example
+// hashing psswd
 app.get('/hash', (req, res) => { 
-  bcrypt.hash("123456", 10, (err, hash) => {
+  bcrypt.hash(10, (err, hash) => {
       if(err) return res.json({Error: "Error in hashing password"});
       const values = [
           hash
@@ -79,7 +79,6 @@ app.post('/login', (req, res) => {
                   // Include user_id in the JWT token
                   const token = jwt.sign({
                       user_id: result[0].user_id, // Add user_id to the token
-                      role: "gamer"
                   }, "jwt-secret-key", {expiresIn: '1d'});
 
                   return res.json({Status: "Success", Token: token})
@@ -123,9 +122,6 @@ app.post('/register',(req, res) => {
 app.post('/submit-score', (req, res) => {
   // Extracting user_id and score from the request body
   const { user_id, score } = req.body;
-
-  // Assuming 'highscore' is the same as 'score' for this example
-  // You might have a different logic for calculating 'highscore'
   if (score === 0) {
     // If score is 0, do not insert and send a response back
     return res.json({ Status: "Error", Error: "Score of 0 is not allowed" });
