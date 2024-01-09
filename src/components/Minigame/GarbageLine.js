@@ -7,10 +7,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import { Clone, Text } from "@react-three/drei";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import {
-  useGlobalState,
-  setGlobalState,
-} from "../minigameComponents/globalstate";
+import { useGlobalState, setGlobalState } from "../Minigame/globalstate";
 
 const token = localStorage.getItem("Token");
 //#region import models
@@ -105,7 +102,6 @@ const GarbageModel = ({
 
   const [timer, setTimer] = useGlobalState("Timer"); // Use global timer state
 
-
   useEffect(() => {
     if (gameStarted) {
       setScorededPosted(0);
@@ -113,20 +109,20 @@ const GarbageModel = ({
     }
   }, [gameStarted]);
 
-useEffect(() => {
-  let timerInterval;
-  if (gameStarted && timer > 0) {
-    timerInterval = setInterval(() => {
-      setTimer(timer - 1);
-    }, 1000);
-  } else if (timer === 0 && gameStarted) {
-    setGlobalState("Gamestarted", false); // Stop the game when the timer reaches 0
-    if(scorePosted === false){
-      postScore();
+  useEffect(() => {
+    let timerInterval;
+    if (gameStarted && timer > 0) {
+      timerInterval = setInterval(() => {
+        setTimer(timer - 1);
+      }, 1000);
+    } else if (timer === 0 && gameStarted) {
+      setGlobalState("Gamestarted", false); // Stop the game when the timer reaches 0
+      if (scorePosted === false) {
+        postScore();
+      }
     }
-  }
-  return () => clearInterval(timerInterval);
-}, [gameStarted, timer, setTimer]);
+    return () => clearInterval(timerInterval);
+  }, [gameStarted, timer, setTimer]);
 
   const postScore = () => {
     if (!scorePosted && scorededPosted === 0) {
@@ -159,7 +155,6 @@ useEffect(() => {
       }
     }
   };
-  
 
   const handleCollision = (event) => {
     setIsVisible(false); // Set visibility to false on collision

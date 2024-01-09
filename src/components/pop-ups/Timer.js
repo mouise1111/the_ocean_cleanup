@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useGlobalState, setGlobalState } from "../minigameComponents/globalstate";
+import React, { useEffect, useState } from "react";
+import { useGlobalState, setGlobalState } from "../Minigame/globalstate";
 
-const Timer = ({ onTimerExpired, onRestart}) => {
+const Timer = ({ onTimerExpired, onRestart }) => {
   const [timerExpired, setTimerExpired] = useState(false);
-  const [CurrentScore] = useGlobalState('CurrentScore'); // Access EndScore from global state
+  const [CurrentScore] = useGlobalState("CurrentScore"); // Access EndScore from global state
 
-  const [timer, setTimer] = useGlobalState('Timer'); // Global state
-  const [gameStarted] = useGlobalState('Gamestarted'); // Global state, ensure this is the only declaration
+  const [timer, setTimer] = useGlobalState("Timer"); // Global state
+  const [gameStarted] = useGlobalState("Gamestarted"); // Global state, ensure this is the only declaration
 
   const handleRetartGameClick = () => {
     setTimer(60);
-    setGlobalState('Gamestarted', true);
+    setGlobalState("Gamestarted", true);
     setTimerExpired(false);
     if (onRestart) {
       onRestart();
@@ -32,8 +32,6 @@ const Timer = ({ onTimerExpired, onRestart}) => {
     return () => clearInterval(timerInterval);
   }, [gameStarted, timer, setTimer, onTimerExpired]);
 
-
-  
   useEffect(() => {
     if (timerExpired && onRestart) {
       handleRetartGameClick();

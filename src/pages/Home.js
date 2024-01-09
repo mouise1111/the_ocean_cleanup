@@ -6,7 +6,7 @@ import { Iceberg } from "../components/Iceberg.js";
 import { Ocean } from "../components/Ocean.js";
 import Boat from "../components/Boat.js";
 import Story from "../components/Islands/Story.js";
-import GarbageLine from "../components/minigameComponents/GarbageLine.js";
+import GarbageLine from "../components/Minigame/GarbageLine.js";
 import Menu from "../components/pop-ups/menu/Menu.js";
 import Projects from "../components/Islands/Projects.js";
 import Game from "../components/Islands/Game.js";
@@ -27,8 +27,10 @@ import { AudioButton } from "../components/Buttons/AudioButton.js";
 import { createGlobalState } from "react-hooks-global-state";
 import TimerExpiredPopUp from "../components/pop-ups/TimerExpired.js";
 import Timer from "../components/pop-ups/Timer.js";
-import { useGlobalState, setGlobalState } from "../components/minigameComponents/globalstate.js"; // Adjust the path as needed
-
+import {
+  useGlobalState,
+  setGlobalState,
+} from "../components/Minigame/globalstate.js"; // Adjust the path as needed
 
 const HomePage = () => {
   const [popUpStatus, setPopUpStatus] = useState({
@@ -50,10 +52,10 @@ const HomePage = () => {
   };
 
   const handleRestart = () => {
-    setGlobalState('Gamestarted', true); // Restart the game
-    setGlobalState('EndScore', 0); // Reset end score
-    setGlobalState('CurrentScore', 0); // Reset current score
-    setGlobalState('Timer', 60); // Reset timer to its initial value
+    setGlobalState("Gamestarted", true); // Restart the game
+    setGlobalState("EndScore", 0); // Reset end score
+    setGlobalState("CurrentScore", 0); // Reset current score
+    setGlobalState("Timer", 60); // Reset timer to its initial value
 
     // console.log("Restarting the game...");
     setPopUpStatus({
